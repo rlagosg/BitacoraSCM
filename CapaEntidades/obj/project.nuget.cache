@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sHTv27rYzUMmJEZIoESbDDpdNyaoRjsv/73WVXJ8cvGGFwNmoqjd/VLvwerRVe+jHJI03JRFnOVznSmBH1KL+w==",
+  "dgSpecHash": "dZpqgUCqw9cIe2tsmDwnGxkEMKMhxlxFo1hMFR5IWBzk53+7FaQLM4wB2OjadKXe/YkMbmFA3Tc59T559MFtOA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rlagosg\\source\\repos\\Bitacora SCM\\CapaEntidades\\CapaEntidades.csproj",
+  "projectFilePath": "C:\\Users\\rlagosg\\source\\repos\\BitacoraSCM\\CapaEntidades\\CapaEntidades.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rlagosg\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\rlagosg\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

@@ -186,11 +186,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rlagosg\\source\\repos\\Bitacora SCM\\CapaEntidades\\CapaEntidades.csproj",
+      "projectUniqueName": "C:\\Users\\rlagosg\\source\\repos\\BitacoraSCM\\CapaEntidades\\CapaEntidades.csproj",
       "projectName": "CapaEntidades",
-      "projectPath": "C:\\Users\\rlagosg\\source\\repos\\Bitacora SCM\\CapaEntidades\\CapaEntidades.csproj",
+      "projectPath": "C:\\Users\\rlagosg\\source\\repos\\BitacoraSCM\\CapaEntidades\\CapaEntidades.csproj",
       "packagesPath": "C:\\Users\\rlagosg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rlagosg\\source\\repos\\Bitacora SCM\\CapaEntidades\\obj\\",
+      "outputPath": "C:\\Users\\rlagosg\\source\\repos\\BitacoraSCM\\CapaEntidades\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

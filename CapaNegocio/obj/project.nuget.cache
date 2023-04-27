@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NmqY7bBFfVe9hPflUsUwkTYIgsqCi+MC5oNiG8UmEzr+OBt15Bl3Ne5D0Ly7J5lH1dVvqegE/ekKMxeP2XMA+A==",
+  "dgSpecHash": "GBJT5QdWlujR661/qJchX6hM25Gyeo/AAzrhn323p9cRcjVV1VPc/fdK7tXCmHDWD44U1N1LhCnMUvJzPImCTg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rlagosg\\source\\repos\\Bitacora SCM\\CapaNegocio\\CapaNegocio.csproj",
+  "projectFilePath": "C:\\Users\\rlagosg\\source\\repos\\BitacoraSCM\\CapaNegocio\\CapaNegocio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rlagosg\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\rlagosg\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

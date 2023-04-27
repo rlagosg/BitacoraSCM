@@ -1,0 +1,15 @@
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaPresentacion.exe.config
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaPresentacion.exe
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaPresentacion.pdb
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.AssemblyReference.cache
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.Form1.resources
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.Properties.Resources.resources
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.GenerateResource.cache
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CoreCompileInputs.cache
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.exe
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.pdb
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaEntidades.dll
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaNegocio.dll
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaEntidades.pdb
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaNegocio.pdb
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CopyComplete

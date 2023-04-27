@@ -1,0 +1,13 @@
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\bin\Debug\netstandard2.0\CapaDatos.deps.json
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\bin\Debug\netstandard2.0\CapaDatos.dll
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\bin\Debug\netstandard2.0\CapaDatos.pdb
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\bin\Debug\netstandard2.0\CapaEntidades.dll
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\bin\Debug\netstandard2.0\CapaEntidades.pdb
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\obj\Debug\netstandard2.0\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\obj\Debug\netstandard2.0\CapaDatos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\obj\Debug\netstandard2.0\CapaDatos.AssemblyInfoInputs.cache
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\obj\Debug\netstandard2.0\CapaDatos.AssemblyInfo.cs
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\obj\Debug\netstandard2.0\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\obj\Debug\netstandard2.0\CapaDatos.csproj.CopyComplete
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\obj\Debug\netstandard2.0\CapaDatos.dll
+C:\Users\rlagosg\source\repos\Bitacora SCM\CapaDatos\obj\Debug\netstandard2.0\CapaDatos.pdb

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CapaPresentacion.Pantallas.Personas;
+using CapaPresentacion.Pantallas;
+using CapaPresentacion.Pantallas.Controles;
 
 namespace CapaPresentacion
 {
@@ -16,7 +19,7 @@ namespace CapaPresentacion
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Nacionalidades());
+            Application.Run(new EstadosRoles());
         }
     }
 }

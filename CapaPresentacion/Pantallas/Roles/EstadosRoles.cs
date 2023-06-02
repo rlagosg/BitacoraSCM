@@ -1,0 +1,425 @@
+﻿using CapaDatos.Roles;
+using CapaEntidades.Personas;
+using CapaEntidades.Roles;
+using CapaNegocio.Personas;
+using CapaNegocio.Roles;
+using CapaPresentacion.Pantallas.Personas;
+using CapaPresentacion.Pantallas.Roles;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Windows.Forms.Design.AxImporter;
+
+namespace CapaPresentacion.Pantallas.Controles
+{
+    public partial class EstadosRoles : Form
+    {
+        Funciones funciones = new Funciones();
+        List<CE_EstadoRol> listaEstados;
+        List<CE_Estado> listaEstadosEx;
+        BindingSource bindingSource;
+        CE_Estado estado;
+        CE_Rol rol;
+        CE_EstadoRol estadoSeleccionado;
+
+        public EstadosRoles()
+        {
+            InitializeComponent();
+        }
+
+        private void Estados_Load(object sender, EventArgs e)
+        {
+            Cargar();           
+        }
+
+        private void Cargar()
+        {
+            LlenarRoles();
+            ActualizaEstados();
+
+            DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
+            columna.Name       = "Nombre";
+            columna.HeaderText = "Nombre";
+            // Agregar la columna al DataGridView
+            DataEstados.Columns.Add(columna);
+            
+        }
+
+        public void ActualizaEstados()
+        {
+            if (rol != null) 
+            {
+                listaEstadosEx = UneListas();
+                ActualizaEstadosEx();
+            } 
+            else
+            {
+                listaEstadosEx = CN_Estados.ObtenerEstados();
+                ActualizaEstadosEx();
+            }                      
+        }
+
+        private void OcultaCampos()
+        {
+            DataEstados.Columns[0].Visible = false;
+            DataEstados.Columns[1].Visible = false;
+            DataEstados.Columns[2].Visible = false;
+            DataEstados.Columns[4].Visible = false;
+            DataEstados.Columns[5].Visible = false;
+            DataEstados.Columns[6].Visible = false;
+        }
+
+        private void LlenarRoles()
+        {
+            // Llamamos los tipos
+            COMBOROL.DataSource    = CN_Roles.ObtenerRoles();
+            // Configurar las propiedades del ComboBox
+            COMBOROL.DisplayMember = "Nombre"; // Propiedad a mostrar como texto
+            COMBOROL.ValueMember   = "ID"; // Propiedad a utilizar como valor seleccionado            
+        }
+
+        private CE_Rol RolbyID(int id)
+        {
+            foreach (CE_Rol rol in CN_Roles.ObtenerRoles())
+            {
+                if (rol.ID == id) return rol;
+            }
+            return null;
+        }
+
+        private List<CE_Estado> UneListas()
+        {
+            List<CE_Estado> listatemp = CN_Estados.ObtenerEstadosExcluidos(rol);
+            foreach (CE_EstadoRol estadorol in listaEstados)
+            {
+                listatemp.RemoveAll(estado => estado.ID == estadorol.IdEstado);
+            }
+            return listatemp;
+        }
+
+        private void Salvar()
+        {
+
+            try
+            {
+                CN_EstadosRoles.DeshabilitaEstados(rol);
+                string Rpta = "";
+                
+                foreach (CE_EstadoRol estado in listaEstados)
+                {
+                    // Llamar a la función de guardado y pasar el objeto estado con su nuevo número
+                    estado.Activo = true;
+                    Rpta = CN_EstadosRoles.Salvar(estado);
+                    if (!Rpta.Equals("OK")) break;
+                }
+
+                //continua el proceso
+                if (Rpta.Equals("OK"))
+                {
+                    funciones.MensajeShow("Los datos han sido guardados correctamente.", true);
+                }
+                else
+                {                    
+                    funciones.MensajeShow(Rpta, false, true);
+                }                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }            
+        }
+
+        private bool validaItem()
+        {
+            if (Data.SelectedRows.Count > 0)
+            {
+                DataGridViewRow fila = Data.SelectedRows[0];
+
+                if (!funciones.esVacio(fila.Cells[0].Value))
+                {
+                    // Sacamos los datos del grid                                    
+                    estado = new CE_Estado (
+                        funciones.convertInt   (fila.Cells[0].Value), //id
+                        funciones.convertString(fila.Cells[1].Value), //nombre
+                        funciones.convertString(fila.Cells[2].Value) //desc                            
+                    );
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void MoverArriba()
+        {
+            if (DataEstados.SelectedRows.Count > 0)
+            {
+                int rowIndex = DataEstados.SelectedRows[0].Index;
+
+                // Obtener los objetos EstadoRol seleccionados
+                estadoSeleccionado = (CE_EstadoRol)DataEstados.SelectedRows[0].DataBoundItem;
+
+                // Mover la fila hacia arriba en la lista de objetos EstadoRol
+                if (rowIndex > 0)
+                {
+                    CE_EstadoRol estadoAnterior = listaEstados[rowIndex - 1];
+
+                    // Intercambiar los campos 'numero' de los objetos
+                    int numeroTemp            = estadoAnterior.Numero;
+                    estadoAnterior.Numero     = estadoSeleccionado.Numero;
+                    estadoSeleccionado.Numero = numeroTemp;
+
+                    // Intercambiar las posiciones en la lista
+                    listaEstados[rowIndex - 1] = estadoSeleccionado;
+                    listaEstados[rowIndex]     = estadoAnterior;
+
+                    // Actualizar el origen de datos del DataGridView
+                    DataEstados.DataSource = null;
+                    DataEstados.DataSource = listaEstados;
+
+                    OcultaCampos();
+
+                    // Deseleccionar todas las filas
+                    DataEstados.ClearSelection();
+                    // Seleccionar la fila movida
+                    DataEstados.Rows[rowIndex - 1].Selected     = true;
+                    DataEstados.FirstDisplayedScrollingRowIndex = rowIndex - 1;                    
+                }                
+            }
+        }
+
+        private void MoverAbajo()
+        {
+            // Obtener la fila seleccionada actualmente
+            if (DataEstados.SelectedRows.Count > 0)
+            {
+                int rowIndex = DataEstados.SelectedRows[0].Index;
+
+                // Obtener los objetos EstadoRol seleccionados
+                CE_EstadoRol estadoSeleccionado = (CE_EstadoRol)DataEstados.SelectedRows[0].DataBoundItem;
+
+                // Mover la fila hacia abajo en la lista de objetos EstadoRol
+                if (rowIndex < DataEstados.Rows.Count - 1)
+                {
+                    CE_EstadoRol estadoSiguiente = listaEstados[rowIndex + 1];
+
+                    // Intercambiar los campos 'numero' de los objetos
+                    int numeroTemp            = estadoSiguiente.Numero;
+                    estadoSiguiente.Numero    = estadoSeleccionado.Numero;
+                    estadoSeleccionado.Numero = numeroTemp;
+
+                    // Intercambiar las posiciones en la lista
+                    listaEstados[rowIndex + 1] = estadoSeleccionado;
+                    listaEstados[rowIndex]     = estadoSiguiente;
+
+                    // Actualizar el origen de datos del DataGridView
+                    DataEstados.DataSource = null;
+                    DataEstados.DataSource = listaEstados;
+
+                    OcultaCampos();
+                    // Deseleccionar todas las filas
+                    DataEstados.ClearSelection();
+
+                    // Seleccionar la fila movida
+                    DataEstados.Rows[rowIndex + 1].Selected     = true;
+                    DataEstados.FirstDisplayedScrollingRowIndex = rowIndex + 1;
+                }                
+            }
+        }
+
+        private void DataRoles_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
+        }
+
+        private void gunaButton1_Click(object sender, EventArgs e)
+        { }
+            
+        private void gunaButton2_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BTNSALVAR_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void DataRoles_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            validaItem();
+        }
+
+        private void DataEstados_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnArriba_Click(object sender, EventArgs e)
+        {
+            MoverArriba();
+            
+        }
+
+        private void btnAbajo_Click(object sender, EventArgs e)
+        {
+            MoverAbajo();
+        }
+
+        private void BTNSALVAR_Click_1(object sender, EventArgs e)
+        {
+            if (ValidaRol()) Salvar();
+        }
+
+        private bool ValidaRol()
+        {
+            if (rol != null) if (rol.ID >= 0) return true;
+            funciones.MensajeShow("Selecciona un Rol.");
+            COMBOROL.DroppedDown = true;
+            return false;
+        }
+
+        private void DataEstados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void COMBOROL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(COMBOROL.SelectedValue.ToString(), out int selectedID))
+            {
+                // Paso 1: Cargar la lista de objetos EstadoRol desde la base de datos
+                rol = RolbyID(selectedID);
+                listaEstados = CN_EstadosRoles.ObtenerEstados(rol);
+
+                if (listaEstados.Count == 0) imgVacio.Visible = true;
+                else imgVacio.Visible = false;
+
+                ActualizaEstados();
+                if (rol.ID == -1) grupoEstados.Text = "Edición de Estados";
+                else grupoEstados.Text = "Edición de Estados para el rol de " + rol.Nombre;
+
+                // Paso 2: Asignar la lista de objetos EstadoRol al origen de datos del DataGridView
+                bindingSource = new BindingSource();
+                bindingSource.DataSource = listaEstados;
+                DataEstados.DataSource   = bindingSource;
+                OcultaCampos();
+                DataEstados.ClearSelection();                
+            }
+            else
+            {
+                // El valor seleccionado no es compatible con int
+                // Maneja este caso según tus necesidades
+            }
+        }
+
+        private void grupoEstados_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gunaLabel1_Click(object sender, EventArgs e)
+        {
+            Estados form = new Estados(this);
+            form.ShowDialog();
+        }
+
+        private void ActualizaEstadosRol()
+        {
+            //reordenamos la lista de los estados del rol
+            for (int i = 0; i < listaEstados.Count; i++)
+            {
+                listaEstados[i].Numero = i + 1;
+            }
+
+            //actualizamos la data de los estados del rol
+            DataEstados.DataSource = null;
+            DataEstados.DataSource = listaEstados;
+            OcultaCampos();
+        }
+
+        private void ActualizaEstadosEx()
+        {
+            // Ordenar la lista de EstadosRoles por el campo "Nombre"
+            listaEstadosEx  = listaEstadosEx.OrderBy(estado => estado.Nombre).ToList();
+            Data.DataSource = null;
+            Data.DataSource = listaEstadosEx;
+            Data.Columns[0].Visible = false;            
+        }
+
+        private void gunaGradientButton1_Click(object sender, EventArgs e)
+        {
+            if (Data.SelectedRows.Count > 0 && ValidaRol())
+            {
+                //obtenemos el indice del estado
+                int indice = Data.SelectedRows[0].Index;
+
+                //preguntamos si hemos seleccionado un registro y si ese rol existe
+                if ( indice >= 0 && rol.ID != -1)
+                {
+                    CE_Estado temp = listaEstadosEx[indice];
+
+                    //lo eliminamos de la lista de estados disponibles
+                    listaEstadosEx.RemoveAt(indice);
+                    //actualizamos la data de estados disponibles
+                    ActualizaEstadosEx();
+
+
+                    //---------------------------------------------------------------
+                    //agregamos ese estado eliminado a los estados del rol
+                    CE_EstadoRol estadoRol = new CE_EstadoRol(rol, temp, DataEstados.SelectedRows.Count + 1);
+                    listaEstados.Add(estadoRol);
+
+                    //reordenamos la lista de los estados del rol
+                    ActualizaEstadosRol();
+
+                    // Obtener el índice de la última fila                    
+                    int lastIndex = DataEstados.Rows.Count - 1;
+                    // Seleccionar la última fila
+                    DataEstados.ClearSelection();
+                    DataEstados.Rows[lastIndex].Selected = true;
+                }                
+            }
+        }
+
+        private void gunaGradientButton2_Click(object sender, EventArgs e)
+        {
+            if (DataEstados.SelectedRows.Count > 0 && ValidaRol())
+            {
+                //obtenemos el indice del estado
+                int indice = DataEstados.SelectedRows[0].Index;
+
+                //preguntamos si hemos seleccionado un rol
+                if ( indice >= 0 )
+                {                    
+                    CE_EstadoRol temp = listaEstados[indice];
+                    //lo eliminamos
+                    listaEstados.RemoveAt(indice);
+
+                    //reordenamos la lista de los estados del rol
+                    ActualizaEstadosRol();
+
+                    //agregamos ese estado a los estados disponibles
+                    List<CE_Estado> estados = CN_Estados.ObtenerEstados();
+                    foreach (CE_Estado estado in estados)
+                    {
+                        if (estado.Nombre.Equals(temp.Nombre))
+                        {
+                            listaEstadosEx.Add(estado);                            
+                            break;
+                        }
+                    }
+
+                    //actualizamos la data de estados disponibles
+                    ActualizaEstadosEx();
+                }
+            }
+        }
+    }
+}

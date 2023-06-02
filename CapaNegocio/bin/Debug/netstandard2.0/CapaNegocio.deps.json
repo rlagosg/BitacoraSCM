@@ -11,7 +11,8 @@
         "dependencies": {
           "CapaDatos": "1.0.0",
           "CapaEntidades": "1.0.0",
-          "NETStandard.Library": "2.0.3"
+          "NETStandard.Library": "2.0.3",
+          "System.Data.SqlClient": "4.8.5"
         },
         "runtime": {
           "CapaNegocio.dll": {}
@@ -152,6 +153,9 @@
         }
       },
       "CapaEntidades/1.0.0": {
+        "dependencies": {
+          "System.Data.SqlClient": "4.8.5"
+        },
         "runtime": {
           "CapaEntidades.dll": {}
         }

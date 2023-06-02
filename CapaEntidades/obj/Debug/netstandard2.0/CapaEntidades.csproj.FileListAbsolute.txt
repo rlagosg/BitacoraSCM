@@ -8,3 +8,13 @@ C:\Users\rlagosg\source\repos\Bitacora SCM\CapaEntidades\obj\Debug\netstandard2.
 C:\Users\rlagosg\source\repos\Bitacora SCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.csproj.CoreCompileInputs.cache
 C:\Users\rlagosg\source\repos\Bitacora SCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.dll
 C:\Users\rlagosg\source\repos\Bitacora SCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.pdb
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\bin\Debug\netstandard2.0\CapaEntidades.deps.json
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\bin\Debug\netstandard2.0\CapaEntidades.dll
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\bin\Debug\netstandard2.0\CapaEntidades.pdb
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.csproj.AssemblyReference.cache
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.AssemblyInfoInputs.cache
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.AssemblyInfo.cs
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.csproj.CoreCompileInputs.cache
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.dll
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaEntidades\obj\Debug\netstandard2.0\CapaEntidades.pdb

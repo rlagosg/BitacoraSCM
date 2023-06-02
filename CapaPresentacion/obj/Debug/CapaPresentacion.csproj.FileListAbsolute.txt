@@ -13,9 +13,6 @@ C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaNegoci
 C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaEntidades.pdb
 C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\bin\Debug\CapaNegocio.pdb
 C:\Users\rlagosg\source\repos\Bitacora SCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CopyComplete
-C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaPresentacion.exe.config
-C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaPresentacion.exe
-C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaPresentacion.pdb
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaEntidades.dll
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaNegocio.dll
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaDatos.dll
@@ -23,12 +20,35 @@ C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaEntidad
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaNegocio.pdb
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\CapaDatos.pdb
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.AssemblyReference.cache
-C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Form1.resources
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Properties.Resources.resources
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.GenerateResource.cache
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CoreCompileInputs.cache
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CopyComplete
-C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.exe
-C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.pdb
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Guna.UI.dll
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Nacionalidades.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.SuggestedBindingRedirects.cache
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Login.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\System.Data.SqlClient.dll
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\System.Data.SqlClient.xml
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Guna.UI2.dll
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.NacionalidadesE.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\SCM.exe.config
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\SCM.exe.manifest
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\SCM.application
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\SCM.exe
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\SCM.pdb
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\SCM.exe.manifest
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\SCM.application
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\SCM.exe
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\SCM.pdb
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.Personas.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.PersonasE.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.Municipios.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.MunicipiosE.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.Direcciones.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.DireccionesE.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.DireccionPersona.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Personas.PersonaContacto.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Controles.EstadosRoles.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Roles.Estados.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Roles.EstadosE.resources

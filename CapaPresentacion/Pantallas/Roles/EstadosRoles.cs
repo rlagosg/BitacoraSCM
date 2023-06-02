@@ -6,6 +6,7 @@ using CapaNegocio.Roles;
 using CapaPresentacion.Pantallas.Personas;
 using CapaPresentacion.Pantallas.Roles;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,7 @@ namespace CapaPresentacion.Pantallas.Controles
         Funciones funciones = new Funciones();
         List<CE_EstadoRol> listaEstados;
         List<CE_Estado> listaEstadosEx;
+        List<CE_Estado> listaTemp;
         BindingSource bindingSource;
         CE_Estado estado;
         CE_Rol rol;
@@ -71,9 +73,11 @@ namespace CapaPresentacion.Pantallas.Controles
             DataEstados.Columns[0].Visible = false;
             DataEstados.Columns[1].Visible = false;
             DataEstados.Columns[2].Visible = false;
-            DataEstados.Columns[4].Visible = false;
+            DataEstados.Columns[3].Visible = false;
+            //DataEstados.Columns[4].Visible = false;
             DataEstados.Columns[5].Visible = false;
             DataEstados.Columns[6].Visible = false;
+            DataEstados.Columns[7].Visible = false;
         }
 
         private void LlenarRoles()
@@ -96,12 +100,19 @@ namespace CapaPresentacion.Pantallas.Controles
 
         private List<CE_Estado> UneListas()
         {
-            List<CE_Estado> listatemp = CN_Estados.ObtenerEstadosExcluidos(rol);
+            List<CE_Estado> temp = CN_Estados.ObtenerEstadosExcluidos(rol);
             foreach (CE_EstadoRol estadorol in listaEstados)
             {
-                listatemp.RemoveAll(estado => estado.ID == estadorol.IdEstado);
+                temp.RemoveAll(estado => estado.ID == estadorol.IdEstado);
             }
-            return listatemp;
+
+            foreach (CE_Estado estado in listaTemp)
+            {
+                if (temp.IndexOf(estado) == -1) temp.Add(estado);
+            }
+
+            temp = temp.Distinct().ToList();
+            return temp;
         }
 
         private void Salvar()
@@ -297,6 +308,7 @@ namespace CapaPresentacion.Pantallas.Controles
                 // Paso 1: Cargar la lista de objetos EstadoRol desde la base de datos
                 rol = RolbyID(selectedID);
                 listaEstados = CN_EstadosRoles.ObtenerEstados(rol);
+                listaTemp = new List<CE_Estado>();
 
                 if (listaEstados.Count == 0) imgVacio.Visible = true;
                 else imgVacio.Visible = false;
@@ -350,7 +362,8 @@ namespace CapaPresentacion.Pantallas.Controles
             listaEstadosEx  = listaEstadosEx.OrderBy(estado => estado.Nombre).ToList();
             Data.DataSource = null;
             Data.DataSource = listaEstadosEx;
-            Data.Columns[0].Visible = false;            
+            Data.Columns[0].Visible = false;
+            if(TXTBUSCA.Text.Length > 0) Listar(TXTBUSCA.Text.Trim());
         }
 
         private void gunaGradientButton1_Click(object sender, EventArgs e)
@@ -364,7 +377,7 @@ namespace CapaPresentacion.Pantallas.Controles
                 if ( indice >= 0 && rol.ID != -1)
                 {
                     CE_Estado temp = listaEstadosEx[indice];
-
+                    listaTemp.Remove(temp);
                     //lo eliminamos de la lista de estados disponibles
                     listaEstadosEx.RemoveAt(indice);
                     //actualizamos la data de estados disponibles
@@ -411,7 +424,8 @@ namespace CapaPresentacion.Pantallas.Controles
                     {
                         if (estado.Nombre.Equals(temp.Nombre))
                         {
-                            listaEstadosEx.Add(estado);                            
+                            listaEstadosEx.Add(estado);
+                            listaTemp.Add(estado);
                             break;
                         }
                     }
@@ -420,6 +434,20 @@ namespace CapaPresentacion.Pantallas.Controles
                     ActualizaEstadosEx();
                 }
             }
+        }
+
+        private void TXTBUSCA_TextChanged(object sender, EventArgs e)
+        {
+            Listar(TXTBUSCA.Text.Trim());
+        }
+
+        private void Listar(string texto)
+        {
+            List<CE_Estado> resultados = listaEstadosEx
+               .Where(estado => estado.Nombre.ToLower().Contains(texto) || estado.Descripcion.ToLower().Contains(texto))
+               .ToList();
+
+            Data.DataSource = resultados;
         }
     }
 }

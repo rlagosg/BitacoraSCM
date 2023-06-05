@@ -21,7 +21,8 @@ namespace CapaPresentacion.Pantallas.Roles
         CE_Estado estado;
         Funciones funciones = new Funciones();
         int indiceData = -1;
-        public Estados( EstadosRoles frm)
+        bool elimino = false;
+        public Estados( EstadosRoles frm = null)
         {
             InitializeComponent();
             this.frmEstadosRoles = frm;
@@ -63,7 +64,7 @@ namespace CapaPresentacion.Pantallas.Roles
                     estado = new CE_Estado(
                         funciones.convertInt   (fila.Cells[0].Value), //id
                         funciones.convertString(fila.Cells[1].Value), //nombre
-                        funciones.convertString(fila.Cells[2].Value) //desc                            
+                        funciones.convertString(fila.Cells[2].Value)                     
                     );
                     indiceData = Data.CurrentRow.Index;
                     return true;
@@ -96,11 +97,17 @@ namespace CapaPresentacion.Pantallas.Roles
                 }
                 else
                 {
+                    string mensaje = "Al eliminar un estado, este ya no formará parte de la lista de estados de todos los roles.\n"
+                    + "Los estados del rol se actualizarán automáticamente, pero ten en cuenta que los cambios no guardados se perderán.";
+
+                    funciones.MensajeShow(mensaje);
+
                     if (funciones.DialogoEliminar())
                     {
-                        funciones.MensajeEliminar(CN_Estados.Eliminar(this.estado));
-                        indiceData = -1;
+                        funciones.MensajeEliminar(CN_Estados.Eliminar(this.estado));                        
+                        indiceData = -1;                        
                         this.Listar(TXTBUSCA.Text.Trim());
+                        this.elimino = true;
                     }
                 }
             }
@@ -118,7 +125,7 @@ namespace CapaPresentacion.Pantallas.Roles
 
         private void Estados_FormClosing(object sender, FormClosingEventArgs e)
         {
-            frmEstadosRoles.ActualizaEstados();
+            frmEstadosRoles.ActualizaEstados(elimino);
         }
     }
 }

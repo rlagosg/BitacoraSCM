@@ -51,21 +51,27 @@ namespace CapaPresentacion.Pantallas.Controles
             columna.HeaderText = "Nombre";
             // Agregar la columna al DataGridView
             DataEstados.Columns.Add(columna);
-            
+            imgVacio.Visible = true;
         }
 
-        public void ActualizaEstados()
+        public void ActualizaEstados(bool elimina = false)
         {
-            if (rol != null) 
+
+            listaEstadosEx = CN_Estados.ObtenerEstados();
+            if (rol != null && !elimina)
             {
                 listaEstadosEx = UneListas();
-                ActualizaEstadosEx();
-            } 
-            else
-            {
-                listaEstadosEx = CN_Estados.ObtenerEstados();
-                ActualizaEstadosEx();
-            }                      
+            }            
+
+            ActualizaEstadosEx();
+            //ActualizaImagen();
+
+            if (elimina)
+            {                
+                int currentIndex = COMBOROL.SelectedIndex;
+                COMBOROL.SelectedIndex = 0;
+                COMBOROL.SelectedIndex = currentIndex;
+            }
         }
 
         private void OcultaCampos()
@@ -121,20 +127,23 @@ namespace CapaPresentacion.Pantallas.Controles
             try
             {
                 CN_EstadosRoles.DeshabilitaEstados(rol);
-                string Rpta = "";
-                
-                foreach (CE_EstadoRol estado in listaEstados)
+                string Rpta = "OK";
+
+                if (listaEstados.Count > 0)
                 {
-                    // Llamar a la función de guardado y pasar el objeto estado con su nuevo número
-                    estado.Activo = true;
-                    Rpta = CN_EstadosRoles.Salvar(estado);
-                    if (!Rpta.Equals("OK")) break;
-                }
+                    foreach (CE_EstadoRol estado in listaEstados)
+                    {
+                        // Llamar a la función de guardado y pasar el objeto estado con su nuevo número
+                        estado.Activo = true;
+                        Rpta = CN_EstadosRoles.Salvar(estado);
+                        if (!Rpta.Equals("OK")) break;
+                    }
+                }                
 
                 //continua el proceso
                 if (Rpta.Equals("OK"))
                 {
-                    funciones.MensajeShow("Los datos han sido guardados correctamente.", true);
+                    funciones.MensajeShow("Los datos han sido guardados correctamente.");
                 }
                 else
                 {                    
@@ -153,16 +162,20 @@ namespace CapaPresentacion.Pantallas.Controles
             {
                 DataGridViewRow fila = Data.SelectedRows[0];
 
-                if (!funciones.esVacio(fila.Cells[0].Value))
+                if (fila.Index >= 0)
                 {
-                    // Sacamos los datos del grid                                    
-                    estado = new CE_Estado (
-                        funciones.convertInt   (fila.Cells[0].Value), //id
-                        funciones.convertString(fila.Cells[1].Value), //nombre
-                        funciones.convertString(fila.Cells[2].Value) //desc                            
-                    );
-                    return true;
-                }
+                    if (!funciones.esVacio(fila.Cells[0].Value))
+                    {
+                        // Sacamos los datos del grid                                    
+                        estado = new CE_Estado(
+                            funciones.convertInt(fila.Cells[0].Value), //id
+                            funciones.convertString(fila.Cells[1].Value), //nombre
+                            funciones.convertString(fila.Cells[2].Value),
+                            funciones.convertBool(fila.Cells[3].Value)//desc                            
+                        );
+                        return true;
+                    }
+                }                    
             }
             return false;
         }
@@ -310,10 +323,8 @@ namespace CapaPresentacion.Pantallas.Controles
                 listaEstados = CN_EstadosRoles.ObtenerEstados(rol);
                 listaTemp = new List<CE_Estado>();
 
-                if (listaEstados.Count == 0) imgVacio.Visible = true;
-                else imgVacio.Visible = false;
-
                 ActualizaEstados();
+                ActualizaImagen();
                 if (rol.ID == -1) grupoEstados.Text = "Edición de Estados";
                 else grupoEstados.Text = "Edición de Estados para el rol de " + rol.Nombre;
 
@@ -356,6 +367,15 @@ namespace CapaPresentacion.Pantallas.Controles
             OcultaCampos();
         }
 
+        private void ActualizaImagen()
+        {            
+            if (listaEstados.Count == 0 || COMBOROL.SelectedIndex == 0) imgVacio.Visible = true;
+            else imgVacio.Visible = false;
+
+            if (listaEstadosEx.Count == 0) imgVacioE.Visible = true;
+            else imgVacioE.Visible = false;
+        }
+
         private void ActualizaEstadosEx()
         {
             // Ordenar la lista de EstadosRoles por el campo "Nombre"
@@ -363,7 +383,8 @@ namespace CapaPresentacion.Pantallas.Controles
             Data.DataSource = null;
             Data.DataSource = listaEstadosEx;
             Data.Columns[0].Visible = false;
-            if(TXTBUSCA.Text.Length > 0) Listar(TXTBUSCA.Text.Trim());
+            Data.Columns[3].Visible = false;
+            if (TXTBUSCA.Text.Length > 0) Listar(TXTBUSCA.Text.Trim());
         }
 
         private void gunaGradientButton1_Click(object sender, EventArgs e)
@@ -391,6 +412,7 @@ namespace CapaPresentacion.Pantallas.Controles
 
                     //reordenamos la lista de los estados del rol
                     ActualizaEstadosRol();
+                    ActualizaImagen();
 
                     // Obtener el índice de la última fila                    
                     int lastIndex = DataEstados.Rows.Count - 1;
@@ -417,6 +439,7 @@ namespace CapaPresentacion.Pantallas.Controles
 
                     //reordenamos la lista de los estados del rol
                     ActualizaEstadosRol();
+                    ActualizaImagen();
 
                     //agregamos ese estado a los estados disponibles
                     List<CE_Estado> estados = CN_Estados.ObtenerEstados();
@@ -438,7 +461,7 @@ namespace CapaPresentacion.Pantallas.Controles
 
         private void TXTBUSCA_TextChanged(object sender, EventArgs e)
         {
-            Listar(TXTBUSCA.Text.Trim());
+            Listar(TXTBUSCA.Text.ToLower().Trim());
         }
 
         private void Listar(string texto)

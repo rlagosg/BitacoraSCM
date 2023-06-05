@@ -60,6 +60,7 @@ namespace CapaDatos.Controles
                 {
                     int ID             = (int)    resultado[0];
                     string Nombre      = (string) resultado[1];
+                    bool Activo        = (bool)resultado[3];
                     string Descripcion = resultado[2] != DBNull.Value
                                          ? (string)resultado[2]
                                          : null;
@@ -68,7 +69,8 @@ namespace CapaDatos.Controles
                     (
                         ID,
                         Nombre,
-                        Descripcion
+                        Descripcion,
+                        Activo
                     );
                     estados.Add(estado);
                 }
@@ -104,18 +106,22 @@ namespace CapaDatos.Controles
                 while (resultado.Read())
                 {
                     int ID             = (int)    resultado[0];
-                    string Nombre      = (string) resultado[1];             
+                    string Nombre      = (string) resultado[1];
+                    bool Activo        = (bool)   resultado[3];
                     string Descripcion = resultado[2] != DBNull.Value
                                          ? (string)resultado[2]
                                          : null;
-
-                    CE_Estado estado = new CE_Estado
-                    (
-                        ID,
-                        Nombre,
-                        Descripcion                        
-                    );
-                    estados.Add(estado);
+                    
+                    if (Activo) { 
+                        CE_Estado estado = new CE_Estado
+                        (
+                            ID,
+                            Nombre,
+                            Descripcion,
+                            Activo
+                        );
+                        estados.Add(estado);
+                    }
                 }
             }
             catch (Exception ex)
@@ -141,12 +147,12 @@ namespace CapaDatos.Controles
                 sqlCon = Conexion.getInstancia().CrearConexion();
                 SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_SAVE", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@opcion",      SqlDbType.Int).Value = opcion;
-                comando.Parameters.Add("@id",          SqlDbType.Int).Value = estado.ID;
+                comando.Parameters.Add("@opcion", SqlDbType.Int).Value = opcion;
+                comando.Parameters.Add("@id", SqlDbType.Int).Value = estado.ID;
                 comando.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = estado.Nombre;
-                comando.Parameters.Add("@desc",   SqlDbType.NVarChar).Value = estado.Descripcion;
+                comando.Parameters.Add("@desc", SqlDbType.NVarChar).Value = estado.Descripcion;
                 sqlCon.Open();
-                rpta = comando.ExecuteNonQuery() >= 1 ? "OK" : "No se pudo ingresar el registro";
+                rpta = comando.ExecuteNonQuery() >= 1 ? "OK" : "No se pudo ingresar el registro porque el estado ya existe.";
 
             }
             catch (Exception ex)
@@ -160,6 +166,37 @@ namespace CapaDatos.Controles
 
             return rpta;
         }
+
+        /*public string Salvar(int opcion, CE_Estado estado)
+        {
+            string rpta = "";
+            SqlConnection sqlCon = new SqlConnection();
+
+            try
+            {
+                sqlCon = Conexion.getInstancia().CrearConexion();
+                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_SAVE", sqlCon);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@opcion",      SqlDbType.Int).Value = opcion;
+                comando.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = estado.Nombre;
+                comando.Parameters.Add("@desc",   SqlDbType.NVarChar).Value = estado.Descripcion;               
+                sqlCon.Open();
+                rpta = comando.ExecuteNonQuery() >= 1 ? "OK" : "No se pudo actualizar el registro";                
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+
+            return rpta;
+        }*/
+
+
+
 
         //eliminar
         public string Eliminar(CE_Estado estado)

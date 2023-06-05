@@ -75,8 +75,8 @@ namespace CapaPresentacion.Pantallas.Roles
                     }
                     else
                     {
-                        //si ocurrio un error lo mostramos
-                        funciones.MensajeShow(Rpta, false);
+                        //si ocurrio un error lo mostramos                        
+                        funciones.MensajeShow(Rpta, false, true);
                     }
                 }
             }

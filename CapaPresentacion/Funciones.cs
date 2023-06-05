@@ -39,7 +39,7 @@ namespace CapaPresentacion
         public bool DialogoEliminar()
         {
             DialogResult Opcion;
-            Opcion = MessageBox.Show("¿Estás seguro de eliminar el registro seleccionado?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            Opcion = MessageBox.Show("¿Estás seguro de eliminar el registro seleccionado?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (Opcion == DialogResult.Yes) return true;
             return false;
         }
@@ -78,6 +78,11 @@ namespace CapaPresentacion
         /// </summary>
         public string convertString(object valor) { return Convert.ToString(valor); }
 
+
+        /// <summary>
+        /// convertir un objeto a bool
+        /// </summary>
+        public bool convertBool(object valor) { return Convert.ToBoolean(valor); }
         /// <summary>
         /// convertir de objeto a fecha sin hora
         /// </summary>

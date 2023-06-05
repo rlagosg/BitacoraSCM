@@ -9,17 +9,19 @@ namespace CapaEntidades.Roles
         public int ID             { get; set; }
         public string Nombre      { get; set; }
         public string Descripcion { get; set; }
+        public bool Activo        { get; set; }       
 
         public CE_Estado()
         {
             ID = 0;
         }
 
-        public CE_Estado(int iD, string nombre, string descripcion)
+        public CE_Estado(int iD, string nombre, string descripcion, bool activo = true)
         {
             ID          = iD;
             Nombre      = nombre;
             Descripcion = descripcion;
+            Activo      = activo;
         }
 
         public override bool Equals(object obj)
@@ -28,7 +30,7 @@ namespace CapaEntidades.Roles
                 return false;
 
             CE_Estado other = (CE_Estado)obj;
-            return this.ID == other.ID && this.Nombre == other.Nombre && this.Descripcion == other.Descripcion;
+            return this.ID == other.ID && this.Nombre == other.Nombre && this.Descripcion == other.Descripcion && this.Activo == other.Activo;
         }
 
         public override int GetHashCode()
@@ -39,6 +41,7 @@ namespace CapaEntidades.Roles
                 hash = hash * 23 + ID.GetHashCode();
                 hash = hash * 23 + (Nombre != null ? Nombre.GetHashCode() : 0);
                 hash = hash * 23 + (Descripcion != null ? Descripcion.GetHashCode() : 0);
+                hash = hash * 23 + Activo.GetHashCode();
                 return hash;
             }
         }

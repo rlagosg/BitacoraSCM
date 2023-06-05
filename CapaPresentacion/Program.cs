@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using CapaPresentacion.Pantallas.Personas;
 using CapaPresentacion.Pantallas;
 using CapaPresentacion.Pantallas.Controles;
+using CapaPresentacion.Pantallas.Roles;
 
 namespace CapaPresentacion
 {

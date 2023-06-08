@@ -2,6 +2,7 @@
 using CapaEntidades.Roles;
 using CapaNegocio.Personas;
 using CapaNegocio.Roles;
+using CapaPresentacion.Pantallas.Controles;
 using CapaPresentacion.Pantallas.Personas;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,17 @@ namespace CapaPresentacion.Pantallas.Roles
     public partial class EstadosE : Form
     {
         Estados frmEstado;
+        EstadosRoles frmEstadoRoles;
         Funciones funciones = new Funciones();
         CE_Estado estado;
         int stado = 1;
-        public EstadosE(Estados frm, CE_Estado es = null, int stado = 1)
+        public EstadosE(Estados frm = null, CE_Estado es = null, int stado = 1, EstadosRoles esrol = null)
         {
             InitializeComponent();
             this.frmEstado = frm;
             this.stado     = stado;
             this.estado    = es;
+            frmEstadoRoles = esrol;
             Llenar();
         }
 
@@ -70,7 +73,8 @@ namespace CapaPresentacion.Pantallas.Roles
                     if (Rpta.Equals("OK"))
                     {
                         funciones.MensajeShow("Los datos han sido guardados correctamente", true);
-                        frmEstado.Listar(this.estado.Nombre);
+                        if (frmEstadoRoles != null) frmEstadoRoles.ActualizaEstados();
+                        else frmEstado.Listar(this.estado.Nombre);
                         this.Close();
                     }
                     else

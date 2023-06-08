@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -95,6 +95,12 @@
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Expedientes\Expedientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Expedientes\Expedientes.Designer.cs">
+      <DependentUpon>Expedientes.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Roles\Estados.cs">
       <SubType>Form</SubType>
@@ -179,6 +185,9 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Expedientes\Expedientes.resx">
+      <DependentUpon>Expedientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Roles\Estados.resx">
       <DependentUpon>Estados.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo catedral.ico" />
+    <None Include="Resources\Refresh.png" />
     <None Include="Resources\lista-de-verificacion.png" />
     <None Include="Resources\carpeta-vacia - copia.png" />
     <None Include="Resources\carpeta-vacia.png" />

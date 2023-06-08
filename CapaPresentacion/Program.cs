@@ -7,6 +7,7 @@ using CapaPresentacion.Pantallas.Personas;
 using CapaPresentacion.Pantallas;
 using CapaPresentacion.Pantallas.Controles;
 using CapaPresentacion.Pantallas.Roles;
+using CapaPresentacion.Pantallas.Expedientes;
 
 namespace CapaPresentacion
 {
@@ -20,7 +21,7 @@ namespace CapaPresentacion
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new EstadosRoles());
+            Application.Run(new Expedientes());
         }
     }
 }

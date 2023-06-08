@@ -127,5 +127,17 @@ namespace CapaPresentacion.Pantallas.Roles
         {
             frmEstadosRoles.ActualizaEstados(elimino);
         }
+
+        private void gunaButton2_Click(object sender, EventArgs e)
+        {
+            TXTBUSCA.Text = string.Empty;
+            TXTBUSCA.Focus();
+            Listar("");
+        }
+
+        private void gunaButton1_Click(object sender, EventArgs e)
+        {
+            Listar("");
+        }
     }
 }

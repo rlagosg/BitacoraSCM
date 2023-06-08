@@ -52,3 +52,4 @@ C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresent
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Controles.EstadosRoles.resources
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Roles.Estados.resources
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Roles.EstadosE.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Expedientes.Expedientes.resources

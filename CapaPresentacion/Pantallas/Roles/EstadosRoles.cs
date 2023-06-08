@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Guna.UI.WinForms;
 using System.Xml.Linq;
 using static System.Windows.Forms.Design.AxImporter;
 
@@ -30,6 +31,10 @@ namespace CapaPresentacion.Pantallas.Controles
         CE_Estado estado;
         CE_Rol rol;
         CE_EstadoRol estadoSeleccionado;
+        private GunaButton selectedButton;
+        private int animationStep = 0;
+        private Color[] borderColors = { Color.Red, Color.FromArgb(7, 100, 132), Color.Red, Color.FromArgb(7, 100, 132) }; // Cambia los colores según tus preferencias
+        private int[] borderThicknesses = { 2, 1, 2, 1, 2 }; // Cambia los tamaños según tus preferencias
 
         public EstadosRoles()
         {
@@ -52,6 +57,7 @@ namespace CapaPresentacion.Pantallas.Controles
             // Agregar la columna al DataGridView
             DataEstados.Columns.Add(columna);
             imgVacio.Visible = true;
+
         }
 
         public void ActualizaEstados(bool elimina = false)
@@ -64,7 +70,6 @@ namespace CapaPresentacion.Pantallas.Controles
             }            
 
             ActualizaEstadosEx();
-            //ActualizaImagen();
 
             if (elimina)
             {                
@@ -72,6 +77,8 @@ namespace CapaPresentacion.Pantallas.Controles
                 COMBOROL.SelectedIndex = 0;
                 COMBOROL.SelectedIndex = currentIndex;
             }
+
+            if (TXTBUSCA.Text.Length > 0) { Listar(TXTBUSCA.Text.ToLower().Trim()); TXTBUSCA.Focus();}
         }
 
         private void OcultaCampos()
@@ -79,8 +86,7 @@ namespace CapaPresentacion.Pantallas.Controles
             DataEstados.Columns[0].Visible = false;
             DataEstados.Columns[1].Visible = false;
             DataEstados.Columns[2].Visible = false;
-            DataEstados.Columns[3].Visible = false;
-            //DataEstados.Columns[4].Visible = false;
+            DataEstados.Columns[3].Visible = false;            
             DataEstados.Columns[5].Visible = false;
             DataEstados.Columns[6].Visible = false;
             DataEstados.Columns[7].Visible = false;
@@ -123,7 +129,6 @@ namespace CapaPresentacion.Pantallas.Controles
 
         private void Salvar()
         {
-
             try
             {
                 CN_EstadosRoles.DeshabilitaEstados(rol);
@@ -264,11 +269,6 @@ namespace CapaPresentacion.Pantallas.Controles
 
         private void gunaButton1_Click(object sender, EventArgs e)
         { }
-            
-        private void gunaButton2_Click(object sender, EventArgs e)
-        {
-            
-        }
 
         private void BTNSALVAR_Click(object sender, EventArgs e)
         {
@@ -287,8 +287,7 @@ namespace CapaPresentacion.Pantallas.Controles
 
         private void btnArriba_Click(object sender, EventArgs e)
         {
-            MoverArriba();
-            
+            MoverArriba();            
         }
 
         private void btnAbajo_Click(object sender, EventArgs e)
@@ -305,7 +304,10 @@ namespace CapaPresentacion.Pantallas.Controles
         {
             if (rol != null) if (rol.ID >= 0) return true;
             funciones.MensajeShow("Selecciona un Rol.");
-            COMBOROL.DroppedDown = true;
+            //COMBOROL.DroppedDown = true;                      
+            BorderTimer.Start();
+            BorderTimer.Start();
+            grupoRol.LineColor = Color.FromArgb(7, 100, 132);
             return false;
         }
 
@@ -452,7 +454,6 @@ namespace CapaPresentacion.Pantallas.Controles
                             break;
                         }
                     }
-
                     //actualizamos la data de estados disponibles
                     ActualizaEstadosEx();
                 }
@@ -470,7 +471,71 @@ namespace CapaPresentacion.Pantallas.Controles
                .Where(estado => estado.Nombre.ToLower().Contains(texto) || estado.Descripcion.ToLower().Contains(texto))
                .ToList();
 
-            Data.DataSource = resultados;
+            Data.DataSource = resultados;            
+        }
+
+        private void gunaButton1_Click_1(object sender, EventArgs e) {}
+
+        private void gunaButton2_Click_1(object sender, EventArgs e){}
+
+        private void gunaButton3_Click(object sender, EventArgs e){}
+
+        private void gunaButton4_Click(object sender, EventArgs e){}
+
+        private void gunaButton1_Click_2(object sender, EventArgs e)
+        {
+
+            // Restaurar el color de borde del botón previamente seleccionado
+            if (selectedButton != null)
+            {                
+                selectedButton.BorderColor = Color.FromArgb(224, 224, 224);
+                selectedButton.BorderSize  = 1;
+            }
+
+            // Cambiar el color de borde del botón seleccionado
+            GunaButton clickedButton  = (GunaButton)sender;
+            clickedButton.BorderColor = clickedButton.OnHoverBorderColor;
+            clickedButton.BorderSize  = 2;
+            
+            if      (clickedButton == gunaButton1) COMBOROL.SelectedIndex = 1;            
+            else if (clickedButton == gunaButton2) COMBOROL.SelectedIndex = 2;
+            else if (clickedButton == gunaButton3) COMBOROL.SelectedIndex = 3;
+            else if (clickedButton == gunaButton4) COMBOROL.SelectedIndex = 4;
+
+            // Actualizar el botón seleccionado actualmente
+            selectedButton = clickedButton;
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            CE_Estado es = new CE_Estado();
+            es.Nombre = TXTBUSCA.Text.Trim();
+            EstadosE form = new EstadosE(null,es,1,this);
+            form.ShowDialog();
+        }
+
+        private void BorderTimer_Tick(object sender, EventArgs e)
+        {
+            grupoRol.LineColor = borderColors[animationStep];
+            grupoRol.BorderSize = borderThicknesses[animationStep];
+            animationStep++;
+
+            if (animationStep >= borderColors.Length)
+            {
+                animationStep = 0;
+                BorderTimer.Stop(); // Detiene el temporizador al finalizar la animación
+            }
+        }
+
+        private void grupoRol_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            TXTBUSCA.Text = string.Empty;
+            TXTBUSCA.Focus();
         }
     }
 }

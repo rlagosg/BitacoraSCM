@@ -223,14 +223,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="968688">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="2277360">
       <assemblyIdentity name="SCM" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8Gm7dW6LDMzt6qxXD70SGJPCEPcHJCOOo6KRqr579lY=</dsig:DigestValue>
+        <dsig:DigestValue>6icjidoZNec8KTHZpjQG0rKQQZtViR0Ag7oD5J3WrJs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

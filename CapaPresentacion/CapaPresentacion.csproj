@@ -308,6 +308,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo catedral.ico" />
+    <None Include="Resources\Diagrama Final.png" />
+    <None Include="Resources\Diagrama1.png" />
+    <None Include="Resources\campo.png" />
+    <None Include="Resources\Diagrama.png" />
     <None Include="Resources\Refresh.png" />
     <None Include="Resources\lista-de-verificacion.png" />
     <None Include="Resources\carpeta-vacia - copia.png" />

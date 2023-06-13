@@ -33,6 +33,11 @@
             this.BTNSALVAR = new Guna.UI.WinForms.GunaGradientButton();
             this.Tabs = new MetroFramework.Controls.MetroTabControl();
             this.Tab0 = new MetroFramework.Controls.MetroTabPage();
+            this.progres3 = new Guna.UI.WinForms.GunaCircleProgressBar();
+            this.progres2 = new Guna.UI.WinForms.GunaCircleProgressBar();
+            this.progres1 = new Guna.UI.WinForms.GunaCircleProgressBar();
+            this.progres0 = new Guna.UI.WinForms.GunaCircleProgressBar();
+            this.gunaTransfarantPictureBox1 = new Guna.UI.WinForms.GunaTransfarantPictureBox();
             this.Tab5 = new MetroFramework.Controls.MetroTabPage();
             this.Tab1 = new MetroFramework.Controls.MetroTabPage();
             this.Tab3 = new MetroFramework.Controls.MetroTabPage();
@@ -44,12 +49,11 @@
             this.gunaButton4 = new Guna.UI.WinForms.GunaButton();
             this.gunaButton5 = new Guna.UI.WinForms.GunaButton();
             this.gunaButton6 = new Guna.UI.WinForms.GunaButton();
-            this.progres0 = new Guna.UI.WinForms.GunaCircleProgressBar();
-            this.gunaTransfarantPictureBox1 = new Guna.UI.WinForms.GunaTransfarantPictureBox();
             this.gunaCircleButton1 = new Guna.UI.WinForms.GunaCircleButton();
-            this.progres1 = new Guna.UI.WinForms.GunaCircleProgressBar();
-            this.progres2 = new Guna.UI.WinForms.GunaCircleProgressBar();
-            this.progres3 = new Guna.UI.WinForms.GunaCircleProgressBar();
+            this.gunaLabel1 = new Guna.UI.WinForms.GunaLabel();
+            this.gunaLabel2 = new Guna.UI.WinForms.GunaLabel();
+            this.gunaLabel3 = new Guna.UI.WinForms.GunaLabel();
+            this.gunaLabel4 = new Guna.UI.WinForms.GunaLabel();
             this.Tabs.SuspendLayout();
             this.Tab0.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaTransfarantPictureBox1)).BeginInit();
@@ -126,6 +130,10 @@
             // 
             // Tab0
             // 
+            this.Tab0.Controls.Add(this.gunaLabel4);
+            this.Tab0.Controls.Add(this.gunaLabel3);
+            this.Tab0.Controls.Add(this.gunaLabel2);
+            this.Tab0.Controls.Add(this.gunaLabel1);
             this.Tab0.Controls.Add(this.progres3);
             this.Tab0.Controls.Add(this.progres2);
             this.Tab0.Controls.Add(this.progres1);
@@ -142,6 +150,117 @@
             this.Tab0.VerticalScrollbarBarColor = true;
             this.Tab0.VerticalScrollbarHighlightOnWheel = false;
             this.Tab0.VerticalScrollbarSize = 10;
+            // 
+            // progres3
+            // 
+            this.progres3.AnimationSpeed = 0.6F;
+            this.progres3.BackColor = System.Drawing.Color.White;
+            this.progres3.BaseColor = System.Drawing.Color.White;
+            this.progres3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.progres3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(61)))), ((int)(((byte)(144)))));
+            this.progres3.IdleColor = System.Drawing.Color.Gainsboro;
+            this.progres3.IdleOffset = 10;
+            this.progres3.IdleThickness = 9;
+            this.progres3.Image = null;
+            this.progres3.ImageSize = new System.Drawing.Size(52, 52);
+            this.progres3.LineEndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.progres3.LineStartCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
+            this.progres3.Location = new System.Drawing.Point(1070, 446);
+            this.progres3.Name = "progres3";
+            this.progres3.ProgressMaxColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(51)))), ((int)(((byte)(139)))));
+            this.progres3.ProgressMinColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(63)))), ((int)(((byte)(145)))));
+            this.progres3.ProgressOffset = 14;
+            this.progres3.ProgressThickness = 5;
+            this.progres3.Size = new System.Drawing.Size(70, 70);
+            this.progres3.TabIndex = 104;
+            this.progres3.UseProgressPercentText = true;
+            // 
+            // progres2
+            // 
+            this.progres2.AnimationSpeed = 0.6F;
+            this.progres2.BackColor = System.Drawing.Color.White;
+            this.progres2.BaseColor = System.Drawing.Color.White;
+            this.progres2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.progres2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(45)))), ((int)(((byte)(122)))));
+            this.progres2.IdleColor = System.Drawing.Color.Gainsboro;
+            this.progres2.IdleOffset = 10;
+            this.progres2.IdleThickness = 9;
+            this.progres2.Image = null;
+            this.progres2.ImageSize = new System.Drawing.Size(52, 52);
+            this.progres2.LineEndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.progres2.LineStartCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
+            this.progres2.Location = new System.Drawing.Point(760, 446);
+            this.progres2.Name = "progres2";
+            this.progres2.ProgressMaxColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(41)))), ((int)(((byte)(107)))));
+            this.progres2.ProgressMinColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(44)))), ((int)(((byte)(126)))));
+            this.progres2.ProgressOffset = 14;
+            this.progres2.ProgressThickness = 5;
+            this.progres2.Size = new System.Drawing.Size(70, 70);
+            this.progres2.TabIndex = 103;
+            this.progres2.UseProgressPercentText = true;
+            this.progres2.Value = 10;
+            // 
+            // progres1
+            // 
+            this.progres1.AnimationSpeed = 0.6F;
+            this.progres1.BackColor = System.Drawing.Color.White;
+            this.progres1.BaseColor = System.Drawing.Color.White;
+            this.progres1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.progres1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(81)))), ((int)(((byte)(98)))));
+            this.progres1.IdleColor = System.Drawing.Color.Gainsboro;
+            this.progres1.IdleOffset = 10;
+            this.progres1.IdleThickness = 9;
+            this.progres1.Image = null;
+            this.progres1.ImageSize = new System.Drawing.Size(52, 52);
+            this.progres1.LineEndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.progres1.LineStartCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
+            this.progres1.Location = new System.Drawing.Point(436, 446);
+            this.progres1.Name = "progres1";
+            this.progres1.ProgressMaxColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(105)))), ((int)(((byte)(101)))));
+            this.progres1.ProgressMinColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(39)))), ((int)(((byte)(102)))));
+            this.progres1.ProgressOffset = 14;
+            this.progres1.ProgressThickness = 5;
+            this.progres1.Size = new System.Drawing.Size(70, 70);
+            this.progres1.TabIndex = 102;
+            this.progres1.UseProgressPercentText = true;
+            this.progres1.Value = 15;
+            // 
+            // progres0
+            // 
+            this.progres0.AnimationSpeed = 0.6F;
+            this.progres0.BackColor = System.Drawing.Color.White;
+            this.progres0.BaseColor = System.Drawing.Color.White;
+            this.progres0.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.progres0.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(163)))), ((int)(((byte)(78)))));
+            this.progres0.IdleColor = System.Drawing.Color.Gainsboro;
+            this.progres0.IdleOffset = 10;
+            this.progres0.IdleThickness = 9;
+            this.progres0.Image = null;
+            this.progres0.ImageSize = new System.Drawing.Size(52, 52);
+            this.progres0.LineEndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.progres0.LineStartCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
+            this.progres0.Location = new System.Drawing.Point(110, 446);
+            this.progres0.Name = "progres0";
+            this.progres0.ProgressMaxColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(189)))), ((int)(((byte)(57)))));
+            this.progres0.ProgressMinColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(143)))), ((int)(((byte)(88)))));
+            this.progres0.ProgressOffset = 14;
+            this.progres0.ProgressThickness = 5;
+            this.progres0.Size = new System.Drawing.Size(70, 70);
+            this.progres0.TabIndex = 101;
+            this.progres0.UseProgressPercentText = true;
+            this.progres0.Value = 20;
+            // 
+            // gunaTransfarantPictureBox1
+            // 
+            this.gunaTransfarantPictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.gunaTransfarantPictureBox1.BaseColor = System.Drawing.Color.Black;
+            this.gunaTransfarantPictureBox1.Image = global::CapaPresentacion.Properties.Resources.Diagrama_Final;
+            this.gunaTransfarantPictureBox1.Location = new System.Drawing.Point(32, 3);
+            this.gunaTransfarantPictureBox1.Name = "gunaTransfarantPictureBox1";
+            this.gunaTransfarantPictureBox1.Size = new System.Drawing.Size(1195, 532);
+            this.gunaTransfarantPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.gunaTransfarantPictureBox1.TabIndex = 2;
+            this.gunaTransfarantPictureBox1.TabStop = false;
             // 
             // Tab5
             // 
@@ -381,43 +500,6 @@
             this.gunaButton6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.gunaButton6.Click += new System.EventHandler(this.gunaButton6_Click);
             // 
-            // progres0
-            // 
-            this.progres0.AnimationSpeed = 0.6F;
-            this.progres0.BackColor = System.Drawing.Color.White;
-            this.progres0.BaseColor = System.Drawing.Color.White;
-            this.progres0.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.progres0.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(163)))), ((int)(((byte)(78)))));
-            this.progres0.IdleColor = System.Drawing.Color.Gainsboro;
-            this.progres0.IdleOffset = 10;
-            this.progres0.IdleThickness = 9;
-            this.progres0.Image = null;
-            this.progres0.ImageSize = new System.Drawing.Size(52, 52);
-            this.progres0.LineEndCap = System.Drawing.Drawing2D.LineCap.Round;
-            this.progres0.LineStartCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
-            this.progres0.Location = new System.Drawing.Point(110, 446);
-            this.progres0.Name = "progres0";
-            this.progres0.ProgressMaxColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(189)))), ((int)(((byte)(57)))));
-            this.progres0.ProgressMinColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(143)))), ((int)(((byte)(88)))));
-            this.progres0.ProgressOffset = 14;
-            this.progres0.ProgressThickness = 5;
-            this.progres0.Size = new System.Drawing.Size(70, 70);
-            this.progres0.TabIndex = 101;
-            this.progres0.UseProgressPercentText = true;
-            this.progres0.Value = 20;
-            // 
-            // gunaTransfarantPictureBox1
-            // 
-            this.gunaTransfarantPictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.gunaTransfarantPictureBox1.BaseColor = System.Drawing.Color.Black;
-            this.gunaTransfarantPictureBox1.Image = global::CapaPresentacion.Properties.Resources.Diagrama_Final;
-            this.gunaTransfarantPictureBox1.Location = new System.Drawing.Point(32, 3);
-            this.gunaTransfarantPictureBox1.Name = "gunaTransfarantPictureBox1";
-            this.gunaTransfarantPictureBox1.Size = new System.Drawing.Size(1195, 532);
-            this.gunaTransfarantPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.gunaTransfarantPictureBox1.TabIndex = 2;
-            this.gunaTransfarantPictureBox1.TabStop = false;
-            // 
             // gunaCircleButton1
             // 
             this.gunaCircleButton1.AnimationHoverSpeed = 0.07F;
@@ -440,79 +522,53 @@
             this.gunaCircleButton1.Size = new System.Drawing.Size(25, 25);
             this.gunaCircleButton1.TabIndex = 82;
             // 
-            // progres1
+            // gunaLabel1
             // 
-            this.progres1.AnimationSpeed = 0.6F;
-            this.progres1.BackColor = System.Drawing.Color.White;
-            this.progres1.BaseColor = System.Drawing.Color.White;
-            this.progres1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.progres1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(81)))), ((int)(((byte)(98)))));
-            this.progres1.IdleColor = System.Drawing.Color.Gainsboro;
-            this.progres1.IdleOffset = 10;
-            this.progres1.IdleThickness = 9;
-            this.progres1.Image = null;
-            this.progres1.ImageSize = new System.Drawing.Size(52, 52);
-            this.progres1.LineEndCap = System.Drawing.Drawing2D.LineCap.Round;
-            this.progres1.LineStartCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
-            this.progres1.Location = new System.Drawing.Point(436, 446);
-            this.progres1.Name = "progres1";
-            this.progres1.ProgressMaxColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(105)))), ((int)(((byte)(101)))));
-            this.progres1.ProgressMinColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(39)))), ((int)(((byte)(102)))));
-            this.progres1.ProgressOffset = 14;
-            this.progres1.ProgressThickness = 5;
-            this.progres1.Size = new System.Drawing.Size(70, 70);
-            this.progres1.TabIndex = 102;
-            this.progres1.UseProgressPercentText = true;
-            this.progres1.Value = 15;
+            this.gunaLabel1.AutoSize = true;
+            this.gunaLabel1.BackColor = System.Drawing.Color.White;
+            this.gunaLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(163)))), ((int)(((byte)(78)))));
+            this.gunaLabel1.Location = new System.Drawing.Point(104, 241);
+            this.gunaLabel1.Name = "gunaLabel1";
+            this.gunaLabel1.Size = new System.Drawing.Size(97, 32);
+            this.gunaLabel1.TabIndex = 105;
+            this.gunaLabel1.Text = "CAMPO";
             // 
-            // progres2
+            // gunaLabel2
             // 
-            this.progres2.AnimationSpeed = 0.6F;
-            this.progres2.BackColor = System.Drawing.Color.White;
-            this.progres2.BaseColor = System.Drawing.Color.White;
-            this.progres2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.progres2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(45)))), ((int)(((byte)(122)))));
-            this.progres2.IdleColor = System.Drawing.Color.Gainsboro;
-            this.progres2.IdleOffset = 10;
-            this.progres2.IdleThickness = 9;
-            this.progres2.Image = null;
-            this.progres2.ImageSize = new System.Drawing.Size(52, 52);
-            this.progres2.LineEndCap = System.Drawing.Drawing2D.LineCap.Round;
-            this.progres2.LineStartCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
-            this.progres2.Location = new System.Drawing.Point(760, 446);
-            this.progres2.Name = "progres2";
-            this.progres2.ProgressMaxColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(41)))), ((int)(((byte)(107)))));
-            this.progres2.ProgressMinColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(44)))), ((int)(((byte)(126)))));
-            this.progres2.ProgressOffset = 14;
-            this.progres2.ProgressThickness = 5;
-            this.progres2.Size = new System.Drawing.Size(70, 70);
-            this.progres2.TabIndex = 103;
-            this.progres2.UseProgressPercentText = true;
-            this.progres2.Value = 10;
+            this.gunaLabel2.AutoSize = true;
+            this.gunaLabel2.BackColor = System.Drawing.Color.White;
+            this.gunaLabel2.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(113)))), ((int)(((byte)(102)))));
+            this.gunaLabel2.Location = new System.Drawing.Point(417, 241);
+            this.gunaLabel2.Name = "gunaLabel2";
+            this.gunaLabel2.Size = new System.Drawing.Size(113, 32);
+            this.gunaLabel2.TabIndex = 106;
+            this.gunaLabel2.Text = "TECNICO";
             // 
-            // progres3
+            // gunaLabel3
             // 
-            this.progres3.AnimationSpeed = 0.6F;
-            this.progres3.BackColor = System.Drawing.Color.White;
-            this.progres3.BaseColor = System.Drawing.Color.White;
-            this.progres3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.progres3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(61)))), ((int)(((byte)(144)))));
-            this.progres3.IdleColor = System.Drawing.Color.Gainsboro;
-            this.progres3.IdleOffset = 10;
-            this.progres3.IdleThickness = 9;
-            this.progres3.Image = null;
-            this.progres3.ImageSize = new System.Drawing.Size(52, 52);
-            this.progres3.LineEndCap = System.Drawing.Drawing2D.LineCap.Round;
-            this.progres3.LineStartCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
-            this.progres3.Location = new System.Drawing.Point(1070, 446);
-            this.progres3.Name = "progres3";
-            this.progres3.ProgressMaxColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(51)))), ((int)(((byte)(139)))));
-            this.progres3.ProgressMinColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(63)))), ((int)(((byte)(145)))));
-            this.progres3.ProgressOffset = 14;
-            this.progres3.ProgressThickness = 5;
-            this.progres3.Size = new System.Drawing.Size(70, 70);
-            this.progres3.TabIndex = 104;
-            this.progres3.UseProgressPercentText = true;
+            this.gunaLabel3.AutoSize = true;
+            this.gunaLabel3.BackColor = System.Drawing.Color.White;
+            this.gunaLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(40)))), ((int)(((byte)(110)))));
+            this.gunaLabel3.Location = new System.Drawing.Point(709, 241);
+            this.gunaLabel3.Name = "gunaLabel3";
+            this.gunaLabel3.Size = new System.Drawing.Size(165, 32);
+            this.gunaLabel3.TabIndex = 107;
+            this.gunaLabel3.Text = "VERIFICADOR";
+            // 
+            // gunaLabel4
+            // 
+            this.gunaLabel4.AutoSize = true;
+            this.gunaLabel4.BackColor = System.Drawing.Color.White;
+            this.gunaLabel4.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(44)))), ((int)(((byte)(127)))));
+            this.gunaLabel4.Location = new System.Drawing.Point(1043, 241);
+            this.gunaLabel4.Name = "gunaLabel4";
+            this.gunaLabel4.Size = new System.Drawing.Size(140, 32);
+            this.gunaLabel4.TabIndex = 108;
+            this.gunaLabel4.Text = "DIBUJANTE";
             // 
             // Expediente
             // 
@@ -536,6 +592,7 @@
             this.Load += new System.EventHandler(this.Expediente_Load);
             this.Tabs.ResumeLayout(false);
             this.Tab0.ResumeLayout(false);
+            this.Tab0.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaTransfarantPictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -563,5 +620,9 @@
         private Guna.UI.WinForms.GunaCircleProgressBar progres1;
         private Guna.UI.WinForms.GunaCircleProgressBar progres3;
         private Guna.UI.WinForms.GunaCircleProgressBar progres2;
+        private Guna.UI.WinForms.GunaLabel gunaLabel4;
+        private Guna.UI.WinForms.GunaLabel gunaLabel3;
+        private Guna.UI.WinForms.GunaLabel gunaLabel2;
+        private Guna.UI.WinForms.GunaLabel gunaLabel1;
     }
 }

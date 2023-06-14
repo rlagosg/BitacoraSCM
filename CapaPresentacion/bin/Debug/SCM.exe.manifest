@@ -79,6 +79,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bunifu.UI.WinForms.BunifuDataGridView.dll" size="98800">
+      <assemblyIdentity name="Bunifu.UI.WinForms.BunifuDataGridView" version="1.11.5.1" publicKeyToken="E8E24CCD28363FE9" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>1BKVDY2pX1oUIXoWBLTMBERQhMXU/BI5ylZ/V4IHKzQ=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bunifu.UI.WinForms.BunifuDatePicker.dll" size="48624">
       <assemblyIdentity name="Bunifu.UI.WinForms.BunifuDatePicker" version="1.11.5.1" publicKeyToken="E8E24CCD28363FE9" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -175,14 +187,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Guna.UI2.dll" size="1849000">
-      <assemblyIdentity name="Guna.UI2" version="2.0.0.4" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Guna.UI2.dll" size="2034056">
+      <assemblyIdentity name="Guna.UI2" version="2.0.4.4" publicKeyToken="8B9D14AA5142E261" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ihysdNDKTJFZUvWMoBcAia9VX+2T9SCdWapFzy0NJyA=</dsig:DigestValue>
+        <dsig:DigestValue>z0I6RH5cHci8C4TvAF4ulC+hSbpPnK9+LxL2csrVU4U=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -223,14 +235,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="2278384">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="2259952">
       <assemblyIdentity name="SCM" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>OV5Wag5HxUI3zI7DiM2hCmXvD/68PifnOxV13kSXbDU=</dsig:DigestValue>
+        <dsig:DigestValue>y5uc0xZ1ugLyQGru1lyXbth7coRg0rpdSflGuyBP3SM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -255,13 +267,13 @@
       <dsig:DigestValue>A1uWUcNzGV8qoEmEB43Pd96VHUq1SsAey3P79DNWKi0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="SCM.exe.config" size="528">
+  <file name="SCM.exe.config" size="540">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>GQ4jvBXhxNp/QgWTK9Uk2demcEbVoDTfJx+lUXxYl1w=</dsig:DigestValue>
+      <dsig:DigestValue>LJ1sfnJ51ZQz1qNxwijLZLS8JBTi8bM4cygnj+8s1Ew=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

@@ -96,7 +96,7 @@ namespace CapaPresentacion.Pantallas.Personas
         private void Personas_Load(object sender, EventArgs e)
         {
             ToolTip toolTip = new ToolTip();
-            toolTip.SetToolTip(gunaButton2, "Limpiar");
+            toolTip.SetToolTip(btnLimpiar, "Limpiar");
             toolTip.SetToolTip(gunaButton1, "Actualizar");
         }
 
@@ -144,17 +144,17 @@ namespace CapaPresentacion.Pantallas.Personas
             }
         }
 
-        private void gunaButton2_Click(object sender, EventArgs e)
-        {
-            TXTBUSCA.Text = string.Empty;
-            TXTBUSCA.Focus();
-            Listado("");
-        }
-
         private void gunaButton1_Click(object sender, EventArgs e)
         {
             Listado(TXTBUSCA.Text.Trim());
             TXTBUSCA.Focus();
+        }
+
+        private void gunaCircleButton1_Click(object sender, EventArgs e)
+        {
+            TXTBUSCA.Text = string.Empty;
+            TXTBUSCA.Focus();
+            Listado("");
         }
     }
 }

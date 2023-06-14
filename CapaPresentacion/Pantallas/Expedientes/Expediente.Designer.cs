@@ -33,11 +33,14 @@
             this.BTNSALVAR = new Guna.UI.WinForms.GunaGradientButton();
             this.Tabs = new MetroFramework.Controls.MetroTabControl();
             this.Tab0 = new MetroFramework.Controls.MetroTabPage();
+            this.gunaLabel4 = new Guna.UI.WinForms.GunaLabel();
+            this.gunaLabel3 = new Guna.UI.WinForms.GunaLabel();
+            this.gunaLabel2 = new Guna.UI.WinForms.GunaLabel();
+            this.gunaLabel1 = new Guna.UI.WinForms.GunaLabel();
             this.progres3 = new Guna.UI.WinForms.GunaCircleProgressBar();
             this.progres2 = new Guna.UI.WinForms.GunaCircleProgressBar();
             this.progres1 = new Guna.UI.WinForms.GunaCircleProgressBar();
             this.progres0 = new Guna.UI.WinForms.GunaCircleProgressBar();
-            this.gunaTransfarantPictureBox1 = new Guna.UI.WinForms.GunaTransfarantPictureBox();
             this.Tab5 = new MetroFramework.Controls.MetroTabPage();
             this.Tab1 = new MetroFramework.Controls.MetroTabPage();
             this.Tab3 = new MetroFramework.Controls.MetroTabPage();
@@ -49,11 +52,8 @@
             this.gunaButton4 = new Guna.UI.WinForms.GunaButton();
             this.gunaButton5 = new Guna.UI.WinForms.GunaButton();
             this.gunaButton6 = new Guna.UI.WinForms.GunaButton();
+            this.gunaTransfarantPictureBox1 = new Guna.UI.WinForms.GunaTransfarantPictureBox();
             this.gunaCircleButton1 = new Guna.UI.WinForms.GunaCircleButton();
-            this.gunaLabel1 = new Guna.UI.WinForms.GunaLabel();
-            this.gunaLabel2 = new Guna.UI.WinForms.GunaLabel();
-            this.gunaLabel3 = new Guna.UI.WinForms.GunaLabel();
-            this.gunaLabel4 = new Guna.UI.WinForms.GunaLabel();
             this.Tabs.SuspendLayout();
             this.Tab0.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gunaTransfarantPictureBox1)).BeginInit();
@@ -118,6 +118,7 @@
             this.Tabs.Controls.Add(this.Tab3);
             this.Tabs.Controls.Add(this.Tab2);
             this.Tabs.Controls.Add(this.Tab4);
+            this.Tabs.ItemSize = new System.Drawing.Size(121, 31);
             this.Tabs.Location = new System.Drawing.Point(40, 114);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
@@ -142,14 +143,62 @@
             this.Tab0.HorizontalScrollbarBarColor = true;
             this.Tab0.HorizontalScrollbarHighlightOnWheel = false;
             this.Tab0.HorizontalScrollbarSize = 10;
-            this.Tab0.Location = new System.Drawing.Point(4, 41);
+            this.Tab0.Location = new System.Drawing.Point(4, 35);
             this.Tab0.Name = "Tab0";
-            this.Tab0.Size = new System.Drawing.Size(1242, 538);
+            this.Tab0.Size = new System.Drawing.Size(1242, 544);
             this.Tab0.TabIndex = 0;
             this.Tab0.Text = "General                ";
             this.Tab0.VerticalScrollbarBarColor = true;
             this.Tab0.VerticalScrollbarHighlightOnWheel = false;
             this.Tab0.VerticalScrollbarSize = 10;
+            // 
+            // gunaLabel4
+            // 
+            this.gunaLabel4.AutoSize = true;
+            this.gunaLabel4.BackColor = System.Drawing.Color.White;
+            this.gunaLabel4.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(44)))), ((int)(((byte)(127)))));
+            this.gunaLabel4.Location = new System.Drawing.Point(1043, 241);
+            this.gunaLabel4.Name = "gunaLabel4";
+            this.gunaLabel4.Size = new System.Drawing.Size(140, 32);
+            this.gunaLabel4.TabIndex = 108;
+            this.gunaLabel4.Text = "DIBUJANTE";
+            // 
+            // gunaLabel3
+            // 
+            this.gunaLabel3.AutoSize = true;
+            this.gunaLabel3.BackColor = System.Drawing.Color.White;
+            this.gunaLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(40)))), ((int)(((byte)(110)))));
+            this.gunaLabel3.Location = new System.Drawing.Point(709, 241);
+            this.gunaLabel3.Name = "gunaLabel3";
+            this.gunaLabel3.Size = new System.Drawing.Size(165, 32);
+            this.gunaLabel3.TabIndex = 107;
+            this.gunaLabel3.Text = "VERIFICADOR";
+            // 
+            // gunaLabel2
+            // 
+            this.gunaLabel2.AutoSize = true;
+            this.gunaLabel2.BackColor = System.Drawing.Color.White;
+            this.gunaLabel2.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(113)))), ((int)(((byte)(102)))));
+            this.gunaLabel2.Location = new System.Drawing.Point(417, 241);
+            this.gunaLabel2.Name = "gunaLabel2";
+            this.gunaLabel2.Size = new System.Drawing.Size(113, 32);
+            this.gunaLabel2.TabIndex = 106;
+            this.gunaLabel2.Text = "TECNICO";
+            // 
+            // gunaLabel1
+            // 
+            this.gunaLabel1.AutoSize = true;
+            this.gunaLabel1.BackColor = System.Drawing.Color.White;
+            this.gunaLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(163)))), ((int)(((byte)(78)))));
+            this.gunaLabel1.Location = new System.Drawing.Point(104, 241);
+            this.gunaLabel1.Name = "gunaLabel1";
+            this.gunaLabel1.Size = new System.Drawing.Size(97, 32);
+            this.gunaLabel1.TabIndex = 105;
+            this.gunaLabel1.Text = "CAMPO";
             // 
             // progres3
             // 
@@ -250,26 +299,14 @@
             this.progres0.UseProgressPercentText = true;
             this.progres0.Value = 20;
             // 
-            // gunaTransfarantPictureBox1
-            // 
-            this.gunaTransfarantPictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.gunaTransfarantPictureBox1.BaseColor = System.Drawing.Color.Black;
-            this.gunaTransfarantPictureBox1.Image = global::CapaPresentacion.Properties.Resources.Diagrama_Final;
-            this.gunaTransfarantPictureBox1.Location = new System.Drawing.Point(32, 3);
-            this.gunaTransfarantPictureBox1.Name = "gunaTransfarantPictureBox1";
-            this.gunaTransfarantPictureBox1.Size = new System.Drawing.Size(1195, 532);
-            this.gunaTransfarantPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.gunaTransfarantPictureBox1.TabIndex = 2;
-            this.gunaTransfarantPictureBox1.TabStop = false;
-            // 
             // Tab5
             // 
             this.Tab5.HorizontalScrollbarBarColor = true;
             this.Tab5.HorizontalScrollbarHighlightOnWheel = false;
             this.Tab5.HorizontalScrollbarSize = 10;
-            this.Tab5.Location = new System.Drawing.Point(4, 41);
+            this.Tab5.Location = new System.Drawing.Point(4, 35);
             this.Tab5.Name = "Tab5";
-            this.Tab5.Size = new System.Drawing.Size(1242, 538);
+            this.Tab5.Size = new System.Drawing.Size(1242, 544);
             this.Tab5.TabIndex = 5;
             this.Tab5.Text = "Campo             ";
             this.Tab5.VerticalScrollbarBarColor = true;
@@ -281,9 +318,9 @@
             this.Tab1.HorizontalScrollbarBarColor = true;
             this.Tab1.HorizontalScrollbarHighlightOnWheel = false;
             this.Tab1.HorizontalScrollbarSize = 10;
-            this.Tab1.Location = new System.Drawing.Point(4, 41);
+            this.Tab1.Location = new System.Drawing.Point(4, 35);
             this.Tab1.Name = "Tab1";
-            this.Tab1.Size = new System.Drawing.Size(1242, 538);
+            this.Tab1.Size = new System.Drawing.Size(1242, 544);
             this.Tab1.TabIndex = 1;
             this.Tab1.Text = "Verificador               ";
             this.Tab1.VerticalScrollbarBarColor = true;
@@ -295,9 +332,9 @@
             this.Tab3.HorizontalScrollbarBarColor = true;
             this.Tab3.HorizontalScrollbarHighlightOnWheel = false;
             this.Tab3.HorizontalScrollbarSize = 10;
-            this.Tab3.Location = new System.Drawing.Point(4, 41);
+            this.Tab3.Location = new System.Drawing.Point(4, 35);
             this.Tab3.Name = "Tab3";
-            this.Tab3.Size = new System.Drawing.Size(1242, 538);
+            this.Tab3.Size = new System.Drawing.Size(1242, 544);
             this.Tab3.TabIndex = 3;
             this.Tab3.Text = "Tecnico                    ";
             this.Tab3.VerticalScrollbarBarColor = true;
@@ -309,9 +346,9 @@
             this.Tab2.HorizontalScrollbarBarColor = true;
             this.Tab2.HorizontalScrollbarHighlightOnWheel = false;
             this.Tab2.HorizontalScrollbarSize = 10;
-            this.Tab2.Location = new System.Drawing.Point(4, 41);
+            this.Tab2.Location = new System.Drawing.Point(4, 35);
             this.Tab2.Name = "Tab2";
-            this.Tab2.Size = new System.Drawing.Size(1242, 538);
+            this.Tab2.Size = new System.Drawing.Size(1242, 544);
             this.Tab2.TabIndex = 2;
             this.Tab2.Text = "Dibujante                  ";
             this.Tab2.VerticalScrollbarBarColor = true;
@@ -323,9 +360,9 @@
             this.Tab4.HorizontalScrollbarBarColor = true;
             this.Tab4.HorizontalScrollbarHighlightOnWheel = false;
             this.Tab4.HorizontalScrollbarSize = 10;
-            this.Tab4.Location = new System.Drawing.Point(4, 41);
+            this.Tab4.Location = new System.Drawing.Point(4, 35);
             this.Tab4.Name = "Tab4";
-            this.Tab4.Size = new System.Drawing.Size(1242, 538);
+            this.Tab4.Size = new System.Drawing.Size(1242, 544);
             this.Tab4.TabIndex = 4;
             this.Tab4.Text = "Resumen                   ";
             this.Tab4.VerticalScrollbarBarColor = true;
@@ -500,6 +537,18 @@
             this.gunaButton6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.gunaButton6.Click += new System.EventHandler(this.gunaButton6_Click);
             // 
+            // gunaTransfarantPictureBox1
+            // 
+            this.gunaTransfarantPictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.gunaTransfarantPictureBox1.BaseColor = System.Drawing.Color.Black;
+            this.gunaTransfarantPictureBox1.Image = global::CapaPresentacion.Properties.Resources.Diagrama_Final;
+            this.gunaTransfarantPictureBox1.Location = new System.Drawing.Point(32, 3);
+            this.gunaTransfarantPictureBox1.Name = "gunaTransfarantPictureBox1";
+            this.gunaTransfarantPictureBox1.Size = new System.Drawing.Size(1195, 532);
+            this.gunaTransfarantPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.gunaTransfarantPictureBox1.TabIndex = 2;
+            this.gunaTransfarantPictureBox1.TabStop = false;
+            // 
             // gunaCircleButton1
             // 
             this.gunaCircleButton1.AnimationHoverSpeed = 0.07F;
@@ -521,54 +570,6 @@
             this.gunaCircleButton1.OnPressedColor = System.Drawing.Color.Black;
             this.gunaCircleButton1.Size = new System.Drawing.Size(25, 25);
             this.gunaCircleButton1.TabIndex = 82;
-            // 
-            // gunaLabel1
-            // 
-            this.gunaLabel1.AutoSize = true;
-            this.gunaLabel1.BackColor = System.Drawing.Color.White;
-            this.gunaLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gunaLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(163)))), ((int)(((byte)(78)))));
-            this.gunaLabel1.Location = new System.Drawing.Point(104, 241);
-            this.gunaLabel1.Name = "gunaLabel1";
-            this.gunaLabel1.Size = new System.Drawing.Size(97, 32);
-            this.gunaLabel1.TabIndex = 105;
-            this.gunaLabel1.Text = "CAMPO";
-            // 
-            // gunaLabel2
-            // 
-            this.gunaLabel2.AutoSize = true;
-            this.gunaLabel2.BackColor = System.Drawing.Color.White;
-            this.gunaLabel2.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gunaLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(113)))), ((int)(((byte)(102)))));
-            this.gunaLabel2.Location = new System.Drawing.Point(417, 241);
-            this.gunaLabel2.Name = "gunaLabel2";
-            this.gunaLabel2.Size = new System.Drawing.Size(113, 32);
-            this.gunaLabel2.TabIndex = 106;
-            this.gunaLabel2.Text = "TECNICO";
-            // 
-            // gunaLabel3
-            // 
-            this.gunaLabel3.AutoSize = true;
-            this.gunaLabel3.BackColor = System.Drawing.Color.White;
-            this.gunaLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gunaLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(40)))), ((int)(((byte)(110)))));
-            this.gunaLabel3.Location = new System.Drawing.Point(709, 241);
-            this.gunaLabel3.Name = "gunaLabel3";
-            this.gunaLabel3.Size = new System.Drawing.Size(165, 32);
-            this.gunaLabel3.TabIndex = 107;
-            this.gunaLabel3.Text = "VERIFICADOR";
-            // 
-            // gunaLabel4
-            // 
-            this.gunaLabel4.AutoSize = true;
-            this.gunaLabel4.BackColor = System.Drawing.Color.White;
-            this.gunaLabel4.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gunaLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(44)))), ((int)(((byte)(127)))));
-            this.gunaLabel4.Location = new System.Drawing.Point(1043, 241);
-            this.gunaLabel4.Name = "gunaLabel4";
-            this.gunaLabel4.Size = new System.Drawing.Size(140, 32);
-            this.gunaLabel4.TabIndex = 108;
-            this.gunaLabel4.Text = "DIBUJANTE";
             // 
             // Expediente
             // 

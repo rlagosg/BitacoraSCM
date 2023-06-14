@@ -65,8 +65,10 @@ C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\MetroFramew
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\MetroFramework.Fonts.dll
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.BunifuDatePicker.xml
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu_UI_v1.5.3.xml
-C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\SCM.exe.config
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.BunifuImageButton.dll
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.BunifuRadioButton.dll
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.BunifuImageButton.xml
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.BunifuRadioButton.xml
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.BunifuDataGridView.dll
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.BunifuDataGridView.xml
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Expedientes.Busqueda.resources

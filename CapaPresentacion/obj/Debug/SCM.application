@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="SCM.exe.manifest" size="14961">
+    <dependentAssembly dependencyType="install" codebase="SCM.exe.manifest" size="15722">
       <assemblyIdentity name="SCM.exe" version="1.0.0.9" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>pDLf3Jzor5DGUu/EdYRj8XA6AVcb9pJcUgh40Cxepu0=</dsig:DigestValue>
+        <dsig:DigestValue>k7hH/Vjpr6PQ8/lul7Z86zGsUn+gKjvP1O+tnHeC4kQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

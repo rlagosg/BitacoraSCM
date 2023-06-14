@@ -829,16 +829,16 @@ AS
 BEGIN
     SELECT
         E.IdExpediente AS Expediente,
-        E.FechaInicio AS FechaInicializacion,
-        UIni.Nombre AS IniciadorExpediente,
-        E.ObsIni AS ObservacionInicial,
-        Rol.Nombre AS RolUltimoEstado,
-        Est.Nombre AS UltimoEstado,
-        CE.Observaciones AS ComentarioUltimoEstado,
-        UUlt.Nombre AS UsuarioUltimoEstado,
-        CE.Fecha AS FechaUltimoEstado,
-        E.FechaFin AS FechaFinalizacion,
-        E.ObsFin AS ObservacionFinal
+        E.FechaInicio AS Iniciado,
+        UIni.Nombre AS Iniciador,
+        E.ObsIni AS 'Observacion Inicial',
+        Rol.Nombre AS Proceso,
+        Est.Nombre AS Estado,
+        CE.Observaciones AS Comentario,
+        UUlt.Nombre AS Encargado,
+        CE.Fecha AS 'Ultimo Cambio',
+        E.FechaFin AS Finalizacion,
+        E.ObsFin AS 'Observacion Final'
     FROM
         Expedientes AS E
         INNER JOIN Controles AS C ON E.IdExpediente = C.IdExpediente

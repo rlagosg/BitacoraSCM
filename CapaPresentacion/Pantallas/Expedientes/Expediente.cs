@@ -1,6 +1,8 @@
 ﻿using Bunifu.Framework.UI;
 using Bunifu.UI.WinForms.BunifuButton;
+using CapaEntidades.Expedientes;
 using Guna.UI.WinForms;
+using Guna.UI2.WinForms;
 using MetroFramework.Controls;
 using System;
 using System.Collections.Generic;
@@ -12,19 +14,31 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace CapaPresentacion.Pantallas.Expedientes
 {
     public partial class Expediente : Form
     {
-        public Expediente()
+        CE_Expediente expediente;
+        public Expediente(CE_Expediente exped)
         {
-            InitializeComponent();                    
+            InitializeComponent();            
+            this.expediente = exped;
+            llenar();
+            
+        }
+
+        private void llenar()
+        {
+            if (expediente != null) {
+                TXTBUSCA.Text = expediente.Expediente;
+            }
         }
 
         private void Expediente_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         private void BTNSALVAR_Click(object sender, EventArgs e)
@@ -35,85 +49,61 @@ namespace CapaPresentacion.Pantallas.Expedientes
             progres3.Value = progres3.Value + 5;
         }
 
-        private void Cambia(int boton)
-        {
-            CambiaIndex(boton);
-            List<GunaButton> botones = new List<GunaButton>(new GunaButton[] { 
-                gunaButton1, gunaButton2, gunaButton3, gunaButton4, gunaButton5, gunaButton6
-            });
-            GunaButton clickedButton = botones[boton];
-
-            clickedButton.BorderColor = Color.FromArgb(40, 96, 144);
-            clickedButton.BaseColor   = Color.FromArgb(40, 96, 144);
-            clickedButton.ForeColor   = Color.White;
-
-            clickedButton.OnHoverBorderColor = Color.FromArgb(40, 96, 144);
-            clickedButton.OnHoverBaseColor   = Color.FromArgb(40, 96, 144);
-            clickedButton.OnHoverForeColor   = Color.White;
-            
-            clickedButton.OnPressedColor = Color.FromArgb(40, 96, 144);
-
-            botones.Remove(clickedButton);
-            
-
-            // Cambiar los colores de todos los botones
-            foreach (GunaButton button in botones)
-            {
-                button.BorderColor = Color.DodgerBlue;
-                button.BaseColor   = Color.Azure;
-                button.ForeColor   = Color.FromArgb(0, 150, 241);
-
-                button.OnHoverBorderColor = Color.FromArgb(105, 181, 255);
-                button.OnHoverBaseColor   = Color.FromArgb( 22, 229, 246);
-                button.OnHoverForeColor   = Color.FromArgb(  0, 150, 241);
-
-                button.OnPressedColor = Color.FromArgb(40, 96, 144);             
-            }
-
-            Refresh(); // Forzar la actualización de la interfaz gráfica
-            Application.DoEvents(); // Procesar los eventos pendientes de la interfaz gráfica
-        }
 
         private void CambiaIndex(int boton)
         {
             Tabs.SelectedIndex = boton;
         }
 
-        private void gunaButton1_Click(object sender, EventArgs e)
-        {
-           Cambia(0);
-        }
-
-        private void gunaButton2_Click(object sender, EventArgs e)
-        {            
-           Cambia(1);
-        }
-
-        private void gunaButton3_Click(object sender, EventArgs e)
-        {               
-            Cambia(2);
-        }
-
-
-        private void gunaButton6_Click(object sender, EventArgs e)
-        {               
-            Cambia(5);
-        }
-
+ 
         private void Tabs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int indice = Tabs.SelectedIndex;
-            Cambia(indice);            
+            // Obtener el índice de la pestaña seleccionada
+            int selectedTabIndex = Tabs.SelectedIndex;
+
+            // Actualizar la visibilidad de los controles en cada pestaña
+            switch (selectedTabIndex)
+            {
+                case 0:
+                    // Mostrar los controles de la primera pestaña
+                    Grupo0.Visible = true;
+                    Grupo1.Visible = false;
+                    // ...
+                    break;
+
+                case 1:
+                    // Mostrar los controles de la segunda pestaña
+                    Grupo0.Visible = false;
+                    Grupo1.Visible = true;
+                    // ...
+                    break;
+
+                // Agrega más casos según el número de pestañas
+
+                default:
+                    break;
+            }
         }
 
-        private void gunaButton5_Click(object sender, EventArgs e)
+
+
+        private void tab1_Click(object sender, EventArgs e)
         {
-            Cambia(4);
         }
 
-        private void gunaButton4_Click(object sender, EventArgs e)
+        private void tab0_Click(object sender, EventArgs e)
         {
-            Cambia(3);
+            
+        }
+
+        private void Tabs_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

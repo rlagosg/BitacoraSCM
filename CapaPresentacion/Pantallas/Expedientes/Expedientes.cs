@@ -1,5 +1,9 @@
 ﻿using Bunifu.Json.Linq;
+using CapaEntidades.Expedientes;
+using CapaEntidades.Roles;
+using CapaNegocio.Expedientes;
 using CapaNegocio.Roles;
+using CapaPresentacion.Pantallas.Roles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +18,9 @@ namespace CapaPresentacion.Pantallas.Expedientes
 {
     public partial class Expedientes : Form
     {
+        Funciones funciones = new Funciones();
+        CE_Expediente expediente;
+        int indiceData = -1;
         public Expedientes()
         {
             InitializeComponent();
@@ -27,26 +34,8 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         void Cargar()
         {
-            Data.RowTemplate.Height = 35; // Altura de las filas
-            Data.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            
-
-            // Establecer el estilo de la línea divisora entre las filas
-            Data.CellPainting += (sender, e) =>
-            {
-                if (e.RowIndex >= 0 && e.RowIndex < Data.RowCount - 1)
-                {
-                    e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
-
-                    // Dibujar la línea divisora
-                    int dividerHeight = 3; // Altura de la línea divisora (más gruesa)
-                    int dividerY = e.CellBounds.Bottom - dividerHeight;
-                    Color dividerColor = Color.FromArgb(245, 247, 251);
-                    e.Graphics.DrawLine(new Pen(dividerColor, dividerHeight), e.CellBounds.Left, dividerY, e.CellBounds.Right, dividerY);
-
-                    e.Handled = true;
-                }
-            };            
+            guna2ComboBox1.SelectedIndex = 0;
+            guna2ComboBox2.SelectedIndex = 0;   
         }
 
         public void Listar(string texto = "")
@@ -56,21 +45,17 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 string busca = TXTBUSCA.Text.Trim();
                 if (busca.Length > 0)
                 {
-                    Data.DataSource = CN_Estados.Listar(busca);
-                    Data.DataSource = CN_Estados.Listar(busca);
+                    Data.DataSource = CN_Expedientes.Listar(busca);                    
                 }
                 else
-                {
-                    Data.DataSource = CN_Estados.Listar(texto);
-                    Data.DataSource = CN_Estados.Listar(texto);
-                }
-                Data.Columns[0].Visible = false;
+                {                    
+                    Data.DataSource = CN_Expedientes.Listar(texto);
+                }                
                 Data.Columns[0].Visible = false;
 
-                Data.ClearSelection();
-                Data.Columns[0].Visible = false;
-                ///if (Data.SelectedRows.Count > 0) if (indiceData >= 0) Data.Rows[indiceData].Selected = true;
-                Cargar();
+                //Data.ClearSelection();
+                //Data.Columns[0].Visible = false;
+                ///if (Data.SelectedRows.Count > 0) if (indiceData >= 0) Data.Rows[indiceData].Selected = true;               
 
             }
             catch (Exception ex)
@@ -126,14 +111,37 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         }
 
-        private void Data_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void TXTBUSCA_TextChanged(object sender, EventArgs e)
         {
-            // Verificar si es el encabezado de la columna
-            if (e.RowIndex == -1 && e.ColumnIndex >= 0)
+            Listar(TXTBUSCA.Text.Trim());
+        }
+
+        private bool validaItem()
+        {
+            if (Data.SelectedRows.Count > 0)
             {
-                e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                e.CellStyle.Padding = new Padding(0, 10, 0, 10);
-                e.FormattingApplied = true;
+                DataGridViewRow fila = Data.SelectedRows[0];
+
+                if (!funciones.esVacio(fila.Cells[0].Value))
+                {
+                    // Sacamos los datos del grid                                    
+                    expediente = new CE_Expediente(
+                        funciones.convertInt(fila.Cells[0].Value), //id
+                        funciones.convertString(fila.Cells[1].Value) //nombre
+                    );
+                    indiceData = Data.CurrentRow.Index;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void Data_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (validaItem())
+            {
+                Expediente form = new Expediente(expediente);
+                form.ShowDialog();
             }
         }
     }

@@ -897,6 +897,41 @@ INSERT INTO [SCM].[dbo].[DireccionPersona] ([IdPersona], [Colonia], [Barrio], [A
 GO
 
 
+INSERT INTO Empleados (IdPersona, Activo)
+VALUES ('1', 1),
+       ('2', 1),
+       ('3', 1),
+       ('4', 1),
+       ('5', 1);
+GO
+
+INSERT INTO Usuarios (Nombre, Contrasenia, Pin, IdRol, IdEmpleado, Activo)
+VALUES ('usuario1', 'contrasenia1', 'pin1', 1, 1, 1),
+       ('usuario2', 'contrasenia2', 'pin2', 2, 2, 1),
+       ('usuario3', 'contrasenia3', 'pin3', 3, 3, 1),
+       ('usuario4', 'contrasenia4', 'pin4', 4, 4, 1),
+       ('usuario5', 'contrasenia5', 'pin5', 1, 5, 1);
+GO
+
+INSERT INTO Expedientes (IdExpediente, Nombre, FechaInicio, Iniciador, ObsIni, FechaFin, ObsFin, Activo)
+VALUES 
+    (1, 'Expediente 1', '2023-01-01', 1, 'Observaciones Iniciales 1', '2023-01-10', 'Observaciones Finales 1', 1),
+    (2, 'Expediente 2', '2023-02-01', 2, 'Observaciones Iniciales 2', '2023-02-15', 'Observaciones Finales 2', 1),
+    (3, 'Expediente 3', '2023-03-01', 3, 'Observaciones Iniciales 3', '2023-03-20', 'Observaciones Finales 3', 1),
+    (4, 'Expediente 4', '2023-04-01', 4, 'Observaciones Iniciales 4', '2023-04-25', 'Observaciones Finales 4', 1),
+    (5, 'Expediente 5', '2023-05-01', 5, 'Observaciones Iniciales 5', '2023-05-30', 'Observaciones Finales 5', 1),
+    (6, 'Expediente 6', '2023-06-01', 1, 'Observaciones Iniciales 6', '2023-06-05', 'Observaciones Finales 6', 1),
+    (7, 'Expediente 7', '2023-07-01', 2, 'Observaciones Iniciales 7', '2023-07-10', 'Observaciones Finales 7', 1),
+    (8, 'Expediente 8', '2023-08-01', 3, 'Observaciones Iniciales 8', '2023-08-15', 'Observaciones Finales 8', 1),
+    (9, 'Expediente 9', '2023-09-01', 4, 'Observaciones Iniciales 9', '2023-09-20', 'Observaciones Finales 9', 1),
+    (10, 'Expediente 10', '2023-10-01', 5, 'Observaciones Iniciales 10', '2023-10-25', 'Observaciones Finales 10', 1),
+    (11, 'Expediente 11', '2023-11-01', 1, 'Observaciones Iniciales 11', '2023-11-30', 'Observaciones Finales 11', 1),
+    (12, 'Expediente 12', '2023-12-01', 2, 'Observaciones Iniciales 12', '2023-12-05', 'Observaciones Finales 12', 1),
+    (13, 'Expediente 13', '2024-01-01', 3, 'Observaciones Iniciales 13', '2024-01-10', 'Observaciones Finales 13', 1),
+    (14, 'Expediente 14', '2024-02-01', 4, 'Observaciones Iniciales 14', '2024-02-15', 'Observaciones Finales 14', 1);
+GO
+
+
 INSERT INTO Estados (Nombre, Descripcion, Activo) VALUES
 ('Comprobando', 'Comprobando documentos', 1), ('Analizando', 'Analizando documentos', 1), ('Procesando', 'Procesando documentos', 1);
 GO

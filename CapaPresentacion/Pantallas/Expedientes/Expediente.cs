@@ -71,41 +71,28 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
             List<Guna2DataGridView> Datas = new List<Guna2DataGridView>()
             {
-                null, null, DataC, DataT
+                null, null, DataC, DataT, DataV, DataD, DataR
             };
 
             // Llenamos las datas
             if (selectedTabIndex > 1 && selectedTabIndex < Datas.Count && Datas[selectedTabIndex] != null)
             {
+                var currentData = Datas[selectedTabIndex];
+
                 var dataSource = CN_Expedientes.Estados(expediente);
-                var columns = Datas[selectedTabIndex].Columns;
+                var columns = currentData.Columns;
 
-                Datas[selectedTabIndex].DataSource = dataSource;
-                columns[0].Visible = false;
-                columns[1].Visible = false;
-                columns[2].Visible = false;
-                columns[6].Visible = false;
-            }
+                currentData.DataSource = dataSource;
+                columns[0].Visible = false; columns[1].Visible = false;
+                columns[2].Visible = false; columns[6].Visible = false;
 
-            // Actualizar la visibilidad de los controles en cada pestaña
-            switch (selectedTabIndex)
-            {
-                case 0: //GLOBAL
-
-                    // Mostrar los controles de la primera pestaña
-                    //Grupo0.Visible = true;
-                    //Grupo1.Visible = false;                    
-                    break;
-
-                case 1: //GENERAL
-
-                    // Mostrar los controles de la segunda pestaña
-                    //Grupo0.Visible = false;
-                    //Grupo1.Visible = true;
-                    break;
-
-                default:
-                    break;
+                if (selectedTabIndex == 6)
+                {
+                    dataSource = CN_Expedientes.Resumen(expediente);
+                    currentData.DataSource = dataSource;
+                    columns = currentData.Columns;
+                    columns[0].Visible = false;
+                }
             }
         }
 
@@ -116,11 +103,6 @@ namespace CapaPresentacion.Pantallas.Expedientes
         }
 
         private void tab0_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void Tabs_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             
         }

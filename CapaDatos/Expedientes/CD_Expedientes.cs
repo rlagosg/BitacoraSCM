@@ -170,5 +170,36 @@ namespace CapaDatos.Expedientes
 
         }
 
+        /// <summary>
+        /// obtiene TODOS los estados del expediente en Resumen retorna una Tabla
+        /// </summary>
+        public DataTable Resumen(CE_Expediente expediente)
+        {
+            SqlDataReader resultado;
+            DataTable tabla = new DataTable();
+            SqlConnection sqlCon = new SqlConnection();
+
+            try
+            {
+                sqlCon = Conexion.getInstancia().CrearConexion();
+                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_EXPEDIENTE_LIST", sqlCon);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id", expediente.ID);                
+                sqlCon.Open();
+                resultado = comando.ExecuteReader();
+                tabla.Load(resultado);
+                return tabla;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+
+        }
+
     }
 }

@@ -187,16 +187,17 @@ CREATE TABLE Cambios_Proceso (
     IdControl INT FOREIGN KEY REFERENCES Controles(IdControl) ON UPDATE CASCADE NOT NULL,
     Fecha DATETIME,
     IdRol INT FOREIGN KEY REFERENCES Roles(IdRol) NOT NULL,  
-    Envio INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL, 
-    Recibio INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL,
+    Envio INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL, 
+    Recibio INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL,
     Activo bit
 )
 
 --Historial de estados o cambios de estado dentro de los controles o secciones
 CREATE TABLE Control_Estados (
     IdControlEstado INT PRIMARY KEY IDENTITY(1,1),
-    IdEstado INT FOREIGN KEY REFERENCES Estados(IdEstado) ON UPDATE CASCADE NOT NULL,        
     IdControl INT FOREIGN KEY REFERENCES Controles(IdControl) ON UPDATE CASCADE NOT NULL,
+    IdEstado INT FOREIGN KEY REFERENCES Estados(IdEstado) ON UPDATE CASCADE NOT NULL,
+    IdRol INT FOREIGN KEY REFERENCES Roles(IdRol) ON UPDATE CASCADE NOT NULL,        
     Observaciones VARCHAR(500),
     Fecha DATETIME,
     Activo bit
@@ -237,7 +238,7 @@ GO
 --Tabla para relacionar los tecnicos que estaran dentro del control tecnico del expediente
 CREATE TABLE Control_Tecnicos(
     IdTec INT PRIMARY KEY IDENTITY(1,1),
-    IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL, 
+    IdTenico INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL, 
     IdControlTec INT FOREIGN KEY REFERENCES Control_Tecnico(IdControlTec) ON UPDATE CASCADE NOT NULL,
     Activo bit
 );
@@ -865,51 +866,88 @@ BEGIN
 END
 GO
 
---ESTADOS-EXPEDIENTE
+--ESTADOS-EXPEDIENTE 
+-----------------------------
+--POR ROL
 CREATE PROCEDURE SCM_SP_ESTADOS_EXPEDIENTE_BYROL_LIST
     @id INT = 0,
     @idRol INT = 0
 AS
 BEGIN
     SELECT
-    CP.IdControl,
-    CP.IdRol,
-    CE.IdEstado,
-	E.Nombre AS Estado,
-	CE.Observaciones,
-    CE.Fecha,	
-	EM.IdEmpleado As IdEmpleado,
-	CONCAT(PE.PrimerNombre, ' ',PE.PrimerApellido) As Encargado
-FROM
-    Cambios_Proceso AS CP
-    INNER JOIN Control_Estados AS CE ON CP.IdControl = CE.IdControl
-	INNER JOIN Estados E ON CE.IdEstado = E.IdEstado
-	INNER JOIN Empleados EM ON CP.Recibio = EM.IdEmpleado
-	INNER JOIN Personas PE ON EM.IdPersona = PE.IdPersona
-WHERE
-    CP.IdControl IN (
-        SELECT
-            MAX(IdControl)
-        FROM
-            Cambios_Proceso
-        WHERE
-            IdRol = @idRol
-        GROUP BY
-            IdControl
-    )
-    AND CP.IdRol = 1
-    AND CP.IdControl IN (
-        SELECT
-            IdControl
-        FROM
-            Controles
-        WHERE
-            IdExpediente = @id
-    );
+        CP.IdControl,
+        CP.IdRol,
+        CE.IdEstado,
+        E.Nombre AS Estado,
+        CE.Observaciones,
+        CE.Fecha,
+        EM.IdEmpleado AS IdEmpleado,
+        CONCAT(PE.PrimerNombre, ' ', PE.PrimerApellido) AS Encargado
+    FROM
+        Cambios_Proceso AS CP
+        INNER JOIN Control_Estados AS CE ON CP.IdControl = CE.IdControl
+        INNER JOIN Estados E ON CE.IdEstado = E.IdEstado
+        INNER JOIN Empleados EM ON CP.Recibio = EM.IdEmpleado
+        INNER JOIN Personas PE ON EM.IdPersona = PE.IdPersona
+    WHERE
+        CP.IdControl IN (
+            SELECT
+                MAX(IdControl)
+            FROM
+                Cambios_Proceso
+            WHERE
+                IdRol = @idRol
+            GROUP BY
+                IdControl
+        )
+        AND CE.IdRol = @idRol
+        AND CP.IdControl IN (
+            SELECT
+                IdControl
+            FROM
+                Controles
+            WHERE
+                IdExpediente = @id
+        );
+END
+GO
+
+
+--TODUS LOS ROLES, RESUMEN
+CREATE PROCEDURE SCM_SP_ESTADOS_EXPEDIENTE_LIST
+    @id INT = 0
+AS
+BEGIN
+    SELECT
+        E.IdExpediente AS Expediente,
+        Rol.Nombre AS Proceso,
+        Est.Nombre AS Estado,
+        CE.Observaciones AS Comentario,
+        CE.Fecha AS Fecha,
+        CONCAT(P.PrimerNombre, ' ', P.PrimerApellido) AS Encargado
+    FROM
+        Expedientes AS E
+        INNER JOIN Controles AS C ON E.IdExpediente = C.IdExpediente
+        INNER JOIN Control_Estados AS CE ON C.IdControl = CE.IdControl
+        INNER JOIN Estados AS Est ON CE.IdEstado = Est.IdEstado
+        INNER JOIN Cambios_Proceso AS CP ON CE.IdControl = CP.IdControl
+        INNER JOIN Roles AS Rol ON CP.IdRol = Rol.IdRol
+        INNER JOIN Empleados AS EM ON CP.Recibio = EM.IdEmpleado
+        INNER JOIN Personas AS P ON EM.IdPersona = P.IdPersona
+    WHERE
+        E.IdExpediente = @id
+    ORDER BY
+        CE.Fecha DESC;
 END
 GO
 
 ---TEMPORALES
+
+
+INSERT INTO Estados (Nombre, Descripcion, Activo) VALUES
+('Comprobando', 'Comprobando documentos', 1), ('Analizando', 'Analizando documentos', 1), ('Procesando', 'Procesando documentos', 1);
+GO
+
 INSERT INTO [SCM].[dbo].[Personas] ([IdPersona], [PrimerNombre], [SegundoNombre], [PrimerApellido], [SegundoApellido], [IdNacionalidad], [FechaNac], [Genero], [RTN], [Activo]) VALUES
 (1, 'John', 'Doe', 'Smith', NULL, 1, '1990-01-01', 'M', '123456789', 1),
 (2, 'Jane', NULL, 'Johnson', NULL, 2, '1992-05-10', 'F', '987654321', 1),
@@ -958,55 +996,38 @@ GO
 
 INSERT INTO Expedientes (IdExpediente, Nombre, FechaInicio, Iniciador, ObsIni, FechaFin, ObsFin, Activo)
 VALUES 
-    (1, 'Expediente 1', '2023-01-01', 1, 'Observaciones Iniciales 1', '2023-01-10', 'Observaciones Finales 1', 1),
-    (2, 'Expediente 2', '2023-02-01', 2, 'Observaciones Iniciales 2', '2023-02-15', 'Observaciones Finales 2', 1),
-    (3, 'Expediente 3', '2023-03-01', 3, 'Observaciones Iniciales 3', '2023-03-20', 'Observaciones Finales 3', 1),
-    (4, 'Expediente 4', '2023-04-01', 4, 'Observaciones Iniciales 4', '2023-04-25', 'Observaciones Finales 4', 1),
-    (5, 'Expediente 5', '2023-05-01', 5, 'Observaciones Iniciales 5', '2023-05-30', 'Observaciones Finales 5', 1),
-    (6, 'Expediente 6', '2023-06-01', 1, 'Observaciones Iniciales 6', '2023-06-05', 'Observaciones Finales 6', 1),
-    (7, 'Expediente 7', '2023-07-01', 2, 'Observaciones Iniciales 7', '2023-07-10', 'Observaciones Finales 7', 1),
-    (8, 'Expediente 8', '2023-08-01', 3, 'Observaciones Iniciales 8', '2023-08-15', 'Observaciones Finales 8', 1),
-    (9, 'Expediente 9', '2023-09-01', 4, 'Observaciones Iniciales 9', '2023-09-20', 'Observaciones Finales 9', 1),
-    (10, 'Expediente 10', '2023-10-01', 5, 'Observaciones Iniciales 10', '2023-10-25', 'Observaciones Finales 10', 1),
-    (11, 'Expediente 11', '2023-11-01', 1, 'Observaciones Iniciales 11', '2023-11-30', 'Observaciones Finales 11', 1),
-    (12, 'Expediente 12', '2023-12-01', 2, 'Observaciones Iniciales 12', '2023-12-05', 'Observaciones Finales 12', 1),
-    (13, 'Expediente 13', '2024-01-01', 3, 'Observaciones Iniciales 13', '2024-01-10', 'Observaciones Finales 13', 1),
-    (14, 'Expediente 14', '2024-02-01', 4, 'Observaciones Iniciales 14', '2024-02-15', 'Observaciones Finales 14', 1);
+    (1, 'Expediente 1', '2023-01-14T17:30:00', 1, 'Observaciones Iniciales 1', '2023-01-14T17:30:00', 'Observaciones Finales 1', 1),
+    (2, 'Expediente 2', '2023-01-14T17:30:00', 2, 'Observaciones Iniciales 2', '2023-01-14T17:30:00', 'Observaciones Finales 2', 1),
+    (3, 'Expediente 3', '2023-01-14T17:30:00', 3, 'Observaciones Iniciales 3', '2023-01-14T17:30:00', 'Observaciones Finales 3', 1);
 GO
 
 INSERT INTO CONTROLES(IdExpediente, Activo) VALUES
 (1, 1),
 (2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(6, 1),
-(7, 1),
-(8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(13, 1),
-(14, 1);
+(3, 1);
 GO
+
+
+
+
 
 INSERT INTO Cambios_Proceso (IdControl, Fecha, IdRol, Envio, Recibio, Activo) VALUES
-(1, '2023-01-10', 1, 1, 2, 1),
-(2, '2023-01-11', 1, 3, 4, 1);
+(1, '2023-01-14T17:30:00', 1, 1, 2, 1),
+(2, '2023-01-14T17:30:00', 1, 2, 3, 1);
 GO
 
-INSERT INTO Control_Estados(IdEstado, IdControl, Observaciones, Fecha, Activo) VALUES
-(1, 1, 'PROCESO INICIADO', '2023-01-01', 1),
-(1, 2, 'PROCESO INICIADO', '2023-01-01', 1);
-(1, 1, 'Estoy listo', '2023-01-01', 1),
+INSERT INTO Control_Estados(IdControl, IdEstado, IdRol, Observaciones, Fecha, Activo) VALUES
+(1, 1, 1, 'proceso iniciado', '2023-01-14T17:30:00', 1),
+(1, 2, 2,'proceso escalal', '2023-01-14T17:30:00', 1),
+(1, 2, 3,'proceso maxilial', '2023-01-14T17:30:00', 1),
+(2, 3, 1,'estoy listo', '2023-01-14T17:30:00', 1);
 GO
 
+select * from Cambios_Proceso;
+select * from Control_Estados;
+select * from Roles;
 
 
-INSERT INTO Estados (Nombre, Descripcion, Activo) VALUES
-('Comprobando', 'Comprobando documentos', 1), ('Analizando', 'Analizando documentos', 1), ('Procesando', 'Procesando documentos', 1);
-GO
 
 --ESTADOS DE ROLES DEL SISTEMA
 -----------------------------------------------------------
@@ -1022,37 +1043,6 @@ GO
 
 
 --consultas
----------Estados by rol  & expediente
-SELECT
-    CP.IdControl,
-    CP.IdRol,
-    CE.IdEstado,
-    CE.Fecha,
-	CE.Observaciones
-FROM
-    Cambios_Proceso AS CP
-    INNER JOIN Control_Estados AS CE ON CP.IdControl = CE.IdControl
-WHERE
-    CP.IdControl IN (
-        SELECT
-            MAX(IdControl)
-        FROM
-            Cambios_Proceso
-        WHERE
-            IdRol = 1
-        GROUP BY
-            IdControl
-    )
-    AND CP.IdRol = 1
-    AND CP.IdControl IN (
-        SELECT
-            IdControl
-        FROM
-            Controles
-        WHERE
-            IdExpediente = 1
-    );
-
 
 ---------ultimo by rol  & expediente
 SELECT TOP 1

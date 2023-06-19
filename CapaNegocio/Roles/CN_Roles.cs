@@ -22,5 +22,14 @@ namespace CapaNegocio.Roles
             CD_Roles datos = new CD_Roles();
             return datos.ObtenerRoles();
         }
+
+        public static CE_Rol RolByName(string nombre)
+        {
+            CD_Roles datos = new CD_Roles();
+
+            //quitamos espacios y pasamos a minusculas
+            nombre = nombre.Trim().ToLower();
+            return datos.RolByName(nombre);
+        }
     }
 }

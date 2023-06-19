@@ -11,7 +11,9 @@ namespace CapaDatos.Controles
 {
     public class CD_Roles
     {
-        //metodo para enlistar los datos
+        /// <summary>
+        /// Metodo para enlistar los datos
+        /// </summary>
         public DataTable Listar()
         {
             SqlDataReader resultado;
@@ -38,7 +40,9 @@ namespace CapaDatos.Controles
             }
         }
 
-        // Metodo para obtener los Roles, devolviendo una lista de objetos
+        /// <summary>
+        /// Metodo para obtener los Roles, devolviendo una lista de objetos
+        /// </summary>
         public List<CE_Rol> ObtenerRoles()
         {
             List<CE_Rol> roles   = new List<CE_Rol>();
@@ -81,6 +85,19 @@ namespace CapaDatos.Controles
             }
 
             return roles;
+        }
+
+        /// <summary>
+        /// Obtiene un rol por nombre
+        /// </summary>
+        public CE_Rol RolByName(string nombre)
+        {            
+            foreach (CE_Rol Rol in ObtenerRoles())
+            {                
+                if (Rol.Nombre.ToLower().Equals(nombre)) return Rol;
+            }
+
+            return null;
         }
     }
 }

@@ -164,8 +164,8 @@ GO
 CREATE TABLE Expedientes (
     IdExpediente INT PRIMARY KEY,
     Nombre VARCHAR(100) UNIQUE,
-    FechaInicio DATE,
-    Iniciador INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL,
+    FechaInicio DATE,    
+    Iniciador INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL,
     ObsIni VARCHAR(500),    
     FechaFin DATE,
     ObsFin VARCHAR(500),  
@@ -865,6 +865,49 @@ BEGIN
 END
 GO
 
+--ESTADOS-EXPEDIENTE
+CREATE PROCEDURE SCM_SP_ESTADOS_EXPEDIENTE_BYROL_LIST
+    @id INT = 0,
+    @idRol INT = 0
+AS
+BEGIN
+    SELECT
+    CP.IdControl,
+    CP.IdRol,
+    CE.IdEstado,
+	E.Nombre AS Estado,
+	CE.Observaciones,
+    CE.Fecha,	
+	EM.IdEmpleado As IdEmpleado,
+	CONCAT(PE.PrimerNombre, ' ',PE.PrimerApellido) As Encargado
+FROM
+    Cambios_Proceso AS CP
+    INNER JOIN Control_Estados AS CE ON CP.IdControl = CE.IdControl
+	INNER JOIN Estados E ON CE.IdEstado = E.IdEstado
+	INNER JOIN Empleados EM ON CP.Recibio = EM.IdEmpleado
+	INNER JOIN Personas PE ON EM.IdPersona = PE.IdPersona
+WHERE
+    CP.IdControl IN (
+        SELECT
+            MAX(IdControl)
+        FROM
+            Cambios_Proceso
+        WHERE
+            IdRol = @idRol
+        GROUP BY
+            IdControl
+    )
+    AND CP.IdRol = 1
+    AND CP.IdControl IN (
+        SELECT
+            IdControl
+        FROM
+            Controles
+        WHERE
+            IdExpediente = @id
+    );
+END
+GO
 
 ---TEMPORALES
 INSERT INTO [SCM].[dbo].[Personas] ([IdPersona], [PrimerNombre], [SegundoNombre], [PrimerApellido], [SegundoApellido], [IdNacionalidad], [FechaNac], [Genero], [RTN], [Activo]) VALUES
@@ -931,6 +974,35 @@ VALUES
     (14, 'Expediente 14', '2024-02-01', 4, 'Observaciones Iniciales 14', '2024-02-15', 'Observaciones Finales 14', 1);
 GO
 
+INSERT INTO CONTROLES(IdExpediente, Activo) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1);
+GO
+
+INSERT INTO Cambios_Proceso (IdControl, Fecha, IdRol, Envio, Recibio, Activo) VALUES
+(1, '2023-01-10', 1, 1, 2, 1),
+(2, '2023-01-11', 1, 3, 4, 1);
+GO
+
+INSERT INTO Control_Estados(IdEstado, IdControl, Observaciones, Fecha, Activo) VALUES
+(1, 1, 'PROCESO INICIADO', '2023-01-01', 1),
+(1, 2, 'PROCESO INICIADO', '2023-01-01', 1);
+(1, 1, 'Estoy listo', '2023-01-01', 1),
+GO
+
+
 
 INSERT INTO Estados (Nombre, Descripcion, Activo) VALUES
 ('Comprobando', 'Comprobando documentos', 1), ('Analizando', 'Analizando documentos', 1), ('Procesando', 'Procesando documentos', 1);
@@ -947,3 +1019,79 @@ INSERT INTO EstadosRoles(IdRol, IdEstado, Numero, Activo) VALUES
 (2, 5, 3, 1);
 GO
 
+
+
+--consultas
+---------Estados by rol  & expediente
+SELECT
+    CP.IdControl,
+    CP.IdRol,
+    CE.IdEstado,
+    CE.Fecha,
+	CE.Observaciones
+FROM
+    Cambios_Proceso AS CP
+    INNER JOIN Control_Estados AS CE ON CP.IdControl = CE.IdControl
+WHERE
+    CP.IdControl IN (
+        SELECT
+            MAX(IdControl)
+        FROM
+            Cambios_Proceso
+        WHERE
+            IdRol = 1
+        GROUP BY
+            IdControl
+    )
+    AND CP.IdRol = 1
+    AND CP.IdControl IN (
+        SELECT
+            IdControl
+        FROM
+            Controles
+        WHERE
+            IdExpediente = 1
+    );
+
+
+---------ultimo by rol  & expediente
+SELECT TOP 1
+    CE.IdControl,
+    CE.IdEstado,
+    CE.Observaciones,
+    CE.Fecha
+FROM
+    Control_Estados CE
+INNER JOIN Controles C ON CE.IdControl = C.IdControl
+WHERE
+    C.IdExpediente = 1
+    AND CE.IdEstado IN (
+        SELECT IdEstado
+        FROM EstadosRoles
+        WHERE IdRol = 1
+    )
+ORDER BY
+    CE.Fecha DESC;
+
+
+--todus by rol & expedite
+	SELECT
+    E.IdExpediente AS Expediente,
+    Rol.Nombre AS Proceso,
+    Est.Nombre AS Estado,
+    CE.Observaciones AS Comentario,
+    UUlt.Nombre AS Encargado,
+    CE.Fecha AS 'Fecha Cambio'
+FROM
+    Expedientes AS E
+    INNER JOIN Controles AS C ON E.IdExpediente = C.IdExpediente
+    INNER JOIN Cambios_Proceso AS CP ON C.IdControl = CP.IdControl
+    INNER JOIN Control_Estados AS CE ON CP.IdControl = CE.IdControl
+    INNER JOIN Estados AS Est ON CE.IdEstado = Est.IdEstado
+    INNER JOIN Roles AS Rol ON CP.IdRol = Rol.IdRol
+    INNER JOIN Usuarios AS UUlt ON CP.Recibio = UUlt.IdUsuario
+WHERE
+    E.IdExpediente = 1
+    AND Rol.IdRol = 1
+ORDER BY
+    CE.Fecha DESC;

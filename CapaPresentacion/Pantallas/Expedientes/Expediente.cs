@@ -1,6 +1,9 @@
 ﻿using Bunifu.Framework.UI;
 using Bunifu.UI.WinForms.BunifuButton;
 using CapaEntidades.Expedientes;
+using CapaEntidades.Roles;
+using CapaNegocio.Expedientes;
+using CapaNegocio.Roles;
 using Guna.UI.WinForms;
 using Guna.UI2.WinForms;
 using MetroFramework.Controls;
@@ -21,12 +24,13 @@ namespace CapaPresentacion.Pantallas.Expedientes
     public partial class Expediente : Form
     {
         CE_Expediente expediente;
+        CE_Rol rol;
+        Funciones funciones = new Funciones();
         public Expediente(CE_Expediente exped)
         {
             InitializeComponent();            
             this.expediente = exped;
             llenar();
-            
         }
 
         private void llenar()
@@ -60,25 +64,45 @@ namespace CapaPresentacion.Pantallas.Expedientes
         {
             // Obtener el índice de la pestaña seleccionada
             int selectedTabIndex = Tabs.SelectedIndex;
+            
+            // Asignamos el rol al Expediente
+            rol = CN_Roles.RolByName(Tabs.SelectedTab.Text.Trim());
+            if ( rol != null) expediente.Rol = rol.ID;            
+
+            List<Guna2DataGridView> Datas = new List<Guna2DataGridView>()
+            {
+                null, null, DataC, DataT
+            };
+
+            // Llenamos las datas
+            if (selectedTabIndex > 1 && selectedTabIndex < Datas.Count && Datas[selectedTabIndex] != null)
+            {
+                var dataSource = CN_Expedientes.Estados(expediente);
+                var columns = Datas[selectedTabIndex].Columns;
+
+                Datas[selectedTabIndex].DataSource = dataSource;
+                columns[0].Visible = false;
+                columns[1].Visible = false;
+                columns[2].Visible = false;
+                columns[6].Visible = false;
+            }
 
             // Actualizar la visibilidad de los controles en cada pestaña
             switch (selectedTabIndex)
             {
-                case 0:
+                case 0: //GLOBAL
+
                     // Mostrar los controles de la primera pestaña
-                    Grupo0.Visible = true;
-                    Grupo1.Visible = false;
-                    // ...
+                    //Grupo0.Visible = true;
+                    //Grupo1.Visible = false;                    
                     break;
 
-                case 1:
+                case 1: //GENERAL
+
                     // Mostrar los controles de la segunda pestaña
-                    Grupo0.Visible = false;
-                    Grupo1.Visible = true;
-                    // ...
+                    //Grupo0.Visible = false;
+                    //Grupo1.Visible = true;
                     break;
-
-                // Agrega más casos según el número de pestañas
 
                 default:
                     break;
@@ -102,6 +126,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
         }
 
         private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tab6_Click(object sender, EventArgs e)
         {
 
         }

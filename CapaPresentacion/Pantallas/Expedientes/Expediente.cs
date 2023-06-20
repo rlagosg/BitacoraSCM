@@ -26,7 +26,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         CE_Expediente expediente;
         CE_Rol rol;
         Funciones funciones = new Funciones();
-        public Expediente(CE_Expediente exped)
+        public Expediente(CE_Expediente exped = null)
         {
             InitializeComponent();            
             this.expediente = exped;
@@ -37,6 +37,10 @@ namespace CapaPresentacion.Pantallas.Expedientes
         {
             if (expediente != null) {
                 TXTBUSCA.Text = expediente.Expediente;
+            }
+            else
+            {
+                Tabs.SelectedIndex = 1;
             }
         }
 
@@ -84,7 +88,6 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
                 currentData.DataSource = dataSource;
                 columns[0].Visible = false; columns[1].Visible = false;
-                columns[2].Visible = false; columns[6].Visible = false;
 
                 if (selectedTabIndex == 6)
                 {
@@ -113,6 +116,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
         }
 
         private void tab6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tab1_Click_1(object sender, EventArgs e)
         {
 
         }

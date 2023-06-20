@@ -12,7 +12,7 @@ namespace CapaDatos.Expedientes
     public class CD_Expedientes
     {
         /// <summary>
-        /// //metodo para enlistar expedientes con filtro por el nombre del expediente
+        /// metodo para enlistar expedientes con filtro por el nombre del expediente
         /// </summary>        
         public DataTable Listar(string texto)
         {
@@ -21,16 +21,19 @@ namespace CapaDatos.Expedientes
             SqlConnection sqlCon = new SqlConnection();
 
             string consulta =
-            "SELECT " 
+            "SELECT "
+                
                 + "E.IdExpediente AS ID, "
-                + "E.Nombre as Expediente, "
+                + "E.Nombre AS Expediente, "
                 + "E.FechaInicio AS Iniciado, "
-                + "UIni.Nombre AS Iniciador, "
+                + "EIni.IdEmpleado AS IdIniciador, "
+                + "CONCAT( PIni.PrimerNombre, ' ',PIni.PrimerApellido) AS Iniciador, "
                 + "E.ObsIni AS 'Obs. Inicial', "
                 + "Rol.Nombre AS Proceso, "
                 + "Est.Nombre AS Estado, "
                 + "CE.Observaciones AS Comentario, "
-                + "UUlt.Nombre AS Encargado, "
+                + "EUlt.IdEmpleado AS IdEncargado, "
+                + "CONCAT(PUlt.PrimerNombre, ' ',PUlt.PrimerApellido) AS Encargado, "
                 + "CE.Fecha AS 'Ult. Cambio', "
                 + "E.FechaFin AS Finalizacion, "
                 + "E.ObsFin AS 'Obs. Final' "
@@ -49,9 +52,11 @@ namespace CapaDatos.Expedientes
                 + "INNER JOIN Control_Estados AS CE ON CEID.UltimoControlEstado = CE.IdControlEstado "
                 + "INNER JOIN Estados AS Est ON CE.IdEstado = Est.IdEstado "
                 + "INNER JOIN Cambios_Proceso AS CP ON C.IdControl = CP.IdControl "
-                + "INNER JOIN Usuarios AS UUlt ON CP.Recibio = UUlt.IdUsuario "
+                + "INNER JOIN Empleados AS EUlt ON CP.Recibio = EUlt.IdEmpleado "
                 + "INNER JOIN Roles AS Rol ON CP.IdRol = Rol.IdRol "
-                + "INNER JOIN Usuarios AS UIni ON E.Iniciador = UIni.IdUsuario "
+                + "INNER JOIN Empleados AS EIni ON E.Iniciador = EIni.IdEmpleado "
+                + "INNER JOIN Personas AS PUlt ON EUlt.IdPersona = PUlt.IdPersona "
+                + "INNER JOIN Personas AS PIni ON EIni.IdPersona = PIni.IdPersona "
             + "WHERE "
                 + "E.Nombre LIKE '%' + @texto + '%' "
                 + "AND E.Activo = 1 "
@@ -132,26 +137,22 @@ namespace CapaDatos.Expedientes
 
                 while (resultado.Read())
                 {
-                    int IdControl        = (int)resultado[0];
-                    int IdRol            = (int)resultado[1];
-                    int IdEstado         = (int)resultado[2];
-                    string Estado        = (string)resultado[3];
-                    string Observaciones = resultado[4] != DBNull.Value
-                                                            ? (string)resultado[4]
+                    int ID               = (int)    resultado[0];
+                    string Proceso       = (string) resultado[1];
+                    string Estado        = (string) resultado[2];
+                    string Observaciones = resultado[3] != DBNull.Value
+                                                            ? (string)resultado[3]
                                                             : null;
-                    DateTime Fecha = (DateTime)resultado[5];
-                    int IdEmpleado = (int)resultado[6];
-                    string Encargado = (string)resultado[7];
+                    DateTime Fecha   = (DateTime) resultado[4];
+                    string Encargado = (string)   resultado[5];
 
                     CE_EstadoExpediente estado = new CE_EstadoExpediente
                     (
-                        IdControl,
-                        IdRol,
-                        IdEstado,
+                        ID,
+                        Proceso,
                         Estado,
                         Observaciones,
                         Fecha,
-                        IdEmpleado,
                         Encargado
                     );
                     estados.Add(estado);

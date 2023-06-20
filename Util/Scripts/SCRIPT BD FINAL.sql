@@ -164,10 +164,10 @@ GO
 CREATE TABLE Expedientes (
     IdExpediente INT PRIMARY KEY,
     Nombre VARCHAR(100) UNIQUE,
-    FechaInicio DATE,    
+    FechaInicio DATETIME,    
     Iniciador INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL,
     ObsIni VARCHAR(500),    
-    FechaFin DATE,
+    FechaFin DATETIME,
     ObsFin VARCHAR(500),  
     Activo BIT
 );
@@ -197,7 +197,8 @@ CREATE TABLE Control_Estados (
     IdControlEstado INT PRIMARY KEY IDENTITY(1,1),
     IdControl INT FOREIGN KEY REFERENCES Controles(IdControl) ON UPDATE CASCADE NOT NULL,
     IdEstado INT FOREIGN KEY REFERENCES Estados(IdEstado) ON UPDATE CASCADE NOT NULL,
-    IdRol INT FOREIGN KEY REFERENCES Roles(IdRol) ON UPDATE CASCADE NOT NULL,        
+    IdRol INT FOREIGN KEY REFERENCES Roles(IdRol) ON UPDATE CASCADE NOT NULL,
+    IdEmpleado INT FOREIGN KEY REFERENCES Empleados(IdEmpleado)  ON UPDATE CASCADE NOT NULL,         
     Observaciones VARCHAR(500),
     Fecha DATETIME,
     Activo bit
@@ -450,9 +451,6 @@ END;
 GO
 
 
-
-
-
 ----MUNICIPIOS
 -----------------------------------------------------------
 
@@ -492,7 +490,6 @@ BEGIN
 	UPDATE MUNICIPIOS SET Activo = 0 WHERE IdMunicipio = @id;
 END;
 GO
-
 
 
 ----DIRECCIONES
@@ -713,9 +710,63 @@ END;
 GO
 
 
+----EMPLEADOS
+-----------------------------------------------------------
+--Listar
+CREATE PROCEDURE SCM_SP_EMPLEADOS_LIST
+    @texto VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT E.IdEmpleado AS 'Empleado', P.IdPersona AS 'ID', CONCAT_WS(' ', P.PrimerNombre, P.SegundoNombre, P.PrimerApellido, P.SegundoApellido) AS Nombre, CONCAT_WS(' ', P.PrimerNombre, P.PrimerApellido) AS 'Nombre Corto'
+    FROM Empleados E
+    JOIN Personas P ON E.IdPersona = P.IdPersona
+    WHERE CONCAT_WS(' ', P.IdPersona, P.PrimerNombre, P.SegundoNombre, P.PrimerApellido, P.SegundoApellido) LIKE '%' + @texto + '%';
+END;
+GO
+
+--Guardar/Modificat
+CREATE PROCEDURE SCM_SP_EMPLEADOS_SAVE
+    @opcion INT = 0,
+    @id INT = 0,
+    @IdPersona VARCHAR(13)
+AS
+BEGIN
+    IF @opcion = 1 -- Nuevo Registro
+    BEGIN
+        -- Verificar si ya existe un empleado con ese IdPersona y está desactivado
+        IF EXISTS(SELECT 1 FROM Empleados WHERE IdPersona = @IdPersona AND Activo = 0)
+        BEGIN
+            -- Activar el empleado existente
+            UPDATE Empleados SET Activo = 1 WHERE IdPersona = @IdPersona;
+        END
+        ELSE
+        BEGIN
+            -- Crear un nuevo empleado
+            INSERT INTO Empleados (IdPersona, Activo) VALUES (@IdPersona, 1);
+        END;
+    END;
+    ELSE -- Actualizar Registro
+    BEGIN
+        UPDATE Empleados SET IdPersona = @IdPersona WHERE IdEmpleado = @id;
+    END;
+END;
+GO
+
+--Eliminar
+CREATE PROCEDURE SCM_SP_EMPLEADOS_DELETE
+@id int = 0
+AS
+BEGIN
+	UPDATE EMPLEADOS SET Activo = 0 WHERE IdEmpleado = @id;
+END;
+GO
+
+
+
 ----ESTADOS
 -----------------------------------------------------------
-
 --Listar
 CREATE PROCEDURE SCM_SP_ESTADOS_LIST
 @texto varchar(70)=''
@@ -824,19 +875,22 @@ GO
 
 ----EXPEDIENTES
 -----------------------------------------------------------
-CREATE PROCEDURE SCM_SP_EXPEDIENTE_LIST
-    @nombre VARCHAR(100)
+CREATE PROCEDURE SCM_SP_EXPEDIENTES_LIST
+    @nombre NVARCHAR(50)
 AS
 BEGIN
     SELECT
-        E.IdExpediente AS Expediente,
+        E.IdExpediente AS ID,
+        E.Nombre AS Expediente,
         E.FechaInicio AS Iniciado,
-        UIni.Nombre AS Iniciador,
+		EIni.IdEmpleado AS IdIniciador,
+        CONCAT( PIni.PrimerNombre, ' ',PIni.PrimerApellido) AS Iniciador,
         E.ObsIni AS 'Observacion Inicial',
         Rol.Nombre AS Proceso,
         Est.Nombre AS Estado,
         CE.Observaciones AS Comentario,
-        UUlt.Nombre AS Encargado,
+		EUlt.IdEmpleado AS IdEncargado,
+        CONCAT(PUlt.PrimerNombre, ' ',PUlt.PrimerApellido) AS Encargado,
         CE.Fecha AS 'Ultimo Cambio',
         E.FechaFin AS Finalizacion,
         E.ObsFin AS 'Observacion Final'
@@ -855,14 +909,16 @@ BEGIN
         INNER JOIN Control_Estados AS CE ON CEID.UltimoControlEstado = CE.IdControlEstado
         INNER JOIN Estados AS Est ON CE.IdEstado = Est.IdEstado
         INNER JOIN Cambios_Proceso AS CP ON C.IdControl = CP.IdControl
-        INNER JOIN Usuarios AS UUlt ON CP.Recibio = UUlt.IdUsuario
+        INNER JOIN Empleados AS EUlt ON CP.Recibio = EUlt.IdEmpleado
         INNER JOIN Roles AS Rol ON CP.IdRol = Rol.IdRol
-        INNER JOIN Usuarios AS UIni ON E.Iniciador = UIni.IdUsuario
+        INNER JOIN Empleados AS EIni ON E.Iniciador = EIni.IdEmpleado
+        INNER JOIN Personas AS PUlt ON EUlt.IdPersona = PUlt.IdPersona
+        INNER JOIN Personas AS PIni ON EIni.IdPersona = PIni.IdPersona
     WHERE
-        E.Nombre = @nombre
-        AND E.Activo = 1
-    ORDER BY
-        E.IdExpediente;
+		E.Nombre LIKE '%' + @nombre + '%'
+		AND E.Activo = 1
+	ORDER BY
+		E.IdExpediente;
 END
 GO
 
@@ -875,40 +931,22 @@ CREATE PROCEDURE SCM_SP_ESTADOS_EXPEDIENTE_BYROL_LIST
 AS
 BEGIN
     SELECT
-        CP.IdControl,
-        CP.IdRol,
-        CE.IdEstado,
-        E.Nombre AS Estado,
-        CE.Observaciones,
-        CE.Fecha,
-        EM.IdEmpleado AS IdEmpleado,
-        CONCAT(PE.PrimerNombre, ' ', PE.PrimerApellido) AS Encargado
+        C.IdExpediente AS Expediente,
+        Rol.Nombre AS Proceso,
+        Est.Nombre AS Estado,
+        CE.Observaciones AS Comentario,
+        CE.Fecha AS Fecha,
+        CONCAT(P.PrimerNombre, ' ', P.PrimerApellido) AS Encargado
     FROM
-        Cambios_Proceso AS CP
-        INNER JOIN Control_Estados AS CE ON CP.IdControl = CE.IdControl
-        INNER JOIN Estados E ON CE.IdEstado = E.IdEstado
-        INNER JOIN Empleados EM ON CP.Recibio = EM.IdEmpleado
-        INNER JOIN Personas PE ON EM.IdPersona = PE.IdPersona
-    WHERE
-        CP.IdControl IN (
-            SELECT
-                MAX(IdControl)
-            FROM
-                Cambios_Proceso
-            WHERE
-                IdRol = @idRol
-            GROUP BY
-                IdControl
-        )
-        AND CE.IdRol = @idRol
-        AND CP.IdControl IN (
-            SELECT
-                IdControl
-            FROM
-                Controles
-            WHERE
-                IdExpediente = @id
-        );
+        Controles C
+        INNER JOIN Control_Estados CE ON C.IdControl = CE.IdControl
+        INNER JOIN Roles Rol ON CE.IdRol =  Rol.IdRol
+        INNER JOIN Estados Est ON CE.IdEstado = Est.IdEstado
+        INNER JOIN Empleados EM ON CE.IdEmpleado = EM.IdEmpleado
+        INNER JOIN Personas P ON EM.IdPersona = P.IdPersona
+    WHERE 
+        C.IdExpediente = @id
+        AND Rol.idRol = @idRol
 END
 GO
 
@@ -919,25 +957,21 @@ CREATE PROCEDURE SCM_SP_ESTADOS_EXPEDIENTE_LIST
 AS
 BEGIN
     SELECT
-        E.IdExpediente AS Expediente,
-        Rol.Nombre AS Proceso,
-        Est.Nombre AS Estado,
-        CE.Observaciones AS Comentario,
-        CE.Fecha AS Fecha,
-        CONCAT(P.PrimerNombre, ' ', P.PrimerApellido) AS Encargado
-    FROM
-        Expedientes AS E
-        INNER JOIN Controles AS C ON E.IdExpediente = C.IdExpediente
-        INNER JOIN Control_Estados AS CE ON C.IdControl = CE.IdControl
-        INNER JOIN Estados AS Est ON CE.IdEstado = Est.IdEstado
-        INNER JOIN Cambios_Proceso AS CP ON CE.IdControl = CP.IdControl
-        INNER JOIN Roles AS Rol ON CP.IdRol = Rol.IdRol
-        INNER JOIN Empleados AS EM ON CP.Recibio = EM.IdEmpleado
-        INNER JOIN Personas AS P ON EM.IdPersona = P.IdPersona
-    WHERE
-        E.IdExpediente = @id
-    ORDER BY
-        CE.Fecha DESC;
+    C.IdExpediente AS Expediente,
+    Rol.Nombre AS Proceso,
+    Est.Nombre AS Estado,
+    CE.Observaciones AS Comentario,
+    CE.Fecha AS Fecha,
+    CONCAT(P.PrimerNombre, ' ', P.PrimerApellido) AS Encargado
+FROM
+    Controles C
+    INNER JOIN Control_Estados CE ON C.IdControl = CE.IdControl
+    INNER JOIN Roles Rol ON CE.IdRol =  Rol.IdRol
+    INNER JOIN Estados Est ON CE.IdEstado = Est.IdEstado
+    INNER JOIN Empleados EM ON CE.IdEmpleado = EM.IdEmpleado
+    INNER JOIN Personas P ON EM.IdPersona = P.IdPersona
+WHERE 
+    C.IdExpediente = @id;
 END
 GO
 
@@ -996,9 +1030,9 @@ GO
 
 INSERT INTO Expedientes (IdExpediente, Nombre, FechaInicio, Iniciador, ObsIni, FechaFin, ObsFin, Activo)
 VALUES 
-    (1, 'Expediente 1', '2023-01-14T17:30:00', 1, 'Observaciones Iniciales 1', '2023-01-14T17:30:00', 'Observaciones Finales 1', 1),
-    (2, 'Expediente 2', '2023-01-14T17:30:00', 2, 'Observaciones Iniciales 2', '2023-01-14T17:30:00', 'Observaciones Finales 2', 1),
-    (3, 'Expediente 3', '2023-01-14T17:30:00', 3, 'Observaciones Iniciales 3', '2023-01-14T17:30:00', 'Observaciones Finales 3', 1);
+    (1, 'CAM2023-2-86', '2023-01-14T17:30:00', 1, 'Observaciones Iniciales 1', '2023-01-14T17:30:00', 'Observaciones Finales 1', 1),
+    (2, 'CAM2023-2-94', '2023-01-14T17:30:00', 2, 'Observaciones Iniciales 2', '2023-01-14T17:30:00', 'Observaciones Finales 2', 1),
+    (3, 'CAM2023-1-08', '2023-01-14T17:30:00', 3, 'Observaciones Iniciales 3', '2023-01-14T17:30:00', 'Observaciones Finales 3', 1);
 GO
 
 INSERT INTO CONTROLES(IdExpediente, Activo) VALUES
@@ -1016,16 +1050,16 @@ INSERT INTO Cambios_Proceso (IdControl, Fecha, IdRol, Envio, Recibio, Activo) VA
 (2, '2023-01-14T17:30:00', 1, 2, 3, 1);
 GO
 
-INSERT INTO Control_Estados(IdControl, IdEstado, IdRol, Observaciones, Fecha, Activo) VALUES
-(1, 1, 1, 'proceso iniciado', '2023-01-14T17:30:00', 1),
-(1, 2, 2,'proceso escalal', '2023-01-14T17:30:00', 1),
-(1, 2, 3,'proceso maxilial', '2023-01-14T17:30:00', 1),
-(2, 3, 1,'estoy listo', '2023-01-14T17:30:00', 1);
+INSERT INTO Control_Estados(IdControl, IdEstado, IdRol, IdEmpleado, Observaciones, Fecha, Activo) VALUES
+(1, 1, 1, 1, 'proceso iniciado', '2023-01-14T17:30:00', 1),
+(1, 2, 2, 2, 'proceso escalal', '2023-01-14T17:30:00', 1),
+(1, 2, 3, 3, 'proceso maxilial', '2023-01-14T17:30:00', 1),
+(2, 3, 1, 4, 'estoy listo', '2023-01-14T17:30:00', 1);
 GO
 
-select * from Cambios_Proceso;
-select * from Control_Estados;
-select * from Roles;
+--select * from Cambios_Proceso;
+--select * from Control_Estados;
+--select * from Roles;
 
 
 
@@ -1045,7 +1079,7 @@ GO
 --consultas
 
 ---------ultimo by rol  & expediente
-SELECT TOP 1
+/* SELECT TOP 1
     CE.IdControl,
     CE.IdEstado,
     CE.Observaciones,
@@ -1084,4 +1118,4 @@ WHERE
     E.IdExpediente = 1
     AND Rol.IdRol = 1
 ORDER BY
-    CE.Fecha DESC;
+    CE.Fecha DESC; */

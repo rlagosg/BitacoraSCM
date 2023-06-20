@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -147,6 +147,18 @@
     <Compile Include="Pantallas\Expedientes\Expedientes.Designer.cs">
       <DependentUpon>Expedientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Personas\Empleados\Empleades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Personas\Empleados\Empleades.Designer.cs">
+      <DependentUpon>Empleades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Personas\Empleados\EmpleadosE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Personas\Empleados\EmpleadosE.Designer.cs">
+      <DependentUpon>EmpleadosE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Roles\Estados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +250,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Expedientes\Expedientes.resx">
       <DependentUpon>Expedientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Personas\Empleados\Empleades.resx">
+      <DependentUpon>Empleades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Personas\Empleados\EmpleadosE.resx">
+      <DependentUpon>EmpleadosE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Roles\Estados.resx">
       <DependentUpon>Estados.cs</DependentUpon>

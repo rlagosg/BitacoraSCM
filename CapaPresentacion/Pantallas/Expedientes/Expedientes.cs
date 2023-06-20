@@ -50,18 +50,29 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 else
                 {                    
                     Data.DataSource = CN_Expedientes.Listar(texto);
-                }                
-                Data.Columns[0].Visible = false;
+                }
 
-                //Data.ClearSelection();
-                //Data.Columns[0].Visible = false;
-                ///if (Data.SelectedRows.Count > 0) if (indiceData >= 0) Data.Rows[indiceData].Selected = true;               
-
+                Tabla();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + ex.StackTrace);
             }
+        }
+
+        private void Tabla()
+        {
+            Data.Columns[0].Visible = false; Data.Columns[4]. Visible = false;
+            Data.Columns[3].Visible = false; Data.Columns[9]. Visible = false;
+            Data.Columns[5].Visible = false; Data.Columns[13].Visible = false;
+
+            Data.Columns[1].Width  = 120; //nombre          
+            Data.Columns[2].Width  = 140; //fecha inicial            
+            Data.Columns[6].Width  = 140; //Proceso
+            Data.Columns[7].Width  = 150; //Estado
+            Data.Columns[8].Width  = 300; //Comentario
+            Data.Columns[11].Width = 140; //Ult.Cambio
+            Data.Columns[12].Width = 140; //fecha final           
         }
 
         private void gunaCircleButton1_Click(object sender, EventArgs e)
@@ -126,8 +137,20 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 {
                     // Sacamos los datos del grid                                    
                     expediente = new CE_Expediente(
-                        funciones.convertInt(fila.Cells[0].Value), //id
-                        funciones.convertString(fila.Cells[1].Value) //nombre
+                        funciones.convertInt    (fila.Cells[0]. Value), //id
+                        funciones.convertString (fila.Cells[1]. Value), //nombre
+                        funciones.convertDate   (fila.Cells[2]. Value),
+                        funciones.convertInt    (fila.Cells[3]. Value),
+                        funciones.convertString (fila.Cells[4]. Value),
+                        funciones.convertString (fila.Cells[5]. Value),
+                        funciones.convertString (fila.Cells[6]. Value),
+                        funciones.convertString (fila.Cells[7]. Value),
+                        funciones.convertString (fila.Cells[8]. Value),
+                        funciones.convertInt    (fila.Cells[9]. Value),
+                        funciones.convertString (fila.Cells[10].Value),
+                        funciones.convertString (fila.Cells[11].Value),
+                        funciones.convertDate   (fila.Cells[12].Value),
+                        funciones.convertString (fila.Cells[13].Value)                        
                     );
                     indiceData = Data.CurrentRow.Index;
                     return true;
@@ -143,6 +166,12 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 Expediente form = new Expediente(expediente);
                 form.ShowDialog();
             }
+        }
+
+        private void guna2Button4_Click(object sender, EventArgs e)
+        {
+            Expediente form = new Expediente();
+            form.ShowDialog();
         }
     }
 }

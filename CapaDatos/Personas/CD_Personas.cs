@@ -11,7 +11,7 @@ namespace CapaDatos.Personas
     {
 
         //metodo para enlistar los datos
-        public DataTable Listar(string texto)
+        public DataTable Listar(string texto, int op = 0)
         {
             SqlDataReader resultado;
             DataTable tabla = new DataTable();
@@ -20,7 +20,12 @@ namespace CapaDatos.Personas
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando  = new SqlCommand("SCM_SP_PERSONAS_LIST", sqlCon);
+                SqlCommand comando;
+          
+                //si el estado no es 0, estamos buscando posibles empleados
+                if (op == 0 ) comando = new SqlCommand("SCM_SP_PERSONAS_LIST", sqlCon);
+                else comando = new SqlCommand("SCM_SP_PERSONAS_NO_EMPLEADOS_LIST", sqlCon);
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@texto", SqlDbType.VarChar).Value = texto;
                 sqlCon.Open();

@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmpleadosE));
             this.gunaGroupBox1 = new Guna.UI.WinForms.GunaGroupBox();
-            this.TXTINICIADOR = new Guna.UI2.WinForms.Guna2TextBox();
+            this.TXTNOMBRE = new Guna.UI2.WinForms.Guna2TextBox();
             this.gunaButton1 = new Guna.UI.WinForms.GunaButton();
             this.label1 = new System.Windows.Forms.Label();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
@@ -43,7 +43,7 @@
             this.gunaGroupBox1.BaseColor = System.Drawing.Color.White;
             this.gunaGroupBox1.BorderColor = System.Drawing.Color.Gainsboro;
             this.gunaGroupBox1.BorderSize = 1;
-            this.gunaGroupBox1.Controls.Add(this.TXTINICIADOR);
+            this.gunaGroupBox1.Controls.Add(this.TXTNOMBRE);
             this.gunaGroupBox1.Controls.Add(this.gunaButton1);
             this.gunaGroupBox1.Controls.Add(this.label1);
             this.gunaGroupBox1.Controls.Add(this.guna2Button2);
@@ -58,27 +58,27 @@
             this.gunaGroupBox1.TabIndex = 136;
             this.gunaGroupBox1.TextLocation = new System.Drawing.Point(10, 8);
             // 
-            // TXTINICIADOR
+            // TXTNOMBRE
             // 
-            this.TXTINICIADOR.BorderRadius = 5;
-            this.TXTINICIADOR.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TXTINICIADOR.DefaultText = "";
-            this.TXTINICIADOR.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.TXTINICIADOR.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.TXTINICIADOR.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.TXTINICIADOR.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.TXTINICIADOR.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(79)))), ((int)(((byte)(103)))));
-            this.TXTINICIADOR.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.TXTINICIADOR.HoverState.BorderColor = System.Drawing.Color.DarkTurquoise;
-            this.TXTINICIADOR.Location = new System.Drawing.Point(39, 74);
-            this.TXTINICIADOR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.TXTINICIADOR.Name = "TXTINICIADOR";
-            this.TXTINICIADOR.PasswordChar = '\0';
-            this.TXTINICIADOR.PlaceholderText = "Selecciona una persona";
-            this.TXTINICIADOR.ReadOnly = true;
-            this.TXTINICIADOR.SelectedText = "";
-            this.TXTINICIADOR.Size = new System.Drawing.Size(330, 36);
-            this.TXTINICIADOR.TabIndex = 136;
+            this.TXTNOMBRE.BorderRadius = 5;
+            this.TXTNOMBRE.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TXTNOMBRE.DefaultText = "";
+            this.TXTNOMBRE.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.TXTNOMBRE.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.TXTNOMBRE.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.TXTNOMBRE.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.TXTNOMBRE.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(79)))), ((int)(((byte)(103)))));
+            this.TXTNOMBRE.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.TXTNOMBRE.HoverState.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.TXTNOMBRE.Location = new System.Drawing.Point(39, 74);
+            this.TXTNOMBRE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TXTNOMBRE.Name = "TXTNOMBRE";
+            this.TXTNOMBRE.PasswordChar = '\0';
+            this.TXTNOMBRE.PlaceholderText = "Selecciona una persona";
+            this.TXTNOMBRE.ReadOnly = true;
+            this.TXTNOMBRE.SelectedText = "";
+            this.TXTNOMBRE.Size = new System.Drawing.Size(330, 36);
+            this.TXTNOMBRE.TabIndex = 136;
             // 
             // gunaButton1
             // 
@@ -160,7 +160,7 @@
         #endregion
 
         private Guna.UI.WinForms.GunaGroupBox gunaGroupBox1;
-        private Guna.UI2.WinForms.Guna2TextBox TXTINICIADOR;
+        private Guna.UI2.WinForms.Guna2TextBox TXTNOMBRE;
         private Guna.UI.WinForms.GunaButton gunaButton1;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;

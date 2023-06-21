@@ -28,9 +28,10 @@ namespace CapaPresentacion.Pantallas.Personas
 
         private void Tabla()
         {
-            Data.Columns[3].Visible = false; 
+            Data.Columns[4].Visible = false; 
             Data.Columns[0].Width = 150; //nombre          
-            Data.Columns[1].Width = 140; //fecha inicial                               
+            Data.Columns[1].Width = 160; //fecha inicial                               
+            Data.Columns[2].Width = 160; //fecha inicial 
         }
 
         public void Listar(string texto = "")

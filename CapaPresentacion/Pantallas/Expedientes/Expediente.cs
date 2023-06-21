@@ -41,6 +41,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
             else
             {
                 Tabs.SelectedIndex = 1;
+
             }
         }
 

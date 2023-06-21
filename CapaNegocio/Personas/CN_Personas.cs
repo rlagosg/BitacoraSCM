@@ -9,10 +9,10 @@ namespace CapaNegocio.Personas
 {
     public class CN_Personas
     {
-        public static DataTable Listar(string texto)
+        public static DataTable Listar(string texto, int op = 0)
         {
             CD_Personas datos = new CD_Personas();
-            return datos.Listar(texto);
+            return datos.Listar(texto, op);
         }
 
         public static string Salvar(int opcion, CE_Persona persona)

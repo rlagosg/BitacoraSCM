@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CapaEntidades.Personas;
+using CapaEntidades.Personas.Empleados;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +14,8 @@ namespace CapaPresentacion.Pantallas.Personas.Empleados
 {
     public partial class EmpleadosE : Form
     {
+        CE_Empleado empleado = new CE_Empleado();
+        CE_Persona persona;
         public EmpleadosE()
         {
             InitializeComponent();
@@ -19,13 +23,19 @@ namespace CapaPresentacion.Pantallas.Personas.Empleados
 
         private void gunaButton1_Click(object sender, EventArgs e)
         {
-            Personas frm = new Personas();
+            Personas frm = new Personas(1, this); 
             frm.ShowDialog();
         }
 
         private void EmpleadosE_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void ActualizaPersona(CE_Persona persona)
+        {
+            empleado.IdPersona = persona.Id;
+            TXTNOMBRE.Text = persona.NombreCompleto;
         }
     }
 }

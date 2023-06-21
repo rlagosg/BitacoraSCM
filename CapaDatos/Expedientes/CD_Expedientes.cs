@@ -22,24 +22,26 @@ namespace CapaDatos.Expedientes
 
             string consulta =
             "SELECT "
-                
-                + "E.IdExpediente AS ID, "
+                + "C.IdControl AS IdControl, "
+                + "E.IdExpediente AS IdExpediente, "
                 + "E.Nombre AS Expediente, "
-                + "E.FechaInicio AS Iniciado, "
-                + "EIni.IdEmpleado AS IdIniciador, "
-                + "CONCAT( PIni.PrimerNombre, ' ',PIni.PrimerApellido) AS Iniciador, "
-                + "E.ObsIni AS 'Obs. Inicial', "
+                + "C.FechaInicio AS Iniciado, "
+                + "C.Iniciador AS IdIniciador, "
+                + "CONCAT(PIni.PrimerNombre, ' ', PIni.PrimerApellido) AS Iniciador, "
+                + "C.ObsIni AS 'Observacion Inicial', "
                 + "Rol.Nombre AS Proceso, "
                 + "Est.Nombre AS Estado, "
-                + "CE.Observaciones AS Comentario, "
-                + "EUlt.IdEmpleado AS IdEncargado, "
-                + "CONCAT(PUlt.PrimerNombre, ' ',PUlt.PrimerApellido) AS Encargado, "
-                + "CE.Fecha AS 'Ult. Cambio', "
-                + "E.FechaFin AS Finalizacion, "
-                + "E.ObsFin AS 'Obs. Final' "
+                + "CE.Observaciones AS Comentario,     "
+                + "CE.IdEmpleado AS IdIniciador, "
+                + "CONCAT(PEn.PrimerNombre, ' ', PEn.PrimerApellido) AS Encargado, "
+                + "CE.Fecha AS 'Ultimo Cambio', "
+                + "C.Finalizador, "
+                + "CONCAT(PFin.PrimerNombre, ' ', PFin.PrimerApellido) AS Encargado, "
+                + "C.FechaFin AS Finalizacion, "
+                + "C.ObsFin AS 'Observacion Final' "
             + "FROM "
-                + "Expedientes AS E "
-                + "INNER JOIN Controles AS C ON E.IdExpediente = C.IdExpediente "
+                + "Controles AS C "
+                + "INNER JOIN Expedientes AS E ON C.IdExpediente = E.IdExpediente "
                 + "INNER JOIN ( "
                     + "SELECT "
                         + "IdControl, "
@@ -47,21 +49,24 @@ namespace CapaDatos.Expedientes
                     + "FROM "
                         + "Control_Estados "
                     + "GROUP BY "
-                        + "IdControl "
+                + "IdControl "
                 + ") AS CEID ON C.IdControl = CEID.IdControl "
                 + "INNER JOIN Control_Estados AS CE ON CEID.UltimoControlEstado = CE.IdControlEstado "
                 + "INNER JOIN Estados AS Est ON CE.IdEstado = Est.IdEstado "
                 + "INNER JOIN Cambios_Proceso AS CP ON C.IdControl = CP.IdControl "
                 + "INNER JOIN Empleados AS EUlt ON CP.Recibio = EUlt.IdEmpleado "
                 + "INNER JOIN Roles AS Rol ON CP.IdRol = Rol.IdRol "
-                + "INNER JOIN Empleados AS EIni ON E.Iniciador = EIni.IdEmpleado "
-                + "INNER JOIN Personas AS PUlt ON EUlt.IdPersona = PUlt.IdPersona "
+                + "INNER JOIN Empleados AS EIni ON C.Iniciador = EIni.IdEmpleado "
                 + "INNER JOIN Personas AS PIni ON EIni.IdPersona = PIni.IdPersona "
+                + "INNER JOIN Empleados AS EEn ON C.Iniciador = EEn.IdEmpleado "
+                + "INNER JOIN Personas AS PEn ON EEn.IdPersona = PEn.IdPersona "
+                + "LEFT JOIN Empleados AS EFin ON C.Finalizador = EFin.IdEmpleado "
+                + "LEFT JOIN Personas AS PFin ON EFin.IdPersona = PFin.IdPersona "
             + "WHERE "
                 + "E.Nombre LIKE '%' + @texto + '%' "
                 + "AND E.Activo = 1 "
             + "ORDER BY "
-                + "E.IdExpediente;";
+                + "E.Nombre; ";
 
             try
             {
@@ -96,9 +101,9 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_EXPEDIENTE_BYROL_LIST", sqlCon);
+                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_CONTROL_ESTADOS_BYROL_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@id",    expediente.ID);
+                comando.Parameters.AddWithValue("@id",    expediente.IdExpediente);
                 comando.Parameters.AddWithValue("@idRol", expediente.Rol);
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
@@ -128,9 +133,9 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_EXPEDIENTE_BYROL_LIST", sqlCon);
+                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_CONTROL_ESTADOS_BYROL_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@id",    SqlDbType.Int).Value = expediente.ID;
+                comando.Parameters.Add("@id",    SqlDbType.Int).Value = expediente.IdExpediente;
                 comando.Parameters.Add("@idRol", SqlDbType.Int).Value = expediente.Rol;
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
@@ -183,9 +188,9 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_EXPEDIENTE_LIST", sqlCon);
+                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_ESTADOS_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@id", expediente.ID);                
+                comando.Parameters.AddWithValue("@id", expediente.IdExpediente);                
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
                 tabla.Load(resultado);

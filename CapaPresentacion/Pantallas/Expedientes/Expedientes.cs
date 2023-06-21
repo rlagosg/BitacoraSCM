@@ -62,17 +62,20 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Tabla()
         {
-            Data.Columns[0].Visible = false; Data.Columns[4]. Visible = false;
-            Data.Columns[3].Visible = false; Data.Columns[9]. Visible = false;
-            Data.Columns[5].Visible = false; Data.Columns[13].Visible = false;
+            Data.Columns[0].Visible = false;
+            Data.Columns[1].Visible = false;
+            Data.Columns[5]. Visible = false;
+            Data.Columns[4].Visible = false; Data.Columns[10]. Visible = false;
+            Data.Columns[6].Visible = false; Data.Columns[13].Visible = false;
+            Data.Columns[14].Visible = false; Data.Columns[16].Visible = false;
 
-            Data.Columns[1].Width  = 120; //nombre          
-            Data.Columns[2].Width  = 140; //fecha inicial            
-            Data.Columns[6].Width  = 140; //Proceso
-            Data.Columns[7].Width  = 150; //Estado
-            Data.Columns[8].Width  = 300; //Comentario
-            Data.Columns[11].Width = 140; //Ult.Cambio
-            Data.Columns[12].Width = 140; //fecha final           
+            Data.Columns[2].Width  = 140; //nombre          
+            Data.Columns[3].Width  = 140; //fecha inicial            
+            Data.Columns[7].Width  = 140; //Proceso
+            Data.Columns[8].Width  = 190; //Estado
+            Data.Columns[9].Width  = 300; //Comentario
+            Data.Columns[12].Width = 140; //Ult.Cambio
+            Data.Columns[15].Width = 90; //fecha final           
         }
 
         private void gunaCircleButton1_Click(object sender, EventArgs e)
@@ -137,20 +140,20 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 {
                     // Sacamos los datos del grid                                    
                     expediente = new CE_Expediente(
-                        funciones.convertInt    (fila.Cells[0]. Value), //id
-                        funciones.convertString (fila.Cells[1]. Value), //nombre
-                        funciones.convertDate   (fila.Cells[2]. Value),
-                        funciones.convertInt    (fila.Cells[3]. Value),
-                        funciones.convertString (fila.Cells[4]. Value),
-                        funciones.convertString (fila.Cells[5]. Value),
-                        funciones.convertString (fila.Cells[6]. Value),
-                        funciones.convertString (fila.Cells[7]. Value),
-                        funciones.convertString (fila.Cells[8]. Value),
-                        funciones.convertInt    (fila.Cells[9]. Value),
-                        funciones.convertString (fila.Cells[10].Value),
-                        funciones.convertString (fila.Cells[11].Value),
-                        funciones.convertDate   (fila.Cells[12].Value),
-                        funciones.convertString (fila.Cells[13].Value)                        
+                        //funciones.convertInt(fila.Cells[5].Value),//IdControl          
+                        //funciones.convertInt(fila.Cells[5].Value),//IdExpediente       
+                        //funciones.convertString(fila.Cells[5].Value), //Expediente      
+                        //funciones.convertDate(fila.Cells[5].Value), //Iniciado     
+                        //CN_Persona.BuscaById(funciones.convertInt),// Iniciador   
+                        //funciones.convertString(fila.Cells[5].Value), //ObsInicial      
+                        //funciones.convertString(fila.Cells[5].Value), //Proceso         
+                        //funciones.convertString(fila.Cells[5].Value), //Estado          
+                        //funciones.convertString(fila.Cells[5].Value), //Comentario      
+                        //CN_Persona.BuscaById(funciones.convertInt),// Encargado   
+                        //funciones.convertDate(fila.Cells[5].Value), //UltCambio    
+                        //CN_Persona.BuscaById(funciones.convertInt),// Finalizador 
+                        //funciones.convertDate(fila.Cells[5].Value), //Finalizacion 
+                        //funciones.convertString(fila.Cells[5].Value) //ObsFinal        
                     );
                     indiceData = Data.CurrentRow.Index;
                     return true;

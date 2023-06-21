@@ -11,6 +11,7 @@ namespace CapaEntidades.Personas
         public string SegundoNombre      { get; set; }
         public string PrimerApellido     { get; set; }
         public string SegundoApellido    { get; set; }
+        public string NombreCompleto     { get; set; }
         public int IdNacionalidad        { get; set; }
         public DateTime? FechaNacimiento { get; set; }
         public string Genero             { get; set; }
@@ -19,7 +20,7 @@ namespace CapaEntidades.Personas
         //constructor con parametros
         public CE_Persona(
             string id, string primerNombre, string segundoNombre,
-            string primerApellido, string segundoApellido,
+            string primerApellido, string segundoApellido, string nombreCompleto,
             int idNacionalidad, DateTime? fechaNacimiento,
             string genero, string rTN)
         {
@@ -28,6 +29,7 @@ namespace CapaEntidades.Personas
             SegundoNombre   = segundoNombre;
             PrimerApellido  = primerApellido;
             SegundoApellido = segundoApellido;
+            NombreCompleto  = nombreCompleto;
             IdNacionalidad  = idNacionalidad;
             FechaNacimiento = fechaNacimiento;
             Genero          = genero;

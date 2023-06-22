@@ -104,7 +104,11 @@ namespace CapaPresentacion.Pantallas.Personas
             List<CE_Nacionalidades> nacionalidades = CN_Nacionalidades.ObtenerLista();
             foreach (CE_Nacionalidades nacionalidad in nacionalidades)
             {
-                if (nacionalidad.Nacionalidad.Equals(name)) this.nacionalidad = nacionalidad;
+                if (nacionalidad.Nacionalidad.Equals(name))
+                {
+                    this.nacionalidad = nacionalidad;
+                    persona.Nacionalidad = nacionalidad;
+                }
             }            
         }
 

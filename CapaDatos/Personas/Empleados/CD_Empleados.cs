@@ -43,6 +43,56 @@ namespace CapaDatos.Personas.Empleados
         }
 
         /// <summary>
+        /// Metodo para obtener los empleados, devolviendo una lista de objetos
+        /// </summary>
+        public List<CE_Empleado> ObtenerEmpleados()
+        {
+            List<CE_Empleado> Empleados = new List<CE_Empleado>();
+            CD_Personas personas = new CD_Personas();
+            SqlConnection sqlCon = new SqlConnection();
+            SqlDataReader resultado;
+
+            try
+            {
+                sqlCon = Conexion.getInstancia().CrearConexion();
+                SqlCommand comando = new SqlCommand("SELECT * FROM Empleados", sqlCon);
+                comando.CommandType = CommandType.Text;
+                sqlCon.Open();
+                resultado = comando.ExecuteReader();
+
+                while (resultado.Read())
+                {
+                    int ID = (int)resultado[0];
+                    string IdPersona = (string)resultado[1];
+
+                    CE_Empleado empleado = new CE_Empleado();
+                    empleado.ID = ID;                    
+                    empleado.Persona = personas.BuscarById(IdPersona);                    
+
+                    Empleados.Add(empleado);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+
+            return Empleados;
+        }
+
+        public CE_Empleado BuscaEmpleadoById(int id)
+        {
+            CE_Empleado empleado = this.ObtenerEmpleados().Find(e => e.ID == id);
+            return empleado;
+        }
+
+
+
+        /// <summary>
         /// Metodo para Guarda & Modificar: 1 = salvar, 2 = modificar
         /// </summary>
         public string Salvar(int opcion, CE_Empleado empleado)
@@ -57,7 +107,7 @@ namespace CapaDatos.Personas.Empleados
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@opcion", SqlDbType.Int).Value = opcion;
                 comando.Parameters.Add("@id", SqlDbType.Int).Value = empleado.ID;
-                comando.Parameters.Add("@idPersona", SqlDbType.NVarChar).Value = empleado.IdPersona;
+                comando.Parameters.Add("@idPersona", SqlDbType.NVarChar).Value = empleado.Persona.Id;
                 sqlCon.Open();
                 rpta = comando.ExecuteNonQuery() >= 1 ? "OK" : "No se pudo ingresar el registro";
 

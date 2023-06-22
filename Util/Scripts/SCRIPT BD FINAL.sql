@@ -160,27 +160,6 @@ CREATE TABLE EstadosRoles (
 );
 GO
 
-/* ---Tabla general del expediente
-CREATE TABLE Expedientes (
-    IdExpediente INT PRIMARY KEY,
-    Nombre VARCHAR(100) UNIQUE,
-    FechaInicio DATETIME,    
-    Iniciador INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL,
-    ObsIni VARCHAR(500),    
-    FechaFin DATETIME,
-    ObsFin VARCHAR(500),  
-    Activo BIT
-);
-GO
-
---Informacion general para el expediente en todos los controles o secciones, estos seran los campos que comparten todos los controles
-CREATE TABLE Controles (
-    IdControl INT PRIMARY KEY IDENTITY(1,1),
-    IdExpediente INT FOREIGN KEY REFERENCES Expedientes(IdExpediente) ON UPDATE CASCADE NOT NULL,    
-    Activo bit
-);
-GO */
-
 CREATE TABLE Expedientes (
     IdExpediente INT PRIMARY KEY,
     Nombre VARCHAR(100) UNIQUE,     
@@ -225,17 +204,6 @@ CREATE TABLE Control_Estados (
     Activo bit
 );
 GO
-
--- Vista para obtener el historial completo del expediente con información de estado, rol y fecha
-/* CREATE VIEW Historial_Expediente AS
-SELECT ce.IdControlEstado, ce.IdEstado, ce.Fecha, r.Nombre AS Rol, e.Nombre AS Estado
-FROM Control_Estados ce
-JOIN Cambios_Proceso cp ON ce.IdCambios = cp.IdCambios
-JOIN Roles r ON cp.IdRol = r.IdRol
-JOIN Estados e ON ce.IdEstado = e.IdEstado
-WHERE ce.IdControl = @IdControl
-ORDER BY ce.Fecha; */
-
 
 --Comenzamos a separa los controloes o secciones en que pasara el expediente y agregamos los campos que solamente tendran cada uno de los controles
 CREATE TABLE Control_Verficacion (

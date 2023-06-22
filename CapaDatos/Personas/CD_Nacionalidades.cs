@@ -139,6 +139,12 @@ namespace CapaDatos.Personas
 
             return nacionalidades;
         }
+
+        public CE_Nacionalidades BuscarByNacionalidad(string nacionalidad)
+        {            
+            CE_Nacionalidades nac = this.ObtenerNacionalidades().Find(n => n.Nacionalidad.Equals(nacionalidad));
+            return nac;
+        }
     }
 }
 

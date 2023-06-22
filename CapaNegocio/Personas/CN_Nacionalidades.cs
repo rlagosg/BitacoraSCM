@@ -33,5 +33,11 @@ namespace CapaNegocio.Personas
             CD_Nacionalidades datos = new CD_Nacionalidades();
             return datos.ObtenerNacionalidades();
         }
+
+        public static CE_Nacionalidades BuscarByNacionalidad(string nacionalidad)
+        {
+            CD_Nacionalidades datos = new CD_Nacionalidades();
+            return datos.BuscarByNacionalidad(nacionalidad);
+        }
     }
 }

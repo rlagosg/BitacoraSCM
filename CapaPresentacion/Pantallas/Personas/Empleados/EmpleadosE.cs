@@ -34,7 +34,7 @@ namespace CapaPresentacion.Pantallas.Personas.Empleados
 
         public void ActualizaPersona(CE_Persona persona)
         {
-            empleado.IdPersona = persona.Id;
+            empleado.Persona = persona;
             TXTNOMBRE.Text = persona.NombreCompleto;
         }
     }

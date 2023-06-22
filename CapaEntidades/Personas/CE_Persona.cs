@@ -13,6 +13,7 @@ namespace CapaEntidades.Personas
         public string SegundoApellido    { get; set; }
         public string NombreCompleto     { get; set; }
         public int IdNacionalidad        { get; set; }
+        public CE_Nacionalidades Nacionalidad { get; set; }
         public DateTime? FechaNacimiento { get; set; }
         public string Genero             { get; set; }
         public string RTN                { get; set; }
@@ -21,7 +22,7 @@ namespace CapaEntidades.Personas
         public CE_Persona(
             string id, string primerNombre, string segundoNombre,
             string primerApellido, string segundoApellido, string nombreCompleto,
-            int idNacionalidad, DateTime? fechaNacimiento,
+            int idNacionaliadad, DateTime? fechaNacimiento,
             string genero, string rTN)
         {
             Id              = id;
@@ -30,10 +31,10 @@ namespace CapaEntidades.Personas
             PrimerApellido  = primerApellido;
             SegundoApellido = segundoApellido;
             NombreCompleto  = nombreCompleto;
-            IdNacionalidad  = idNacionalidad;
+            IdNacionalidad  = idNacionaliadad;
             FechaNacimiento = fechaNacimiento;
             Genero          = genero;
-            RTN             = rTN;
+            RTN             = rTN;            
         }
 
         //constructor vacio

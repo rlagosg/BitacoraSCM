@@ -26,5 +26,17 @@ namespace CapaNegocio.Personas
             CD_Personas datos = new CD_Personas();
             return datos.Eliminar(persona);
         }
+
+        public static List<CE_Persona> ObtenerPersonas()
+        {
+            CD_Personas datos = new CD_Personas();
+            return datos.ObtenerPersonas();
+        }
+
+        public static CE_Persona BuscaById(string id)
+        {
+            CD_Personas datos = new CD_Personas();
+            return datos.BuscarById(id);
+        }
     }
 }

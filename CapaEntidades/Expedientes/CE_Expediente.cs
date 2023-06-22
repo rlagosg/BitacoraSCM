@@ -1,4 +1,5 @@
 ﻿using CapaEntidades.Personas;
+using CapaEntidades.Personas.Empleados;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,21 +8,21 @@ namespace CapaEntidades.Expedientes
 {
     public class CE_Expediente
     {
-        public int IdControl          { get; set; }
-        public int IdExpediente       { get; set; }
-        public string Expediente      { get; set; }        
-        public DateTime? Iniciado     { get; set; }
-        public CE_Persona Iniciador   { get; set; }
-        public string ObsInicial      { get; set; }
-        public string Proceso         { get; set; }
-        public string Estado          { get; set; }
-        public string Comentario      { get; set; }        
-        public CE_Persona Encargado   { get; set; }
-        public DateTime? UltCambio    { get; set; }
-        public CE_Persona Finalizador { get; set; }
-        public DateTime? Finalizacion { get; set; }
-        public string ObsFinal        { get; set; }
-        public int Rol                { get; set; }
+        public int IdControl           { get; set; }
+        public int IdExpediente        { get; set; }
+        public string Expediente       { get; set; }        
+        public DateTime? Iniciado      { get; set; }
+        public CE_Empleado Iniciador   { get; set; }
+        public string ObsInicial       { get; set; }
+        public string Proceso          { get; set; }
+        public string Estado           { get; set; }
+        public string Comentario       { get; set; }        
+        public CE_Empleado Encargado   { get; set; }
+        public DateTime? UltCambio     { get; set; }
+        public CE_Empleado Finalizador { get; set; }
+        public DateTime? Finalizacion  { get; set; }
+        public string ObsFinal         { get; set; }
+        public int Rol                 { get; set; }
 
         public CE_Expediente()
         {
@@ -32,9 +33,9 @@ namespace CapaEntidades.Expedientes
 
         public CE_Expediente(
             int iDControl, int iDExpediente, string expediente, DateTime? iniciado,
-            CE_Persona iniciador, string obsInicial, 
+            CE_Empleado iniciador, string obsInicial, 
             string proceso,  string estado,    string comentario,
-            CE_Persona encargado, DateTime? ultCambio, 
+            CE_Empleado encargado, DateTime? ultCambio, 
             DateTime? finalizacion, string obsFinal, int rol = -1)
         {
             this.IdControl    = iDControl;

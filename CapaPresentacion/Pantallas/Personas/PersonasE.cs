@@ -201,6 +201,7 @@ namespace CapaPresentacion.Pantallas.Personas
             if (nacion != null) { 
                 TXTNAC.Text       = nacion.Nacionalidad;
                 this.nacionalidad = nacion;
+                persona.Nacionalidad = nacion;
             }
         }
 

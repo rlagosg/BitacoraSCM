@@ -35,5 +35,17 @@ namespace CapaNegocio.Personas.Empleados
             CD_Empleados datos = new CD_Empleados();
             return datos.Eliminar(empleado);
         }
+
+        public static CE_Empleado BuscaEmpleadoById(int id)
+        {
+            CD_Empleados datos = new CD_Empleados();
+            return datos.BuscaEmpleadoById(id);
+        }
+
+        public static List<CE_Empleado> ObtenerEmpleados()
+        {
+            CD_Empleados datos = new CD_Empleados();
+            return datos.ObtenerEmpleados();
+        }
     }
 }

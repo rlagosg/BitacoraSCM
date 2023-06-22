@@ -6,10 +6,8 @@ namespace CapaEntidades.Personas.Empleados
 {
     public class CE_Empleado
     {
-        public int ID            {  get; set; }
-        public string IdPersona  { get; set; }
-        public string RTN        { get; set; }
-        public string Nombre     { get; set; }
+        public int ID             {  get; set; }
+        public CE_Persona Persona { get; set; }
 
         //public CE_Persona Persona { get; set; }
 
@@ -17,12 +15,10 @@ namespace CapaEntidades.Personas.Empleados
         {
             ID = 0;
         }
-        public CE_Empleado(int iD, string idPersona, string rTN, string nombre)
+        public CE_Empleado(int iD, CE_Persona persona)
         {
             ID         = iD;
-            IdPersona  = idPersona;
-            RTN        = rTN;
-            Nombre     = nombre;
+            Persona    = persona;            
         }
     }
 }

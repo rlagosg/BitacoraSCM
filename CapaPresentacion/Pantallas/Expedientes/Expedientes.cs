@@ -2,6 +2,8 @@
 using CapaEntidades.Expedientes;
 using CapaEntidades.Roles;
 using CapaNegocio.Expedientes;
+using CapaNegocio.Personas;
+using CapaNegocio.Personas.Empleados;
 using CapaNegocio.Roles;
 using CapaPresentacion.Pantallas.Roles;
 using System;
@@ -29,7 +31,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void Expedientes_Load(object sender, EventArgs e)
         {
             Listar("");
-            Cargar();
+            Cargar();                
         }
 
         void Cargar()

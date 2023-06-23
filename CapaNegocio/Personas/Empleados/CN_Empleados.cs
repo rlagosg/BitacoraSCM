@@ -47,5 +47,14 @@ namespace CapaNegocio.Personas.Empleados
             CD_Empleados datos = new CD_Empleados();
             return datos.ObtenerEmpleados();
         }
+
+        /// <summary>
+        /// Metodo para obtener un empleado, desde una lista 
+        /// </summary>
+        public static CE_Empleado BuscaEmpleadoById(List<CE_Empleado> lista, int id)
+        {
+            return lista.Find( e => e.ID == id);            
+        }
+
     }
 }

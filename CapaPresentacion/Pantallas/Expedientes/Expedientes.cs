@@ -1,10 +1,12 @@
 ﻿using Bunifu.Json.Linq;
 using CapaEntidades.Expedientes;
+using CapaEntidades.Personas.Empleados;
 using CapaEntidades.Roles;
 using CapaNegocio.Expedientes;
 using CapaNegocio.Personas;
 using CapaNegocio.Personas.Empleados;
 using CapaNegocio.Roles;
+using CapaPresentacion.Pantallas.Globales;
 using CapaPresentacion.Pantallas.Roles;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,17 +24,19 @@ namespace CapaPresentacion.Pantallas.Expedientes
     public partial class Expedientes : Form
     {
         Funciones funciones = new Funciones();
-        CE_Expediente expediente;
+        CE_Control control;
         int indiceData = -1;
+        List<CE_Empleado> listaEmpleados;        
         public Expedientes()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         private void Expedientes_Load(object sender, EventArgs e)
         {
             Listar("");
-            Cargar();                
+            Cargar();            
+//            activeForm.Visible = false;
         }
 
         void Cargar()
@@ -47,11 +52,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 string busca = TXTBUSCA.Text.Trim();
                 if (busca.Length > 0)
                 {
-                    Data.DataSource = CN_Expedientes.Listar(busca);                    
+                    Data.DataSource = CN_Controles.Listar(busca);                    
                 }
                 else
                 {                    
-                    Data.DataSource = CN_Expedientes.Listar(texto);
+                    Data.DataSource = CN_Controles.Listar(texto);
                 }
 
                 Tabla();
@@ -132,51 +137,116 @@ namespace CapaPresentacion.Pantallas.Expedientes
             Listar(TXTBUSCA.Text.Trim());
         }
 
-        private bool validaItem()
+        private async Task<bool> validaItem()
         {
             if (Data.SelectedRows.Count > 0)
-            {
+            {                
                 DataGridViewRow fila = Data.SelectedRows[0];
 
                 if (!funciones.esVacio(fila.Cells[0].Value))
                 {
-                    // Sacamos los datos del grid                                    
-                    expediente = new CE_Expediente(
-                        //funciones.convertInt(fila.Cells[5].Value),//IdControl          
-                        //funciones.convertInt(fila.Cells[5].Value),//IdExpediente       
-                        //funciones.convertString(fila.Cells[5].Value), //Expediente      
-                        //funciones.convertDate(fila.Cells[5].Value), //Iniciado     
-                        //CN_Persona.BuscaById(funciones.convertInt),// Iniciador   
-                        //funciones.convertString(fila.Cells[5].Value), //ObsInicial      
-                        //funciones.convertString(fila.Cells[5].Value), //Proceso         
-                        //funciones.convertString(fila.Cells[5].Value), //Estado          
-                        //funciones.convertString(fila.Cells[5].Value), //Comentario      
-                        //CN_Persona.BuscaById(funciones.convertInt),// Encargado   
-                        //funciones.convertDate(fila.Cells[5].Value), //UltCambio    
-                        //CN_Persona.BuscaById(funciones.convertInt),// Finalizador 
-                        //funciones.convertDate(fila.Cells[5].Value), //Finalizacion 
-                        //funciones.convertString(fila.Cells[5].Value) //ObsFinal        
+                    // Sacamos los datos del grid                    
+                    control = new CE_Control();
+                    listaEmpleados = CN_Empleados.ObtenerEmpleados();
+
+                    await Busca //Expediente, Iniciador, Encargado, Finalizador
+                    (
+                        funciones.convertInt(fila.Cells[1].Value),
+                        funciones.convertInt(fila.Cells[4].Value),
+                        funciones.convertInt(fila.Cells[10].Value),
+                        funciones.convertInt(fila.Cells[13].Value)
                     );
-                    indiceData = Data.CurrentRow.Index;
+                    //control.Expediente = CN_Expedientes.BuscarById(funciones.convertInt(fila.Cells[1].Value));
+                    control.IdControl    = funciones.convertInt    (fila.Cells[0].Value);  //IdControl                                     
+                    control.Iniciado     = funciones.convertDate   (fila.Cells[3].Value);  //Iniciado
+                    control.ObsInicial   = funciones.convertString (fila.Cells[6].Value);  //ObsInicial      
+                    control.Proceso      = funciones.convertString (fila.Cells[7].Value);  //Proceso         
+                    control.Estado       = funciones.convertString (fila.Cells[8].Value);  //Estado          
+                    control.Comentario   = funciones.convertString (fila.Cells[9].Value);  //Comentario  
+                    control.UltCambio    = funciones.convertDate   (fila.Cells[12].Value); //UltCambio  
+                    control.Finalizacion = funciones.convertDate   (fila.Cells[15].Value); //Finalizacion 
+                    control.ObsFinal     = funciones.convertString (fila.Cells[16].Value); //ObsFinal                     
+
+                    indiceData = Data.CurrentRow.Index;                    
                     return true;
                 }
-            }
+            }            
             return false;
         }
 
-        private void Data_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async Task BuscaEmpleado(int empleado, int tipo)
         {
-            if (validaItem())
+            switch (tipo)
             {
-                Expediente form = new Expediente(expediente);
-                form.ShowDialog();
+                case 0: //iniciador
+                    control.Iniciador = await Task.Run(() => CN_Empleados.BuscaEmpleadoById(listaEmpleados, empleado));
+                    break;
+                case 1: //Encargado
+                    control.Encargado = await Task.Run(() => CN_Empleados.BuscaEmpleadoById(listaEmpleados, empleado));
+                    break;
+                case 2: //Finalizador
+                    control.Finalizador = await Task.Run(() => CN_Empleados.BuscaEmpleadoById(listaEmpleados, empleado));
+                    break;
+                default:
+                    break;
             }
+        }
+
+        private async Task BuscaExpediente(int id)
+        {
+            control.Expediente = await Task.Run(() => CN_Expedientes.BuscarById(id));
+        }
+
+
+        private async Task Busca(int expediente, int iniciador, int encargado, int finalizador)
+        {            
+            var task1 = BuscaEmpleado(iniciador, 0);
+            var task2 = BuscaEmpleado(encargado, 1);
+            var task3 = BuscaEmpleado(finalizador, 2);
+            var task4 = BuscaExpediente(expediente);
+
+            await Task.WhenAll(task1, task2, task3, task4);
+        }
+
+
+        private async void Data_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            // Deshabilitar controles del formulario principal
+            Data.Enabled = false;
+
+            // Mostrar el formulario de "Cargando"
+            Cargando loadingForm = new Cargando();
+            loadingForm.ShowDialog();
+
+            await Task.Delay(25); // Ejemplo: Simular una tarea que toma tiempo
+            
+            bool resultado = await validaItem();
+
+            loadingForm.Close();
+            loadingForm.Exits();
+
+            // Habilitar controles del formulario principal
+            Data.Enabled = true;
+
+
+            if (resultado)
+            {
+                Expediente form = new Expediente(this, control);
+                form.ShowDialog();
+            }         
         }
 
         private void guna2Button4_Click(object sender, EventArgs e)
         {
-            Expediente form = new Expediente();
+            Expediente form = new Expediente(this);
             form.ShowDialog();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {            
+            //Cargando frm = new Cargando();
+            //frm.ShowDialog();
         }
     }
 }

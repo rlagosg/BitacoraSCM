@@ -23,20 +23,22 @@ namespace CapaPresentacion.Pantallas.Expedientes
 {
     public partial class Expediente : Form
     {
-        CE_Expediente expediente;
+        CE_Control control;
         CE_Rol rol;
+        Expedientes frmExpedientes;
         Funciones funciones = new Funciones();
-        public Expediente(CE_Expediente exped = null)
+        public Expediente(Expedientes frm, CE_Control exped = null)
         {
             InitializeComponent();            
-            this.expediente = exped;
+            this.control = exped;
+            this.frmExpedientes = frm;
             llenar();
         }
 
         private void llenar()
         {
-            if (expediente != null) {
-                TXTBUSCA.Text = expediente.Expediente;
+            if (control != null) {
+                TXTBUSCA.Text = control.Expediente.Expediente;
             }
             else
             {
@@ -47,7 +49,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Expediente_Load(object sender, EventArgs e)
         {
-           
+            
         }
 
         private void BTNSALVAR_Click(object sender, EventArgs e)
@@ -72,7 +74,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
             
             // Asignamos el rol al Expediente
             rol = CN_Roles.RolByName(Tabs.SelectedTab.Text.Trim());
-            if ( rol != null) expediente.Rol = rol.ID;            
+            if ( rol != null) control.Rol = rol.ID;            
 
             List<Guna2DataGridView> Datas = new List<Guna2DataGridView>()
             {
@@ -84,7 +86,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
             {
                 var currentData = Datas[selectedTabIndex];
 
-                var dataSource = CN_Expedientes.Estados(expediente);
+                var dataSource = CN_Controles.Estados(control);
                 var columns = currentData.Columns;
 
                 currentData.DataSource = dataSource;
@@ -92,7 +94,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
                 if (selectedTabIndex == 6)
                 {
-                    dataSource = CN_Expedientes.Resumen(expediente);
+                    dataSource = CN_Controles.Resumen(control);
                     currentData.DataSource = dataSource;
                     columns = currentData.Columns;
                     columns[0].Visible = false;

@@ -74,3 +74,6 @@ C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\SCM.applica
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CopyComplete
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\SCM.exe
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\SCM.pdb
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForm.BunifuShadowPanel.dll
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForm.BunifuShadowPanel.xml
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Globales.Cargando.resources

@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>11</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -137,6 +137,18 @@
     </Compile>
     <Compile Include="Pantallas\Expedientes\Busqueda.Designer.cs">
       <DependentUpon>Busqueda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Expedientes\CambioProceso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Expedientes\CambioProceso.Designer.cs">
+      <DependentUpon>CambioProceso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Expedientes\Control.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Expedientes\Control.Designer.cs">
+      <DependentUpon>Control.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Expedientes\Expediente.cs">
       <SubType>Form</SubType>
@@ -256,6 +268,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Expedientes\Busqueda.resx">
       <DependentUpon>Busqueda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Expedientes\CambioProceso.resx">
+      <DependentUpon>CambioProceso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Expedientes\Control.resx">
+      <DependentUpon>Control.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Expedientes\Expediente.resx">
       <DependentUpon>Expediente.cs</DependentUpon>

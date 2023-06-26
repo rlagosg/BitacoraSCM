@@ -28,11 +28,16 @@ namespace CapaPresentacion.Pantallas.Expedientes
         CE_Rol rol;
         Expedientes frmExpedientes;
         Funciones funciones = new Funciones();
-        public Expediente(Expedientes frm, CE_Control exped = null)
+
+        //variable de estado 1 guardando y otro modificando
+        private int estado = 1;
+
+        public Expediente(Expedientes frm, CE_Control exped = null, int stado = 1)
         {
             InitializeComponent();            
-            this.control = exped;
+            this.control        = exped;
             this.frmExpedientes = frm;
+            this.estado         = stado;
             llenar();
         }
 
@@ -213,6 +218,17 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
                 e.Handled = true;
             }
+        }
+
+        private void btnFINALIZAR_Click(object sender, EventArgs e)
+        {
+            Guna2MessageDialog mens = new Guna2MessageDialog();
+            mens.Icon    = MessageDialogIcon.Information;
+            mens.Text    = "Finalizado";
+            mens.Caption = "Mesanje del Sistema";
+            mens.Buttons = MessageDialogButtons.OK;
+            mens.Style   = MessageDialogStyle.Light;            
+            mens.Show(); 
         }
     }
 }

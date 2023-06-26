@@ -1,6 +1,7 @@
 ﻿using Bunifu.Framework.UI;
 using Bunifu.UI.WinForms.BunifuButton;
 using CapaEntidades.Expedientes;
+using CapaEntidades.Personas.Empleados;
 using CapaEntidades.Roles;
 using CapaNegocio.Expedientes;
 using CapaNegocio.Roles;
@@ -35,16 +36,81 @@ namespace CapaPresentacion.Pantallas.Expedientes
             llenar();
         }
 
+ 
         private void llenar()
         {
-            if (control != null) {
+            
+            if (control != null)
+            {
                 TXTBUSCA.Text = control.Expediente.Expediente;
+
+                if (control.Iniciador != null)
+                {
+                    TXTINICIADOR.Text = control.Iniciador.Persona.NombreCompleto;
+                    paneli.Controls.Add(ObtenerDatePicker(control.Iniciado.Value));                    
+                }
+
+                if (control.Finalizador != null)
+                {
+                    TXTINICIADOR.Text = control.Finalizador.Persona.NombreCompleto;                    
+                    panelf.Controls.Add(ObtenerDatePicker(control.Finalizacion.Value));
+                }
+
+                if (control.Encargado != null)
+                {
+                    TXTULTIMOs = new CustomGunaDateTimePicker();
+                    TXTULTIMOs.Value = control.UltCambio.Value;
+
+                    TXTENCARGADO.Text  = control.Encargado.Persona.NombreCompleto;                    
+                    TXTPROCESO.Text    = control.Proceso;
+                    TXTESTADO.Text     = control.Estado;
+                    TXTCOMENTARIO.Text = control.Comentario;                    
+                    panel.Controls.Add(ObtenerDatePicker(control.UltCambio.Value));
+                }
+                
+                llenarGridGeneral();
             }
             else
             {
                 Tabs.SelectedIndex = 1;
-
             }
+
+        }
+
+        private GunaDateTimePicker ObtenerDatePicker(DateTime fecha)
+        {
+
+            CustomGunaDateTimePicker Picker = new CustomGunaDateTimePicker();
+
+            // Configurar la fecha
+            Picker.Value = fecha;
+
+            // Modificar los colores
+            Picker.FocusedColor = Color.FromArgb(68, 88, 112);            
+            Picker.OnHoverBaseColor = Color.White;
+            Picker.OnHoverBorderColor = Color.FromArgb(76, 118, 175);
+            Picker.OnHoverForeColor = Color.FromArgb(76, 118, 175);
+
+
+            Picker.BaseColor = Color.White;
+            //Picker.BorderColor = Color.Silver;             
+            Picker.BorderColor = Color.FromArgb(76, 118, 175);
+            //Picker.ForeColor = Color.Black;
+            Picker.ForeColor = Color.FromArgb(76, 118, 175);
+            Picker.Size = new Size(275, 36);
+            Picker.BorderSize = 1;
+            Picker.Radius = 5;
+
+            // Otros ajustes de apariencia según sea necesario
+            return Picker;
+        }
+
+
+        private void llenarGridGeneral()
+        {
+            DataG.DataSource = CN_CambiosProceso.Listar(control);
+            DataG.Columns[1].Visible = false;
+            DataG.Columns[3].Visible = false;
         }
 
         private void Expediente_Load(object sender, EventArgs e)
@@ -66,7 +132,6 @@ namespace CapaPresentacion.Pantallas.Expedientes
             Tabs.SelectedIndex = boton;
         }
 
- 
         private void Tabs_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Obtener el índice de la pestaña seleccionada
@@ -126,6 +191,28 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void tab1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void DataG_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            // Verificar si es el encabezado de la columna
+            if (e.RowIndex == -1 && e.ColumnIndex >= 0)
+            {
+                e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
+
+                // Crear el color personalizado
+                Color separatorColor = Color.FromArgb(245, 247, 251);
+                int separatorThickness = 8; // Grosor de la línea separadora
+
+                // Dibujar la línea separadora
+                int dividerY = e.CellBounds.Bottom - separatorThickness;
+                using (Pen separatorPen = new Pen(separatorColor, separatorThickness))
+                {
+                    e.Graphics.DrawLine(separatorPen, e.CellBounds.Left, dividerY, e.CellBounds.Right, dividerY);
+                }
+
+                e.Handled = true;
+            }
         }
     }
 }

@@ -46,7 +46,7 @@
             // gunaCircleProgressBar1
             // 
             this.gunaCircleProgressBar1.Animated = true;
-            this.gunaCircleProgressBar1.AnimationSpeed = 5.7F;
+            this.gunaCircleProgressBar1.AnimationSpeed = 3.5F;
             this.gunaCircleProgressBar1.BaseColor = System.Drawing.Color.Empty;
             this.gunaCircleProgressBar1.IdleColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(235)))), ((int)(((byte)(246)))));
             this.gunaCircleProgressBar1.IdleOffset = 13;

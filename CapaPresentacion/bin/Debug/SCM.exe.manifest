@@ -158,7 +158,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/fKxRprrzNOgJT58TlPfhPPvnvmn4p2ABgfPcHZuhBQ=</dsig:DigestValue>
+        <dsig:DigestValue>IaeD8j3dRywdvXIhdHzfoxRyfvacBJNRXb0dLgX/4SM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -170,19 +170,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>e6iui6WEaVovipnRsiOK4iXsl3WEZ/Mc7nXWr7m4xM0=</dsig:DigestValue>
+        <dsig:DigestValue>AI/CxOIpQa3P9uZuYvqkUJeDboorknfTurLOmeLWcV8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CapaNegocio.dll" size="10752">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CapaNegocio.dll" size="11264">
       <assemblyIdentity name="CapaNegocio" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>i9XTb1MVopzU7JIxtdVKK6NYaGkQpoXO524YDLdv/5Q=</dsig:DigestValue>
+        <dsig:DigestValue>CdQs/NxqMjwMgbxS+fMpxGeaxkvkTT5fbEotoaFUrV4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -247,14 +247,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="5158896">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="5160432">
       <assemblyIdentity name="SCM" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>JsjrkwtN6m/x2B2FdlGFRqvFks7tsIWv700rf8riru4=</dsig:DigestValue>
+        <dsig:DigestValue>llGQ+oOY0ubnQ86SqoX6JaSP7lM+PQQNTqi/Hv1FshE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

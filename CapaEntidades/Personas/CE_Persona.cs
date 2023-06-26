@@ -16,7 +16,24 @@ namespace CapaEntidades.Personas
         public CE_Nacionalidades Nacionalidad { get; set; }
         public DateTime? FechaNacimiento { get; set; }
         public string Genero             { get; set; }
-        public string RTN                { get; set; }
+        public string RTN                { get; set; }        
+
+        public string NombreCorto
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(PrimerNombre);
+
+                if (!string.IsNullOrEmpty(SegundoNombre))
+                {
+                    sb.Append(" ");
+                    sb.Append(SegundoNombre);
+                }
+
+                return sb.ToString();
+            }
+        }
 
         //constructor con parametros
         public CE_Persona(
@@ -39,7 +56,5 @@ namespace CapaEntidades.Personas
 
         //constructor vacio
         public CE_Persona() { }
-
-
     }
 }

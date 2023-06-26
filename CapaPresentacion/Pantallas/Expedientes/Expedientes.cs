@@ -212,28 +212,27 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private async void Data_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            // Deshabilitar controles del formulario principal
+            // Deshabilitar el datagrid
             Data.Enabled = false;
 
             // Mostrar el formulario de "Cargando"
             Cargando loadingForm = new Cargando();
-            loadingForm.ShowDialog();
+            loadingForm.Show();
 
             await Task.Delay(25); // Ejemplo: Simular una tarea que toma tiempo
             
             bool resultado = await validaItem();
 
-            loadingForm.Close();
-            loadingForm.Exits();
-
-            // Habilitar controles del formulario principal
+            // Habilitar el datagrid
             Data.Enabled = true;
 
 
             if (resultado)
             {
-                Expediente form = new Expediente(this, control);
+                Expediente form = new Expediente(this, control);    
+                loadingForm.Hide();
                 form.ShowDialog();
+                loadingForm.Exits();
             }         
         }
 

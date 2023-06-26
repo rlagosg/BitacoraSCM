@@ -156,6 +156,9 @@
     <Compile Include="Pantallas\Globales\Cargando.Designer.cs">
       <DependentUpon>Cargando.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Globales\CustomGunaDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Pantallas\Personas\Empleados\Empleades.cs">
       <SubType>Form</SubType>
     </Compile>

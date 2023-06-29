@@ -1,6 +1,8 @@
-﻿using CapaNegocio.Expedientes;
+﻿using CapaEntidades.Personas.Empleados;
+using CapaNegocio.Expedientes;
 using CapaNegocio.Personas.Empleados;
 using CapaPresentacion.Pantallas.Personas.Empleados;
+using CapaPresentacion.Pantallas.Usuarios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,15 +17,37 @@ namespace CapaPresentacion.Pantallas.Personas
 {
     public partial class Empleades : Form
     {
-        public Empleades()
+
+        UsuariosE frmUsuarioE;
+        Funciones funciones = new Funciones();
+        CE_Empleado empleado;
+        //variable de estado, 1: modo basico, otro: seleccionando
+        private int opcion = 1;
+
+        //indice de la tabla
+        int indiceData = -1;
+
+        public Empleades(UsuariosE frm = null, int op = 1)
         {
             InitializeComponent();
+            this.frmUsuarioE = frm;
+            this.opcion = op;
+
         }
 
         private void Empleados_Load(object sender, EventArgs e)
         {
             Listar();
             Tabla();
+            Configura();
+        }
+
+        private void Configura()
+        {
+            if (opcion == 1) 
+            {
+                btnSeleccionar.Visible = false;
+            }
         }
 
         private void Tabla()
@@ -39,13 +63,28 @@ namespace CapaPresentacion.Pantallas.Personas
             try
             {
                 string busca = TXTBUSCA.Text.Trim();
-                if (busca.Length > 0) Data.DataSource = CN_Empleados.Listar(busca);
-                else Data.DataSource = CN_Empleados.Listar(texto);           
+                if (busca.Length > 0) Data.DataSource = CN_Empleados.Listar(busca, opcion);
+                else Data.DataSource = CN_Empleados.Listar(texto, opcion);           
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + ex.StackTrace);
             }
+        }
+
+        private bool validaItem()
+        {
+            if (Data.SelectedRows.Count > 0)
+            {
+                DataGridViewRow fila = Data.SelectedRows[0];
+
+                if (!funciones.esVacio(fila.Cells[0].Value))
+                {                    
+                    empleado = CN_Empleados.BuscaEmpleadoById(funciones.convertInt(fila.Cells[0].Value));
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void Data_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -74,6 +113,16 @@ namespace CapaPresentacion.Pantallas.Personas
         {
             EmpleadosE frm = new EmpleadosE();
             frm.ShowDialog();
+        }
+
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            if (validaItem())
+            {                
+                frmUsuarioE.ActualizaEmpleado(empleado);
+                this.Hide();                
+            }
+            
         }
     }
 }

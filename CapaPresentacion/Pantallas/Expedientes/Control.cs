@@ -57,5 +57,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
             // Otros ajustes de apariencia según sea necesario
             return Picker;
         }
+
+        private void btnFINALIZAR_Click(object sender, EventArgs e)
+        {
+            CambioProceso frm = new CambioProceso();
+            frm.ShowDialog();
+        }
     }
 }

@@ -9,6 +9,7 @@ using CapaPresentacion.Pantallas.Controles;
 using CapaPresentacion.Pantallas.Roles;
 using CapaPresentacion.Pantallas.Expedientes;
 using Control = CapaPresentacion.Pantallas.Expedientes.Control;
+using CapaPresentacion.Pantallas.Usuarios;
 
 namespace CapaPresentacion
 {
@@ -22,7 +23,7 @@ namespace CapaPresentacion
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Control());
+            Application.Run(new Expedientes());
         }
     }
 }

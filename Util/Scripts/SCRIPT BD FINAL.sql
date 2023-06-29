@@ -25,18 +25,6 @@ CREATE TABLE Roles (
 );
 GO
 
-CREATE TABLE Permisos (
-    IdPermiso INT PRIMARY KEY IDENTITY(1,1),
-    IdRol INT FOREIGN KEY REFERENCES Roles(IdRol) ON UPDATE CASCADE NOT NULL,
-    IdModulo VARCHAR(100) FOREIGN KEY REFERENCES Modulos(IdModulo) ON UPDATE CASCADE NOT NULL,
-    Vista INT NOT NULL,
-    Salvar INT NOT NULL,
-    Modificar INT NOT NULL,
-    Eliminar INT NOT NULL,
-    Activo bit
-);
-GO
-
 --------------------------
 ------- PERSONAS
 --------------------------
@@ -131,10 +119,27 @@ GO
 CREATE TABLE Usuarios (
     IdUsuario INT PRIMARY KEY IDENTITY(1,1),
     Nombre VARCHAR(25) UNIQUE,
-    Contrasenia VARCHAR(20),
-    Pin VARCHAR(8),
+    Contrasenia VARBINARY(64),
+    IdEmpleado INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) ON UPDATE CASCADE NOT NULL,
+    Activo bit
+);
+
+CREATE TABLE RolesUsuarios (
+    IdRolesUsuarios INT PRIMARY KEY IDENTITY(1,1),
+    IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) ON UPDATE CASCADE,
     IdRol INT FOREIGN KEY REFERENCES Roles(IdRol) ON UPDATE CASCADE,
-    IdEmpleado INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) ON UPDATE CASCADE,
+    CONSTRAINT ROL_USARIO UNIQUE (IdUsuario, IdRol)
+);
+GO
+
+CREATE TABLE Permisos (
+    IdPermiso INT PRIMARY KEY IDENTITY(1,1),
+    IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) ON UPDATE CASCADE,
+    IdModulo VARCHAR(100) FOREIGN KEY REFERENCES Modulos(IdModulo) ON UPDATE CASCADE NOT NULL,
+    Vista INT NOT NULL,
+    Salvar INT NOT NULL,
+    Modificar INT NOT NULL,
+    Eliminar INT NOT NULL,
     Activo bit
 );
 GO
@@ -248,7 +253,7 @@ GO
 --ROLES DEL SISTEMA
 -----------------------------------------------------------
 INSERT INTO Roles (IdRol, Nombre, Activo) VALUES
-(1, 'CAMPO', 1), (2, 'TECNICO', 1), (3, 'VERIFICADOR', 1), (4, 'DIBUJANTE', 1);
+(1, 'CAMPO', 1), (2, 'TECNICO', 1), (3, 'VERIFICADOR', 1), (4, 'DIBUJANTE', 1), (5, 'ADMINISTRADOR',1);
 GO
 --ESTADOS GLOABLAES DEL SISTEMA
 -----------------------------------------------------------
@@ -352,7 +357,7 @@ CREATE PROCEDURE SCM_SP_PERSONAS_LIST
 @texto varchar(100)=''
 AS
 BEGIN
-	SELECT p.IdPersona as ID, p.RTN, p.PrimerNombre as 'Primer Nombre', p.SegundoNombre as 'Segundo Nombre', p.PrimerApellido  as 'Primer Apellido', p.SegundoApellido as 'Segundo Apellido' , CONCAT_WS(' ',P.PrimerNombre, P.SegundoNombre, P.SegundoNombre, P.SegundoApellido) AS Nombre , n.Nacionalidad as Nacionalidad, p.FechaNac as Nacimiento, p.Genero 
+	SELECT p.IdPersona as ID, p.RTN, p.PrimerNombre as 'Primer Nombre', p.SegundoNombre as 'Segundo Nombre', p.PrimerApellido  as 'Primer Apellido', p.SegundoApellido as 'Segundo Apellido' , CONCAT_WS(' ',P.PrimerNombre, P.SegundoNombre, P.PrimerApellido, P.SegundoApellido) AS Nombre , n.Nacionalidad as Nacionalidad, p.FechaNac as Nacimiento, p.Genero 
 	FROM Personas p 
 	INNER JOIN Nacionalidades n ON p.IdNacionalidad = n.IdNacionalidad
 	WHERE CONCAT(p.IdPersona,' ', p.RTN,' ', n.Nacionalidad,' ', p.PrimerNombre,' ', p.SegundoNombre,' ', p.PrimerApellido,' ', p.SegundoApellido) LIKE '%' + @texto + '%' AND p.Activo = 1;
@@ -715,6 +720,22 @@ BEGIN
 END;
 GO
 
+CREATE PROCEDURE SCM_SP_EMPLEADOS_NO_USUARIO_LIST
+    @texto VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT E.IdEmpleado AS 'Empleado', P.IdPersona AS 'ID', P.RTN, CONCAT_WS(' ', P.PrimerNombre, P.SegundoNombre, P.PrimerApellido, P.SegundoApellido) AS Nombre, CONCAT_WS(' ', P.PrimerNombre, P.PrimerApellido) AS 'Nombre Corto'
+    FROM Empleados E
+    JOIN Personas P ON E.IdPersona = P.IdPersona
+    LEFT JOIN Usuarios U ON E.IdEmpleado = U.IdEmpleado
+    WHERE U.IdUsuario IS NULL
+      AND CONCAT_WS(' ', P.IdPersona, P.PrimerNombre, P.SegundoNombre, P.PrimerApellido, P.SegundoApellido) LIKE '%' + @texto + '%';
+END;
+GO
+
+
 --PERSONAS NO EMPLEADOS
 CREATE PROCEDURE SCM_SP_PERSONAS_NO_EMPLEADOS_LIST
     @texto VARCHAR(100)
@@ -877,6 +898,37 @@ BEGIN
 END
 GO
 
+----EXPEDIENTES
+-----------------------------------------------------------
+CREATE PROCEDURE SCM_SP_EXPEDIENTE_SAVE
+    @nombre VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar si existe el expediente
+    IF EXISTS (SELECT * FROM Expedientes WHERE Nombre = @nombre)
+    BEGIN
+        -- Verificar si el expediente está desactivado
+        IF (SELECT Activo FROM Expedientes WHERE Nombre = @nombre) = 0
+        BEGIN
+            -- Actualizar el expediente y activarlo
+            UPDATE Expedientes
+            SET Activo = 1
+            WHERE Nombre = @nombre;
+        END
+    END
+    ELSE
+    BEGIN
+        -- Insertar un nuevo expediente y activarlo
+        INSERT INTO Expedientes (Nombre, Activo)
+        VALUES (@nombre, 1);
+    END
+END;
+GO
+
+
+
 ----CONTROLES
 -----------------------------------------------------------
 CREATE PROCEDURE SCM_SP_EXPEDIENTE_CONTROL_LIST
@@ -1012,6 +1064,75 @@ WHERE
 END
 GO
 
+
+--USUARIOS
+-----------------------------
+--LISTAR
+CREATE PROCEDURE SCM_SP_USUARIOS_LIST
+    @texto NVARCHAR(100)
+AS
+BEGIN
+    SELECT U.IdUsuario, U.Nombre AS Usuario, U.Contrasenia, CONCAT_WS(' ', P.PrimerNombre, P.SegundoNombre, P.PrimerApellido, P.SegundoApellido) AS Empleado,
+           STUFF((SELECT ', ' + R.Nombre
+                  FROM RolesUsuarios RU
+                  INNER JOIN Roles R ON RU.IdRol = R.IdRol
+                  WHERE RU.IdUsuario = U.IdUsuario
+                  FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS Roles, U.Activo
+    FROM Usuarios U
+    INNER JOIN Empleados E ON U.IdEmpleado = E.IdEmpleado
+    INNER JOIN Personas P ON E.IdPersona = P.IdPersona
+    WHERE CONCAT_WS(' ', U.Nombre, P.PrimerNombre, P.SegundoNombre, P.PrimerApellido, P.SegundoApellido,
+                   STUFF((SELECT ', ' + R.Nombre
+                          FROM RolesUsuarios RU
+                          INNER JOIN Roles R ON RU.IdRol = R.IdRol
+                          WHERE RU.IdUsuario = U.IdUsuario
+                          FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
+                  ) LIKE '%' + @texto + '%';
+END
+
+
+--GUARDAR/MODIFICAR
+CREATE PROCEDURE SCM_SP_USUARIOS_SAVE
+    @opcion INT,
+    @nombreUsuario VARCHAR(25),
+    @contrasenia VARCHAR(20),
+    @idEmpleado INT,
+    @activo BIT
+AS
+BEGIN
+    DECLARE @contraseniaEncriptada VARBINARY(64)
+
+    IF @opcion = 1
+    BEGIN
+        -- Encriptar la contraseña
+        SET @contraseniaEncriptada = HASHBYTES('SHA2_256', @contrasenia)
+
+        -- Insertar un nuevo usuario
+        INSERT INTO Usuarios (Nombre, Contrasenia, IdEmpleado, Activo)
+        VALUES (@nombreUsuario, @contraseniaEncriptada, @idEmpleado, @activo)
+    END
+    ELSE
+    BEGIN
+        -- Encriptar la contraseña
+        SET @contraseniaEncriptada = HASHBYTES('SHA2_256', @contrasenia)
+
+        -- Actualizar un usuario existente
+        UPDATE Usuarios
+        SET Nombre = @nombreUsuario,
+            Contrasenia = @contraseniaEncriptada,
+            IdEmpleado = @idEmpleado,
+            Activo = @activo
+        WHERE IdUsuario = @op -- Aquí asumo que el campo para identificar el usuario es IdUsuario
+    END
+END
+
+
+
+
+
+
+
+
 ---TEMPORALES
 
 
@@ -1057,13 +1178,24 @@ VALUES ('1', 1),
        ('5', 1);
 GO
 
-INSERT INTO Usuarios (Nombre, Contrasenia, Pin, IdRol, IdEmpleado, Activo)
-VALUES ('usuario1', 'contrasenia1', 'pin1', 1, 1, 1),
-       ('usuario2', 'contrasenia2', 'pin2', 2, 2, 1),
-       ('usuario3', 'contrasenia3', 'pin3', 3, 3, 1),
-       ('usuario4', 'contrasenia4', 'pin4', 4, 4, 1),
-       ('usuario5', 'contrasenia5', 'pin5', 1, 5, 1);
+INSERT INTO Usuarios (Nombre, IdEmpleado, Activo)
+VALUES ('usuario1', 1, 1),
+       ('usuario2', 2, 1),
+       ('usuario3', 3, 1),
+       ('usuario4', 4, 1),
+       ('usuario5', 5, 1);
 GO
+
+INSERT INTO RolesUsuarios (IdUsuario, IdRol)
+VALUES (1, 1),
+       (1, 2),
+       (2, 2),
+       (3, 3),
+       (4, 1),
+       (4, 2),
+       (4, 3),
+       (4, 4),
+       (4, 5);
 
 INSERT INTO Expedientes (IdExpediente, Nombre, Activo)
 VALUES 
@@ -1107,8 +1239,6 @@ INSERT INTO EstadosRoles(IdRol, IdEstado, Numero, Activo) VALUES
 (2, 4, 4, 1), 
 (2, 5, 3, 1);
 GO
-
-
 
 --consultas
 

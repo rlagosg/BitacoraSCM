@@ -14,16 +14,20 @@ namespace CapaDatos.Personas.Empleados
         /// <summary>
         /// Metodo para listar los emplpeados en forma de Tabla, usando filtro de texto
         /// </summary>
-        public DataTable Listar(string texto)
+        public DataTable Listar(string texto, int op =  1)
         {
             SqlDataReader resultado;
             DataTable tabla = new DataTable();
             SqlConnection sqlCon = new SqlConnection();
+            SqlCommand comando;
 
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_EMPLEADOS_LIST", sqlCon);
+
+                if (op == 1) comando = new SqlCommand("SCM_SP_EMPLEADOS_LIST", sqlCon);
+                else comando = new SqlCommand("SCM_SP_EMPLEADOS_NO_USUARIO_LIST", sqlCon);
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@texto", SqlDbType.NVarChar).Value = texto;
                 sqlCon.Open();

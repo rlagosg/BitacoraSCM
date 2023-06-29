@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Text;
 using CapaEntidades.Personas;
+using CapaEntidades.Personas.Empleados;
 
 namespace CapaDatos.Expedientes
 {
@@ -59,6 +60,35 @@ namespace CapaDatos.Expedientes
         {
             CE_Expediente expediente = this.ObtenerExpedientes().Find(e => e.ID == id);
             return expediente;
+        }
+
+        /// <summary>
+        /// Metodo para Guarda & Modificar
+        /// </summary>
+        public string Salvar(CE_Expediente expediente)
+        {
+            string rpta = "";
+            SqlConnection sqlCon = new SqlConnection();
+
+            try
+            {
+                sqlCon = Conexion.getInstancia().CrearConexion();
+                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_SAVE", sqlCon);
+                comando.CommandType = CommandType.StoredProcedure;               
+                comando.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = expediente.Expediente;
+                sqlCon.Open();
+                rpta = comando.ExecuteNonQuery() >= 1 ? "OK" : "No se pudo ingresar el registro";
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+
+            return rpta;
         }
     }
 }

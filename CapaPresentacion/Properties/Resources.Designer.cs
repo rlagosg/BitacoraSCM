@@ -73,6 +73,56 @@ namespace CapaPresentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap adjustments_icon_152937 {
+            get {
+                object obj = ResourceManager.GetObject("adjustments_icon_152937", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap adjustments_icon_152937___copia {
+            get {
+                object obj = ResourceManager.GetObject("adjustments_icon_152937 - copia", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap adjustments_icon_1529371 {
+            get {
+                object obj = ResourceManager.GetObject("adjustments_icon_1529371", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap adjustments_icon_1529372 {
+            get {
+                object obj = ResourceManager.GetObject("adjustments_icon_1529372", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap adjustments_icon_1529373 {
+            get {
+                object obj = ResourceManager.GetObject("adjustments_icon_1529373", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap campo {
             get {
                 object obj = ResourceManager.GetObject("campo", resourceCulture);
@@ -163,6 +213,16 @@ namespace CapaPresentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap friends_link_send_share_icon_123609 {
+            get {
+                object obj = ResourceManager.GetObject("friends_link_send_share_icon_123609", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap giphy {
             get {
                 object obj = ResourceManager.GetObject("giphy", resourceCulture);
@@ -223,9 +283,29 @@ namespace CapaPresentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap lupa5121 {
+            get {
+                object obj = ResourceManager.GetObject("lupa5121", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap magnifier_icon_icons_com_49240 {
             get {
                 object obj = ResourceManager.GetObject("magnifier_icon-icons.com_49240", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap notice_attention_icon_153872 {
+            get {
+                object obj = ResourceManager.GetObject("notice_attention_icon_153872", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -253,6 +333,16 @@ namespace CapaPresentacion.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Settings_31103 {
+            get {
+                object obj = ResourceManager.GetObject("Settings_31103", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap up2 {
             get {
                 object obj = ResourceManager.GetObject("up2", resourceCulture);
@@ -266,6 +356,36 @@ namespace CapaPresentacion.Properties {
         internal static System.Drawing.Bitmap up3 {
             get {
                 object obj = ResourceManager.GetObject("up3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vision_view_eye_icon_153887 {
+            get {
+                object obj = ResourceManager.GetObject("vision_view_eye_icon_153887", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap web_gear_setting_settings_icon_153889 {
+            get {
+                object obj = ResourceManager.GetObject("web_gear_setting_settings_icon_153889", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap window_key {
+            get {
+                object obj = ResourceManager.GetObject("window-key", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

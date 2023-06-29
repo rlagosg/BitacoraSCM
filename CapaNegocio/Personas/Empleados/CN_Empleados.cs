@@ -12,10 +12,10 @@ namespace CapaNegocio.Personas.Empleados
         /// <summary>
         /// Metodo para listar los emplpeados en forma de Tabla, usando filtro de texto
         /// </summary>
-        public static DataTable Listar(string texto)
+        public static DataTable Listar(string texto, int op = 1)
         {
             CD_Empleados datos = new CD_Empleados();
-            return datos.Listar(texto);
+            return datos.Listar(texto, op);
         }
 
         /// <summary>

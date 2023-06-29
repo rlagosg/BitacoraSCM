@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Empleades));
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
@@ -38,6 +38,7 @@
             this.gunaGroupBox1 = new Guna.UI.WinForms.GunaGroupBox();
             this.Data = new Guna.UI2.WinForms.Guna2DataGridView();
             this.gunaCircleButton1 = new Guna.UI.WinForms.GunaCircleButton();
+            this.btnSeleccionar = new Guna.UI2.WinForms.Guna2Button();
             this.gunaGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Data)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +59,7 @@
             this.guna2Button4.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
             this.guna2Button4.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
             this.guna2Button4.HoverState.ForeColor = System.Drawing.Color.White;
-            this.guna2Button4.Location = new System.Drawing.Point(1202, 62);
+            this.guna2Button4.Location = new System.Drawing.Point(993, 67);
             this.guna2Button4.Name = "guna2Button4";
             this.guna2Button4.PressedColor = System.Drawing.Color.White;
             this.guna2Button4.Size = new System.Drawing.Size(101, 36);
@@ -82,7 +83,7 @@
             this.guna2Button3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(40)))), ((int)(((byte)(31)))));
             this.guna2Button3.HoverState.FillColor = System.Drawing.Color.White;
             this.guna2Button3.HoverState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(40)))), ((int)(((byte)(31)))));
-            this.guna2Button3.Location = new System.Drawing.Point(1095, 62);
+            this.guna2Button3.Location = new System.Drawing.Point(886, 67);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.PressedColor = System.Drawing.Color.Red;
             this.guna2Button3.Size = new System.Drawing.Size(101, 36);
@@ -101,7 +102,7 @@
             this.TXTBUSCA.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(79)))), ((int)(((byte)(103)))));
             this.TXTBUSCA.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.TXTBUSCA.HoverState.BorderColor = System.Drawing.Color.DarkTurquoise;
-            this.TXTBUSCA.Location = new System.Drawing.Point(32, 38);
+            this.TXTBUSCA.Location = new System.Drawing.Point(32, 43);
             this.TXTBUSCA.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TXTBUSCA.Name = "TXTBUSCA";
             this.TXTBUSCA.PasswordChar = '\0';
@@ -121,10 +122,10 @@
             this.gunaGroupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
             this.gunaGroupBox1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(100)))), ((int)(((byte)(132)))));
             this.gunaGroupBox1.LineTop = 0;
-            this.gunaGroupBox1.Location = new System.Drawing.Point(32, 104);
+            this.gunaGroupBox1.Location = new System.Drawing.Point(32, 109);
             this.gunaGroupBox1.Name = "gunaGroupBox1";
             this.gunaGroupBox1.Radius = 10;
-            this.gunaGroupBox1.Size = new System.Drawing.Size(1275, 511);
+            this.gunaGroupBox1.Size = new System.Drawing.Size(1075, 511);
             this.gunaGroupBox1.TabIndex = 135;
             this.gunaGroupBox1.TextLocation = new System.Drawing.Point(10, 8);
             // 
@@ -132,35 +133,35 @@
             // 
             this.Data.AllowUserToAddRows = false;
             this.Data.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Gadugi", 12F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
-            this.Data.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(46)))), ((int)(((byte)(83)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(46)))), ((int)(((byte)(83)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Data.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Gadugi", 12F);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
+            this.Data.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(46)))), ((int)(((byte)(83)))));
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(46)))), ((int)(((byte)(83)))));
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Data.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.Data.ColumnHeadersHeight = 70;
             this.Data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(235)))), ((int)(((byte)(246)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(100)))), ((int)(((byte)(132)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Data.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(235)))), ((int)(((byte)(246)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(100)))), ((int)(((byte)(132)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Data.DefaultCellStyle = dataGridViewCellStyle12;
             this.Data.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.Data.Location = new System.Drawing.Point(4, 4);
             this.Data.Name = "Data";
             this.Data.ReadOnly = true;
             this.Data.RowHeadersVisible = false;
             this.Data.RowTemplate.Height = 35;
-            this.Data.Size = new System.Drawing.Size(1267, 504);
+            this.Data.Size = new System.Drawing.Size(1067, 504);
             this.Data.TabIndex = 141;
             this.Data.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.Data.ThemeStyle.AlternatingRowsStyle.Font = new System.Drawing.Font("Gadugi", 12F);
@@ -198,7 +199,7 @@
             this.gunaCircleButton1.ForeColor = System.Drawing.Color.White;
             this.gunaCircleButton1.Image = ((System.Drawing.Image)(resources.GetObject("gunaCircleButton1.Image")));
             this.gunaCircleButton1.ImageSize = new System.Drawing.Size(20, 20);
-            this.gunaCircleButton1.Location = new System.Drawing.Point(534, 44);
+            this.gunaCircleButton1.Location = new System.Drawing.Point(534, 49);
             this.gunaCircleButton1.Name = "gunaCircleButton1";
             this.gunaCircleButton1.OnHoverBaseColor = System.Drawing.Color.White;
             this.gunaCircleButton1.OnHoverBorderColor = System.Drawing.Color.Black;
@@ -208,17 +209,43 @@
             this.gunaCircleButton1.Size = new System.Drawing.Size(25, 25);
             this.gunaCircleButton1.TabIndex = 137;
             // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.Animated = true;
+            this.btnSeleccionar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.btnSeleccionar.BorderRadius = 5;
+            this.btnSeleccionar.BorderThickness = 1;
+            this.btnSeleccionar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSeleccionar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSeleccionar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSeleccionar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSeleccionar.FillColor = System.Drawing.Color.White;
+            this.btnSeleccionar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSeleccionar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.btnSeleccionar.HoverState.BorderColor = System.Drawing.Color.Lavender;
+            this.btnSeleccionar.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
+            this.btnSeleccionar.HoverState.ForeColor = System.Drawing.Color.White;
+            this.btnSeleccionar.Location = new System.Drawing.Point(565, 43);
+            this.btnSeleccionar.Name = "btnSeleccionar";
+            this.btnSeleccionar.PressedColor = System.Drawing.Color.White;
+            this.btnSeleccionar.Size = new System.Drawing.Size(180, 36);
+            this.btnSeleccionar.TabIndex = 146;
+            this.btnSeleccionar.Text = "Seleccionar";
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
+            // 
             // Empleades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(245)))));
-            this.ClientSize = new System.Drawing.Size(1338, 649);
+            this.ClientSize = new System.Drawing.Size(1137, 651);
+            this.Controls.Add(this.btnSeleccionar);
             this.Controls.Add(this.guna2Button4);
             this.Controls.Add(this.guna2Button3);
             this.Controls.Add(this.gunaCircleButton1);
             this.Controls.Add(this.TXTBUSCA);
             this.Controls.Add(this.gunaGroupBox1);
+            this.MaximizeBox = false;
             this.Name = "Empleades";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Empleados";
@@ -237,5 +264,6 @@
         private Guna.UI2.WinForms.Guna2TextBox TXTBUSCA;
         private Guna.UI.WinForms.GunaGroupBox gunaGroupBox1;
         private Guna.UI2.WinForms.Guna2DataGridView Data;
+        private Guna.UI2.WinForms.Guna2Button btnSeleccionar;
     }
 }

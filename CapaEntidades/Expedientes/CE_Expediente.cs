@@ -9,6 +9,12 @@ namespace CapaEntidades.Expedientes
         public int ID            { get; set; }
         public string Expediente { get; set; }
 
+        public CE_Expediente(string expediente)   
+        { 
+            ID         = 0;
+            Expediente = expediente;
+        }
+
         public CE_Expediente(int iD, string expediente)
         {
             ID         = iD;

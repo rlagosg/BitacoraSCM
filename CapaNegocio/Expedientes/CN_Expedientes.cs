@@ -34,5 +34,14 @@ namespace CapaNegocio.Expedientes
         {
             return lista.Find(e => e.ID == id);
         }
+
+        /// <summary>
+        /// Metodo para Guarda & Modificar
+        /// </summary>
+        public static string Salvar(CE_Expediente expediente)
+        {
+            CD_Expedientes datos = new CD_Expedientes();
+            return datos.Salvar(expediente);
+        }
     }
 }

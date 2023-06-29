@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -85,6 +85,9 @@
     </Reference>
     <Reference Include="Bunifu.UI.WinForms.BunifuRadioButton">
       <HintPath>..\Util\Frameworks\Bunifu\Bunifu_UI_WinForms_1.11.5.1\Bunifu.UI.WinForms.BunifuRadioButton.dll</HintPath>
+    </Reference>
+    <Reference Include="Bunifu.UI.WinForms.ToggleSwitch">
+      <HintPath>..\Util\Frameworks\Bunifu\Bunifu_UI_WinForms_1.11.5.1\Bunifu.UI.WinForms.ToggleSwitch.dll</HintPath>
     </Reference>
     <Reference Include="Bunifu_UI_v1.5.3">
       <HintPath>..\Util\Frameworks\Bunifu\Bunifu_UI_WinForms_1.11.5.1\Bunifu_UI_v1.5.3.dll</HintPath>
@@ -261,6 +264,24 @@
     <Compile Include="Pantallas\Personas\PersonasE.Designer.cs">
       <DependentUpon>PersonasE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Usuarios\Permisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Usuarios\Permisos.Designer.cs">
+      <DependentUpon>Permisos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Usuarios\Usuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Usuarios\Usuarios.Designer.cs">
+      <DependentUpon>Usuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Usuarios\UsuariosE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Usuarios\UsuariosE.Designer.cs">
+      <DependentUpon>UsuariosE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Login.resx">
@@ -329,6 +350,15 @@
     <EmbeddedResource Include="Pantallas\Personas\PersonasE.resx">
       <DependentUpon>PersonasE.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Usuarios\Permisos.resx">
+      <DependentUpon>Permisos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Usuarios\Usuarios.resx">
+      <DependentUpon>Usuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Usuarios\UsuariosE.resx">
+      <DependentUpon>UsuariosE.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -367,11 +397,21 @@
       <Name>CapaNegocio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pantallas\Seguridad\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="logo catedral.ico" />
+    <None Include="Resources\adjustments_icon_1529373.png" />
+    <None Include="Resources\adjustments_icon_1529372.png" />
+    <None Include="Resources\adjustments_icon_1529371.png" />
+    <None Include="Resources\adjustments_icon_152937 - copia.png" />
+    <None Include="Resources\adjustments_icon_152937.png" />
+    <None Include="Resources\web_gear_setting_settings_icon_153889.png" />
+    <None Include="Resources\Settings_31103.png" />
+    <None Include="Resources\vision_view_eye_icon_153887.png" />
+    <None Include="Resources\notice_attention_icon_153872.png" />
+    <None Include="Resources\window-key.png" />
+    <None Include="Resources\lupa5121.png" />
+    <None Include="Resources\friends_link_send_share_icon_123609.png" />
     <None Include="Resources\image_processing20200805-16834-1uj135q.gif" />
     <None Include="Resources\giphy.gif" />
     <None Include="Resources\load.gif" />

@@ -79,3 +79,8 @@ C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.W
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Globales.Cargando.resources
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Expedientes.CambioProceso.resources
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Expedientes.Control.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Usuarios.Usuarios.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.ToggleSwitch.dll
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.ToggleSwitch.xml
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Usuarios.UsuariosE.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Usuarios.Permisos.resources

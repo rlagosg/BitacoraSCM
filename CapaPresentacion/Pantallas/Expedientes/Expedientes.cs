@@ -238,7 +238,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void guna2Button4_Click(object sender, EventArgs e)
         {
-            Expediente form = new Expediente(this);
+            CambioProceso form = new CambioProceso();
             form.ShowDialog();
         }
 

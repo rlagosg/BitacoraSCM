@@ -139,6 +139,7 @@
             this.guna2Button2.Size = new System.Drawing.Size(210, 36);
             this.guna2Button2.TabIndex = 133;
             this.guna2Button2.Text = "Salvar";
+            this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
             // 
             // EmpleadosE
             // 

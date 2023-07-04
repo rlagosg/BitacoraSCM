@@ -46,5 +46,14 @@ namespace CapaNegocio.Expedientes
             CD_Controles datos = new CD_Controles();
             return datos.Resumen(expediente);
         }
+
+        /// <summary>
+        /// Metodo para Crear un nuevo Control
+        /// </summary>
+        public static string Salvar(CE_CambioProceso cambio)
+        {
+            CD_Controles datos = new CD_Controles();
+            return datos.Salvar(cambio);
+        }
     }
 }

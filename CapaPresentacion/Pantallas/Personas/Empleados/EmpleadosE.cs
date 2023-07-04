@@ -37,5 +37,10 @@ namespace CapaPresentacion.Pantallas.Personas.Empleados
             empleado.Persona = persona;
             TXTNOMBRE.Text = persona.NombreCompleto;
         }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

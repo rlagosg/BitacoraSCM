@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using CapaEntidades.Roles;
 
 namespace CapaNegocio.Personas.Empleados
 {
@@ -12,10 +13,10 @@ namespace CapaNegocio.Personas.Empleados
         /// <summary>
         /// Metodo para listar los emplpeados en forma de Tabla, usando filtro de texto
         /// </summary>
-        public static DataTable Listar(string texto, int op = 1)
+        public static DataTable Listar(string texto, int op = 1, int rol = 1)
         {
             CD_Empleados datos = new CD_Empleados();
-            return datos.Listar(texto, op);
+            return datos.Listar(texto, op, rol);
         }
 
         /// <summary>

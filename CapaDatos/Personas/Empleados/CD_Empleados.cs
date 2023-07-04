@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using CapaEntidades.Personas;
 using CapaEntidades.Personas.Empleados;
+using CapaEntidades.Roles;
 
 namespace CapaDatos.Personas.Empleados
 {
@@ -14,7 +15,7 @@ namespace CapaDatos.Personas.Empleados
         /// <summary>
         /// Metodo para listar los emplpeados en forma de Tabla, usando filtro de texto
         /// </summary>
-        public DataTable Listar(string texto, int op =  1)
+        public DataTable Listar(string texto, int op =  1, int rol = 1)
         {
             SqlDataReader resultado;
             DataTable tabla = new DataTable();
@@ -25,8 +26,19 @@ namespace CapaDatos.Personas.Empleados
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
 
-                if (op == 1) comando = new SqlCommand("SCM_SP_EMPLEADOS_LIST", sqlCon);
-                else comando = new SqlCommand("SCM_SP_EMPLEADOS_NO_USUARIO_LIST", sqlCon);
+                switch (op)
+                {
+                    case 1: //busqueda de empleados
+                        comando = new SqlCommand("SCM_SP_EMPLEADOS_LIST", sqlCon);
+                        break;
+                    case 2: //empleados sin usuario
+                        comando = new SqlCommand("SCM_SP_EMPLEADOS_NO_USUARIO_LIST", sqlCon);
+                        break;
+                    default: //empleados por roles
+                        comando = new SqlCommand("SCM_SP_EMPLEADOS_BY_ROL_LIST", sqlCon);
+                        comando.Parameters.Add("@idRol", SqlDbType.Int).Value = rol;
+                        break;
+                }
 
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@texto", SqlDbType.NVarChar).Value = texto;

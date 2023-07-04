@@ -44,7 +44,7 @@ namespace CapaPresentacion.Pantallas.Usuarios
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            Empleades frm = new Empleades(this, 2);
+            Empleades frm = new Empleades(this, null, 2);
             frm.ShowDialog();
         }
 

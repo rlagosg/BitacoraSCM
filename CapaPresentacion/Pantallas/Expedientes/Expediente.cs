@@ -69,7 +69,8 @@ namespace CapaPresentacion.Pantallas.Expedientes
                     TXTENCARGADO.Text  = control.Encargado.Persona.NombreCompleto;                    
                     TXTPROCESO.Text    = control.Proceso;
                     TXTESTADO.Text     = control.Estado;
-                    TXTCOMENTARIO.Text = control.Comentario;                    
+                    TXTCOMENTARIO.Text = control.Comentario;
+                    TXTCOMENTINI.Text  = control.ObsInicial;
                     panel.Controls.Add(ObtenerDatePicker(control.UltCambio.Value));
                 }
                 
@@ -167,7 +168,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
                     dataSource = CN_Controles.Resumen(control);
                     currentData.DataSource = dataSource;
                     columns = currentData.Columns;
-                    columns[0].Visible = false;
+                    columns[1].Visible = true;
                 }
             }
         }

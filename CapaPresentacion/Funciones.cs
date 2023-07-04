@@ -1,4 +1,5 @@
 ﻿using CapaNegocio;
+using Guna.UI2.WinForms;
 using Guna.UI2.WinForms.Internal;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,26 @@ namespace CapaPresentacion
             if (!informacion && error)  MessageBox.Show(mensaje, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             if (informacion  && !error) MessageBox.Show(mensaje, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             if (!informacion && !error) MessageBox.Show(mensaje, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+
+        /// <summary>
+        /// mostrar mensaje en estilo modal
+        /// </summary>
+        public void MensajeShowModal(string mensaje, bool informacion = true, bool error = false)
+        {
+
+            Guna2MessageDialog mens = new Guna2MessageDialog();
+
+            if (!informacion && error) mens.Icon = MessageDialogIcon.Error;
+            if (informacion && !error) mens.Icon = MessageDialogIcon.Information;
+            if (!informacion && !error) mens.Icon = MessageDialogIcon.Warning;
+            
+            mens.Text = mensaje;
+            mens.Caption = "Mesanje del Sistema";
+            mens.Buttons = MessageDialogButtons.OK;
+            mens.Style = MessageDialogStyle.Light;
+            mens.Show();
         }
 
         /// <summary>

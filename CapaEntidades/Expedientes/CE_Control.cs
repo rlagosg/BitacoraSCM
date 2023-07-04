@@ -30,6 +30,13 @@ namespace CapaEntidades.Expedientes
             this.Rol           = -1;
         }
 
+        public CE_Control(CE_Expediente expediente)
+        {
+            this.IdControl  = 0;
+            this.Expediente = expediente;
+            this.Rol        = -1;
+        }
+
         public CE_Control(
             int iDControl, CE_Expediente expediente, DateTime? iniciado,
             CE_Empleado iniciador, string obsInicial, 

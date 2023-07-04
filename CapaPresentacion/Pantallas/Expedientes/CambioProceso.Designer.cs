@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.gunaGroupBox2 = new Guna.UI.WinForms.GunaGroupBox();
-            this.btnFINALIZAR = new Guna.UI2.WinForms.Guna2Button();
-            this.TXTCOMENTINI = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.labelActivo = new System.Windows.Forms.Label();
+            this.TXTEXPEDIENTE = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.TXTENCARGADO = new Guna.UI2.WinForms.Guna2TextBox();
-            this.TXTEXPEDIENTE = new Guna.UI2.WinForms.Guna2TextBox();
-            this.labelActivo = new System.Windows.Forms.Label();
+            this.btnFINALIZAR = new Guna.UI2.WinForms.Guna2Button();
+            this.TXTCOMENTARIO = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.gunaGroupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +51,7 @@
             this.gunaGroupBox2.Controls.Add(this.guna2Button1);
             this.gunaGroupBox2.Controls.Add(this.TXTENCARGADO);
             this.gunaGroupBox2.Controls.Add(this.btnFINALIZAR);
-            this.gunaGroupBox2.Controls.Add(this.TXTCOMENTINI);
+            this.gunaGroupBox2.Controls.Add(this.TXTCOMENTARIO);
             this.gunaGroupBox2.Controls.Add(this.label2);
             this.gunaGroupBox2.Controls.Add(this.label8);
             this.gunaGroupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -65,76 +65,43 @@
             this.gunaGroupBox2.TabIndex = 132;
             this.gunaGroupBox2.TextLocation = new System.Drawing.Point(10, 8);
             // 
-            // btnFINALIZAR
+            // labelActivo
             // 
-            this.btnFINALIZAR.Animated = true;
-            this.btnFINALIZAR.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.btnFINALIZAR.BorderRadius = 5;
-            this.btnFINALIZAR.BorderThickness = 1;
-            this.btnFINALIZAR.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnFINALIZAR.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnFINALIZAR.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnFINALIZAR.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnFINALIZAR.FillColor = System.Drawing.Color.White;
-            this.btnFINALIZAR.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnFINALIZAR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.btnFINALIZAR.HoverState.BorderColor = System.Drawing.Color.Lavender;
-            this.btnFINALIZAR.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
-            this.btnFINALIZAR.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnFINALIZAR.Location = new System.Drawing.Point(535, 279);
-            this.btnFINALIZAR.Name = "btnFINALIZAR";
-            this.btnFINALIZAR.PressedColor = System.Drawing.Color.White;
-            this.btnFINALIZAR.Size = new System.Drawing.Size(180, 36);
-            this.btnFINALIZAR.TabIndex = 148;
-            this.btnFINALIZAR.Text = "Enviar";
-            this.btnFINALIZAR.Click += new System.EventHandler(this.btnFINALIZAR_Click);
+            this.labelActivo.AutoSize = true;
+            this.labelActivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelActivo.ForeColor = System.Drawing.Color.CadetBlue;
+            this.labelActivo.Location = new System.Drawing.Point(537, 68);
+            this.labelActivo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelActivo.Name = "labelActivo";
+            this.labelActivo.Size = new System.Drawing.Size(89, 20);
+            this.labelActivo.TabIndex = 151;
+            this.labelActivo.Text = "Expediente";
             // 
-            // TXTCOMENTINI
+            // TXTEXPEDIENTE
             // 
-            this.TXTCOMENTINI.Animated = true;
-            this.TXTCOMENTINI.BorderRadius = 5;
-            this.TXTCOMENTINI.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TXTCOMENTINI.DefaultText = "";
-            this.TXTCOMENTINI.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTCOMENTINI.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(235)))), ((int)(((byte)(246)))));
-            this.TXTCOMENTINI.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTCOMENTINI.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.TXTCOMENTINI.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(79)))), ((int)(((byte)(103)))));
-            this.TXTCOMENTINI.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.TXTCOMENTINI.HoverState.BorderColor = System.Drawing.Color.DarkTurquoise;
-            this.TXTCOMENTINI.Location = new System.Drawing.Point(30, 147);
-            this.TXTCOMENTINI.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.TXTCOMENTINI.MaxLength = 500;
-            this.TXTCOMENTINI.Multiline = true;
-            this.TXTCOMENTINI.Name = "TXTCOMENTINI";
-            this.TXTCOMENTINI.PasswordChar = '\0';
-            this.TXTCOMENTINI.PlaceholderText = "sin comentarios";
-            this.TXTCOMENTINI.ReadOnly = true;
-            this.TXTCOMENTINI.SelectedText = "";
-            this.TXTCOMENTINI.Size = new System.Drawing.Size(685, 112);
-            this.TXTCOMENTINI.TabIndex = 147;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(35, 123);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 20);
-            this.label2.TabIndex = 146;
-            this.label2.Text = "Comentario";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(33, 42);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(136, 20);
-            this.label8.TabIndex = 142;
-            this.label8.Text = "Nuevo Encargado";
+            this.TXTEXPEDIENTE.Animated = true;
+            this.TXTEXPEDIENTE.BorderRadius = 5;
+            this.TXTEXPEDIENTE.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TXTEXPEDIENTE.DefaultText = "";
+            this.TXTEXPEDIENTE.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTEXPEDIENTE.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(235)))), ((int)(((byte)(246)))));
+            this.TXTEXPEDIENTE.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTEXPEDIENTE.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.TXTEXPEDIENTE.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTEXPEDIENTE.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TXTEXPEDIENTE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTEXPEDIENTE.HoverState.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.TXTEXPEDIENTE.Location = new System.Drawing.Point(451, 21);
+            this.TXTEXPEDIENTE.Margin = new System.Windows.Forms.Padding(5);
+            this.TXTEXPEDIENTE.Name = "TXTEXPEDIENTE";
+            this.TXTEXPEDIENTE.PasswordChar = '\0';
+            this.TXTEXPEDIENTE.PlaceholderText = "expediente";
+            this.TXTEXPEDIENTE.SelectedText = "";
+            this.TXTEXPEDIENTE.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTEXPEDIENTE.Size = new System.Drawing.Size(264, 43);
+            this.TXTEXPEDIENTE.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
+            this.TXTEXPEDIENTE.TabIndex = 0;
+            this.TXTEXPEDIENTE.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // guna2Button1
             // 
@@ -160,6 +127,7 @@
             this.guna2Button1.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
             this.guna2Button1.Size = new System.Drawing.Size(42, 36);
             this.guna2Button1.TabIndex = 149;
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
             // TXTENCARGADO
             // 
@@ -186,43 +154,75 @@
             this.TXTENCARGADO.TabIndex = 150;
             this.TXTENCARGADO.Click += new System.EventHandler(this.TXTENCARGADO_Click);
             // 
-            // TXTEXPEDIENTE
+            // btnFINALIZAR
             // 
-            this.TXTEXPEDIENTE.Animated = true;
-            this.TXTEXPEDIENTE.BorderRadius = 5;
-            this.TXTEXPEDIENTE.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TXTEXPEDIENTE.DefaultText = "";
-            this.TXTEXPEDIENTE.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTEXPEDIENTE.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(235)))), ((int)(((byte)(246)))));
-            this.TXTEXPEDIENTE.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTEXPEDIENTE.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.TXTEXPEDIENTE.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTEXPEDIENTE.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TXTEXPEDIENTE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTEXPEDIENTE.HoverState.BorderColor = System.Drawing.Color.DarkTurquoise;
-            this.TXTEXPEDIENTE.Location = new System.Drawing.Point(451, 21);
-            this.TXTEXPEDIENTE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.TXTEXPEDIENTE.Name = "TXTEXPEDIENTE";
-            this.TXTEXPEDIENTE.PasswordChar = '\0';
-            this.TXTEXPEDIENTE.PlaceholderText = "expediente";
-            this.TXTEXPEDIENTE.SelectedText = "";
-            this.TXTEXPEDIENTE.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTEXPEDIENTE.Size = new System.Drawing.Size(264, 43);
-            this.TXTEXPEDIENTE.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
-            this.TXTEXPEDIENTE.TabIndex = 0;
-            this.TXTEXPEDIENTE.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.btnFINALIZAR.Animated = true;
+            this.btnFINALIZAR.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.btnFINALIZAR.BorderRadius = 5;
+            this.btnFINALIZAR.BorderThickness = 1;
+            this.btnFINALIZAR.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnFINALIZAR.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnFINALIZAR.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnFINALIZAR.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnFINALIZAR.FillColor = System.Drawing.Color.White;
+            this.btnFINALIZAR.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnFINALIZAR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.btnFINALIZAR.HoverState.BorderColor = System.Drawing.Color.Lavender;
+            this.btnFINALIZAR.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
+            this.btnFINALIZAR.HoverState.ForeColor = System.Drawing.Color.White;
+            this.btnFINALIZAR.Location = new System.Drawing.Point(535, 279);
+            this.btnFINALIZAR.Name = "btnFINALIZAR";
+            this.btnFINALIZAR.PressedColor = System.Drawing.Color.White;
+            this.btnFINALIZAR.Size = new System.Drawing.Size(180, 36);
+            this.btnFINALIZAR.TabIndex = 148;
+            this.btnFINALIZAR.Text = "Enviar";
+            this.btnFINALIZAR.Click += new System.EventHandler(this.btnFINALIZAR_Click);
             // 
-            // labelActivo
+            // TXTCOMENTARIO
             // 
-            this.labelActivo.AutoSize = true;
-            this.labelActivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelActivo.ForeColor = System.Drawing.Color.CadetBlue;
-            this.labelActivo.Location = new System.Drawing.Point(537, 68);
-            this.labelActivo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelActivo.Name = "labelActivo";
-            this.labelActivo.Size = new System.Drawing.Size(89, 20);
-            this.labelActivo.TabIndex = 151;
-            this.labelActivo.Text = "Expediente";
+            this.TXTCOMENTARIO.Animated = true;
+            this.TXTCOMENTARIO.BorderRadius = 5;
+            this.TXTCOMENTARIO.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TXTCOMENTARIO.DefaultText = "";
+            this.TXTCOMENTARIO.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTCOMENTARIO.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(235)))), ((int)(((byte)(246)))));
+            this.TXTCOMENTARIO.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTCOMENTARIO.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.TXTCOMENTARIO.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(79)))), ((int)(((byte)(103)))));
+            this.TXTCOMENTARIO.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.TXTCOMENTARIO.HoverState.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.TXTCOMENTARIO.Location = new System.Drawing.Point(30, 147);
+            this.TXTCOMENTARIO.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TXTCOMENTARIO.MaxLength = 500;
+            this.TXTCOMENTARIO.Multiline = true;
+            this.TXTCOMENTARIO.Name = "TXTCOMENTARIO";
+            this.TXTCOMENTARIO.PasswordChar = '\0';
+            this.TXTCOMENTARIO.PlaceholderText = "sin comentarios";
+            this.TXTCOMENTARIO.SelectedText = "";
+            this.TXTCOMENTARIO.Size = new System.Drawing.Size(685, 112);
+            this.TXTCOMENTARIO.TabIndex = 147;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(35, 123);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(91, 20);
+            this.label2.TabIndex = 146;
+            this.label2.Text = "Comentario";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(33, 42);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(136, 20);
+            this.label8.TabIndex = 142;
+            this.label8.Text = "Nuevo Encargado";
             // 
             // CambioProceso
             // 
@@ -245,7 +245,7 @@
 
         private Guna.UI.WinForms.GunaGroupBox gunaGroupBox2;
         private System.Windows.Forms.Label label8;
-        private Guna.UI2.WinForms.Guna2TextBox TXTCOMENTINI;
+        private Guna.UI2.WinForms.Guna2TextBox TXTCOMENTARIO;
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2Button btnFINALIZAR;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;

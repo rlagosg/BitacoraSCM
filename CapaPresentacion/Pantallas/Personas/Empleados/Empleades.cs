@@ -1,6 +1,8 @@
 ﻿using CapaEntidades.Personas.Empleados;
+using CapaEntidades.Roles;
 using CapaNegocio.Expedientes;
 using CapaNegocio.Personas.Empleados;
+using CapaPresentacion.Pantallas.Expedientes;
 using CapaPresentacion.Pantallas.Personas.Empleados;
 using CapaPresentacion.Pantallas.Usuarios;
 using System;
@@ -19,20 +21,23 @@ namespace CapaPresentacion.Pantallas.Personas
     {
 
         UsuariosE frmUsuarioE;
+        CambioProceso frmCambio;
+        int rol = 1;
         Funciones funciones = new Funciones();
         CE_Empleado empleado;
-        //variable de estado, 1: modo basico, otro: seleccionando
+        //variable de estado, 1: modo basico, 2: seleccionando usuario, 3: seleccionando recibe
         private int opcion = 1;
 
         //indice de la tabla
         int indiceData = -1;
 
-        public Empleades(UsuariosE frm = null, int op = 1)
+        public Empleades(UsuariosE frm = null, CambioProceso cambio = null, int op = 1, int rol = 1)
         {
             InitializeComponent();
             this.frmUsuarioE = frm;
             this.opcion = op;
-
+            this.frmCambio = cambio;
+            this.rol = rol;
         }
 
         private void Empleados_Load(object sender, EventArgs e)
@@ -63,8 +68,8 @@ namespace CapaPresentacion.Pantallas.Personas
             try
             {
                 string busca = TXTBUSCA.Text.Trim();
-                if (busca.Length > 0) Data.DataSource = CN_Empleados.Listar(busca, opcion);
-                else Data.DataSource = CN_Empleados.Listar(texto, opcion);           
+                if (busca.Length > 0) Data.DataSource = CN_Empleados.Listar(busca, opcion, rol);
+                else Data.DataSource = CN_Empleados.Listar(texto, opcion, rol);           
             }
             catch (Exception ex)
             {
@@ -118,9 +123,18 @@ namespace CapaPresentacion.Pantallas.Personas
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {
             if (validaItem())
-            {                
-                frmUsuarioE.ActualizaEmpleado(empleado);
-                this.Hide();                
+            {     
+                if ( opcion == 2) 
+                {
+                    frmUsuarioE.ActualizaEmpleado(empleado);
+                    this.Close();
+                }
+                else
+                {
+                    frmCambio.ActualizaRecibe(empleado);
+                    this.Close();
+                }
+                              
             }
             
         }

@@ -34,6 +34,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         public CambioProceso(Expedientes frm = null, CE_Control Control = null, int stado = 2)
         {
             InitializeComponent();
+            Configura();
             frmExpedientes = frm;
             control = Control;
             estado = stado;
@@ -48,6 +49,19 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void CambioProceso_Load(object sender, EventArgs e)
         {
             llenar();
+        }
+
+        private void Configura()
+        {
+            if( estado == 1 )
+            {
+                this.Size              = new Size  (816, 420);
+                grupo.Size             = new Size  (744, 332);
+                btnFINALIZAR.Location  = new Point (535, 279);
+                label1.Text            = "Comentario";
+                label2.Visible         = false;
+                TXTCOMENTARIO2.Visible = false;
+            }
         }
 
         private void llenar()
@@ -101,9 +115,10 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
                     CE_CambioProceso cambio = new CE_CambioProceso();
                     cambio.Control = control;
-                    cambio.Envia = CN_Empleados.BuscaEmpleadoById(4);
-                    cambio.Recibe = recibe;
-                    cambio.Observaciones = TXTCOMENTARIO.Text.Trim();
+                    cambio.Envia   = CN_Empleados.BuscaEmpleadoById(4);
+                    cambio.Recibe  = recibe;
+                    cambio.ObsIni  = TXTCOMENTARIO.Text.Trim();
+                    cambio.Observaciones = TXTCOMENTARIO2.Text.Trim();
 
                     string Rpta = CN_Controles.Salvar(cambio);
 

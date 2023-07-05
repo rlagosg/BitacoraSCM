@@ -163,26 +163,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CapaDatos.dll" size="33792">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CapaDatos.dll" size="36864">
       <assemblyIdentity name="CapaDatos" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>WtzieLeS79jz8kALQvzDBs2YmlGAwY91ZB1OVSXCHeA=</dsig:DigestValue>
+        <dsig:DigestValue>2mb22gheLLfqzh+1uswBUh1IVbgNxtY507EtxaSbRy8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CapaEntidades.dll" size="21504">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CapaEntidades.dll" size="23552">
       <assemblyIdentity name="CapaEntidades" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>uALZBL/kFxye7lS3C8tBqKm3iBgmqbMsp+SWQ3OYawc=</dsig:DigestValue>
+        <dsig:DigestValue>AGPFTkPa8tidV/XvsAuxiDdVwK1UwNLsk0xAynAQ6AM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -194,7 +194,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>M8MRHom8UJZuy1IIPwB6fTYR1zS0gNmt0pwY3z0ZD2Y=</dsig:DigestValue>
+        <dsig:DigestValue>AHfOOblKC40pPAlJcQvAxk+zi+o7Ysf0PcznMGgUuT0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -259,14 +259,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="5565424">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="5569008">
       <assemblyIdentity name="SCM" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>DgWcab7nqSaNnlReBuH1+lDvbFPP4GZGN4w1YnocIJo=</dsig:DigestValue>
+        <dsig:DigestValue>D0LVnK7Zsbm1LGjG0Alw+2QRBYi7UUUATk1BTO/n2KU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

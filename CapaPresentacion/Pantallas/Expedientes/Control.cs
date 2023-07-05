@@ -1,4 +1,5 @@
-﻿using Guna.UI.WinForms;
+﻿using CapaEntidades.Expedientes;
+using Guna.UI.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,14 @@ namespace CapaPresentacion.Pantallas.Expedientes
 {
     public partial class Control : Form
     {
-        public Control()
+        CE_CambioProceso cambioProceso;
+        Expedientes frmExpediente;
+        Funciones funciones = new Funciones();
+        public Control(Expedientes frm, CE_CambioProceso cambio )
         {
             InitializeComponent();
+            this.cambioProceso = cambio;
+            this.frmExpediente = frm;
         }
 
         private void BTNSALVAR_Click(object sender, EventArgs e)
@@ -25,18 +31,32 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Control_Load(object sender, EventArgs e)
         {
-            DateTime fecha = new DateTime(2023, 6, 30);
-            panelf.Controls.Add(ObtenerDatePicker(fecha));
-            paneli.Controls.Add(ObtenerDatePicker(fecha));
+            llenar();           
         }
 
-        private GunaDateTimePicker ObtenerDatePicker(DateTime fecha)
+        private void llenar()
         {
+            if(cambioProceso != null)
+            {   CE_Control control = cambioProceso.Control;
+                TXTINICIADOR.Text  = control.Iniciador.Persona.NombreCompleto;
+                TXTOBSINI.Text     = control.ObsInicial;
+                TXTRECIBIDO.Text   = cambioProceso.Recibe.Persona.NombreCompleto;
+                TXTOBS.Text        = cambioProceso.Observaciones;                 
+                paneli.Controls.Add(ObtenerDatePicker(control.Iniciado));
+                panelf.Controls.Add(ObtenerDatePicker(cambioProceso.Fecha));
+            }
+        }
+
+        private GunaDateTimePicker ObtenerDatePicker(DateTime? fecha)
+        {
+
+            if (!fecha.HasValue)
+                return null;
 
             CustomGunaDateTimePicker Picker = new CustomGunaDateTimePicker();
 
             // Configurar la fecha
-            Picker.Value = fecha;
+            Picker.Value = fecha.Value;
 
             // Modificar los colores
             Picker.FocusedColor = Color.FromArgb(68, 88, 112);
@@ -53,7 +73,8 @@ namespace CapaPresentacion.Pantallas.Expedientes
             Picker.Size = new Size(275, 36);
             Picker.BorderSize = 1;
             Picker.Radius = 5;
-
+            // Ajustar el anclaje al lado derecho del panel
+            //Picker.Dock = DockStyle.Fill;
             // Otros ajustes de apariencia según sea necesario
             return Picker;
         }
@@ -62,6 +83,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
         {
             CambioProceso frm = new CambioProceso();
             frm.ShowDialog();
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

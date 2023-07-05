@@ -6,6 +6,7 @@ using System.Text;
 using CapaDatos.Roles;
 using CapaEntidades.Roles;
 using CapaEntidades.Personas;
+using System.Collections;
 
 namespace CapaDatos.Controles
 {
@@ -98,6 +99,11 @@ namespace CapaDatos.Controles
             }
 
             return null;
+        }
+
+        public CE_Rol RolById(int id)
+        {
+            return this.ObtenerRoles().Find(r => r.ID == id);
         }
     }
 }

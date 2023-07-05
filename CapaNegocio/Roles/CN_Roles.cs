@@ -31,5 +31,11 @@ namespace CapaNegocio.Roles
             nombre = nombre.Trim().ToLower();
             return datos.RolByName(nombre);
         }
+
+        public static CE_Rol RolById(int id)
+        {
+            CD_Roles datos = new CD_Roles();
+            return datos.RolById(id);
+        }
     }
 }

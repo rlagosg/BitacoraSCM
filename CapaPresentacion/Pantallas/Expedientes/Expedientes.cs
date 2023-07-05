@@ -24,25 +24,31 @@ namespace CapaPresentacion.Pantallas.Expedientes
     public partial class Expedientes : Form
     {
         Funciones funciones = new Funciones();
-        CE_Control control;
+        CE_Control control;        
+        List<CE_Empleado> listaEmpleados;
+        CE_Busqueda busqueda = new CE_Busqueda();
+        CE_CambioProceso cambioProceso;
+
+        //variable modo para saber si estoy en modo Administrador = 1, o modo Roles = 2
+        int modo = 2;
         int indiceData = -1;
-        List<CE_Empleado> listaEmpleados;        
-        public Expedientes()
+        public Expedientes(int mod = 2)
         {
-            InitializeComponent();           
+            InitializeComponent();    
+            modo = mod;
         }
 
         private void Expedientes_Load(object sender, EventArgs e)
         {
-            Listar("");
-            Cargar();            
-//            activeForm.Visible = false;
+            Cargar();
+            Listar("");                       
         }
 
         void Cargar()
         {
             guna2ComboBox1.SelectedIndex = 0;
-            guna2ComboBox2.SelectedIndex = 0;   
+            guna2ComboBox2.SelectedIndex = 0;
+            if (modo == 2) busqueda.idEncargado = 1;
         }
 
         public void Listar(string texto = "")
@@ -52,11 +58,13 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 string busca = TXTBUSCA.Text.Trim();
                 if (busca.Length > 0)
                 {
-                    Data.DataSource = CN_Controles.Listar(busca);                    
+                    busqueda.texto = busca;
+                    Data.DataSource = CN_Controles.Listar(busqueda);                    
                 }
                 else
-                {                    
-                    Data.DataSource = CN_Controles.Listar(texto);
+                {   
+                    busqueda.texto = texto;
+                    Data.DataSource = CN_Controles.Listar(busqueda);
                 }
 
                 Tabla();
@@ -69,20 +77,21 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Tabla()
         {
-            Data.Columns[0].Visible = false;
-            Data.Columns[1].Visible = false;
-            Data.Columns[5]. Visible = false;
-            Data.Columns[4].Visible = false; Data.Columns[10]. Visible = false;
-            Data.Columns[6].Visible = false; Data.Columns[13].Visible = false;
+            Data.Columns[0]. Visible = false;
+            Data.Columns[1]. Visible = false;
+            Data.Columns[5]. Visible = false; Data.Columns[17].Visible = false;
+            Data.Columns[4]. Visible = false; Data.Columns[10].Visible = false;
+            Data.Columns[6]. Visible = false; Data.Columns[13].Visible = false;
             Data.Columns[14].Visible = false; Data.Columns[16].Visible = false;
 
-            Data.Columns[2].Width  = 140; //nombre          
-            Data.Columns[3].Width  = 140; //fecha inicial            
-            Data.Columns[7].Width  = 140; //Proceso
-            Data.Columns[8].Width  = 190; //Estado
-            Data.Columns[9].Width  = 300; //Comentario
+            Data.Columns[2]. Width = 140; //nombre          
+            Data.Columns[3]. Width = 140; //fecha inicial            
+            Data.Columns[7]. Width = 140; //Proceso
+            Data.Columns[8]. Width = 190; //Estado
+            Data.Columns[9]. Width = 300; //Comentario
             Data.Columns[12].Width = 140; //Ult.Cambio
-            Data.Columns[15].Width = 90; //fecha final           
+            Data.Columns[15].Width =  90; //fecha final
+                                          
         }
 
         private void gunaCircleButton1_Click(object sender, EventArgs e)
@@ -117,7 +126,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
 
                 // Crear el color personalizado
-                Color separatorColor = Color.FromArgb(245, 247, 251);
+                Color separatorColor   = Color.FromArgb(245, 247, 251);
                 int separatorThickness = 8; // Grosor de la línea separadora
 
                 // Dibujar la línea separadora
@@ -149,23 +158,24 @@ namespace CapaPresentacion.Pantallas.Expedientes
                     control = new CE_Control();
                     listaEmpleados = CN_Empleados.ObtenerEmpleados();
 
-                    await Busca //Expediente, Iniciador, Encargado, Finalizador
+                    await Busca //Expediente, Iniciador, Encargado, Finalizador, CambioProceso
                     (
-                        funciones.convertInt(fila.Cells[1].Value),
-                        funciones.convertInt(fila.Cells[4].Value),
+                        funciones.convertInt(fila.Cells[1]. Value),
+                        funciones.convertInt(fila.Cells[4]. Value),
                         funciones.convertInt(fila.Cells[10].Value),
-                        funciones.convertInt(fila.Cells[13].Value)
+                        funciones.convertInt(fila.Cells[13].Value),
+                        funciones.convertInt(fila.Cells[17].Value)
                     );
                     //control.Expediente = CN_Expedientes.BuscarById(funciones.convertInt(fila.Cells[1].Value));
-                    control.IdControl    = funciones.convertInt    (fila.Cells[0].Value);  //IdControl                                     
-                    control.Iniciado     = funciones.convertDate   (fila.Cells[3].Value);  //Iniciado
-                    control.ObsInicial   = funciones.convertString (fila.Cells[6].Value);  //ObsInicial      
-                    control.Proceso      = funciones.convertString (fila.Cells[7].Value);  //Proceso         
-                    control.Estado       = funciones.convertString (fila.Cells[8].Value);  //Estado          
-                    control.Comentario   = funciones.convertString (fila.Cells[9].Value);  //Comentario  
-                    control.UltCambio    = funciones.convertDate   (fila.Cells[12].Value); //UltCambio  
-                    control.Finalizacion = funciones.convertDate   (fila.Cells[15].Value); //Finalizacion 
-                    control.ObsFinal     = funciones.convertString (fila.Cells[16].Value); //ObsFinal                     
+                    control.IdControl       = funciones.convertInt    (fila.Cells[0]. Value);  //IdControl                                     
+                    control.Iniciado        = funciones.convertDate   (fila.Cells[3]. Value);  //Iniciado
+                    control.ObsInicial      = funciones.convertString (fila.Cells[6]. Value);  //ObsInicial      
+                    control.Proceso         = funciones.convertString (fila.Cells[7]. Value);  //Proceso         
+                    control.Estado          = funciones.convertString (fila.Cells[8]. Value);  //Estado          
+                    control.Comentario      = funciones.convertString (fila.Cells[9]. Value);  //Comentario  
+                    control.UltCambio       = funciones.convertDate   (fila.Cells[12].Value);  //UltCambio  
+                    control.Finalizacion    = funciones.convertDate   (fila.Cells[15].Value);  //Finalizacion 
+                    control.ObsFinal        = funciones.convertString (fila.Cells[16].Value);  //ObsFinal                    
 
                     indiceData = Data.CurrentRow.Index;                    
                     return true;
@@ -179,10 +189,10 @@ namespace CapaPresentacion.Pantallas.Expedientes
             switch (tipo)
             {
                 case 0: //iniciador
-                    control.Iniciador = await Task.Run(() => CN_Empleados.BuscaEmpleadoById(listaEmpleados, empleado));
+                    control.Iniciador   = await Task.Run(() => CN_Empleados.BuscaEmpleadoById(listaEmpleados, empleado));
                     break;
                 case 1: //Encargado
-                    control.Encargado = await Task.Run(() => CN_Empleados.BuscaEmpleadoById(listaEmpleados, empleado));
+                    control.Encargado   = await Task.Run(() => CN_Empleados.BuscaEmpleadoById(listaEmpleados, empleado));
                     break;
                 case 2: //Finalizador
                     control.Finalizador = await Task.Run(() => CN_Empleados.BuscaEmpleadoById(listaEmpleados, empleado));
@@ -197,15 +207,21 @@ namespace CapaPresentacion.Pantallas.Expedientes
             control.Expediente = await Task.Run(() => CN_Expedientes.BuscarById(id));
         }
 
+        private async Task BuscaCambio(int id)
+        {
+            cambioProceso     = await Task.Run(() => CN_CambiosProceso.BuscarById(id));
+        }
 
-        private async Task Busca(int expediente, int iniciador, int encargado, int finalizador)
+
+        private async Task Busca(int expediente, int iniciador, int encargado, int finalizador, int cambio)
         {            
-            var task1 = BuscaEmpleado(iniciador, 0);
-            var task2 = BuscaEmpleado(encargado, 1);
-            var task3 = BuscaEmpleado(finalizador, 2);
-            var task4 = BuscaExpediente(expediente);
+            var task1 = BuscaEmpleado   (iniciador,   0);
+            var task2 = BuscaEmpleado   (encargado,   1);
+            var task3 = BuscaEmpleado   (finalizador, 2);
+            var task4 = BuscaExpediente (expediente);
+            var task5 = BuscaCambio     (cambio);
 
-            await Task.WhenAll(task1, task2, task3, task4);
+            await Task.WhenAll(task1, task2, task3, task4, task5);
         }
 
 
@@ -229,10 +245,22 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
             if (resultado)
             {
-                Expediente form = new Expediente(this, control);    
-                loadingForm.Hide();
-                form.ShowDialog();
-                loadingForm.Exits();
+                if(modo == 1) //modo Administrador
+                {
+                    Expediente form = new Expediente(this, control);
+                    loadingForm.Hide();
+                    form.ShowDialog();
+                    loadingForm.Exits();
+                }
+                else //modo roles de usuarios
+                {
+                    cambioProceso.Control = control;
+                    cambioProceso.ObsIni  = control.ObsInicial;
+                    Control form = new Control(this,cambioProceso);
+                    loadingForm.Hide();
+                    form.ShowDialog();
+                    loadingForm.Exits();
+                }   
             }         
         }
 

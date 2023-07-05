@@ -115,8 +115,10 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void llenarGridGeneral()
         {
             DataG.DataSource = CN_CambiosProceso.Listar(control);
-            DataG.Columns[1].Visible = false;
-            DataG.Columns[3].Visible = false;
+            DataG.Columns[0].Visible = false; DataG.Columns[2].Visible = false;
+            DataG.Columns[4].Visible = false; DataG.Columns[5].Visible = false; 
+            DataG.Columns[1].Width = 120; DataG.Columns[3].Width = 120; 
+            DataG.Columns[6].Width = 140; DataG.Columns[7].Width = 200;
         }
 
         private void Expediente_Load(object sender, EventArgs e)
@@ -230,6 +232,18 @@ namespace CapaPresentacion.Pantallas.Expedientes
             mens.Buttons = MessageDialogButtons.OK;
             mens.Style   = MessageDialogStyle.Light;            
             mens.Show(); 
+        }
+
+        private void DataG_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            // Establecer el modo de ajuste de texto (WrapMode) en la columna 5
+            DataG.Columns[5].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            // Autoajustar las filas para mostrar todo el contenido
+            DataG.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            // Ajustar el tamaño de las filas
+            DataG.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
         }
     }
 }

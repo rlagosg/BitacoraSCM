@@ -194,6 +194,7 @@ CREATE TABLE Cambios_Proceso (
     IdRol INT FOREIGN KEY REFERENCES Roles(IdRol) NOT NULL,  
     Envio INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL, 
     Recibio INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL,
+    Observaciones VARCHAR(500) NULL,
     Duracion TIME,
     Activo bit
 );
@@ -1002,7 +1003,8 @@ BEGIN
         C.Finalizador AS IdFinalizador,
         CONCAT(PFin.PrimerNombre, ' ', PFin.PrimerApellido) AS Finalizador,
         C.FechaFin AS Finalizacion,
-        C.ObsFin AS [Observacion Final]
+        C.ObsFin AS [Observacion Final],
+        CP.IdCambios
     FROM
         Controles C
         INNER JOIN Expedientes E ON C.IdExpediente = E.IdExpediente
@@ -1026,7 +1028,7 @@ BEGIN
         PIni.PrimerNombre, PIni.PrimerApellido, C.ObsIni, Rol.Nombre,
         Et.Nombre, CE.IdEmpleado, PEn.PrimerNombre, PEn.PrimerApellido,
         C.Finalizador, PFin.PrimerNombre, PFin.PrimerApellido, C.FechaFin,
-        C.ObsFin, CE.IdControlEstado;
+        C.ObsFin, CE.IdControlEstado, CP.IdCambios;
 END;
 GO
 
@@ -1037,7 +1039,9 @@ CREATE PROCEDURE SCM_SP_EXPEDIENTE_CONTROL_SAVE
     @Nombre VARCHAR(100),
     @Envio INT,    
     @Recibio INT,
-    @ObsIni VARCHAR(500)
+    @ObsIni VARCHAR(500),
+    @Observaciones VARCHAR(500),
+    @Resultado INT OUTPUT
 )
 AS
 BEGIN
@@ -1068,8 +1072,8 @@ BEGIN
         SET @IdControl = SCOPE_IDENTITY();
 
         -- Insertar en la tabla Cambios_Proceso
-        INSERT INTO Cambios_Proceso (IdControl, Fecha, IdRol, Envio, Recibio, Duracion, Activo)
-        VALUES (@IdControl, @FechaInicio, 1, @Envio, @Recibio, CAST('00:00:00' AS TIME), 1);
+        INSERT INTO Cambios_Proceso (IdControl, Fecha, IdRol, Envio, Recibio, Observaciones, Duracion, Activo)
+        VALUES (@IdControl, @FechaInicio, 1, @Envio, @Recibio, @Observaciones, CAST('00:00:00' AS TIME), 1);
 
         -- Obtener el IdCambios generado
         SET @IdCambios = SCOPE_IDENTITY();
@@ -1093,19 +1097,27 @@ BEGIN
 
         -- Confirmar la transacción solo si fue iniciada dentro del procedimiento
         IF @@TRANCOUNT = 1
+        BEGIN
             COMMIT;
+            SET @Resultado = 1; -- Indicar que se realizó el commit
+        END
+        ELSE
+        BEGIN
+            SET @Resultado = -1; -- Indicar que ocurrió un rollback
+        END
     END TRY
     BEGIN CATCH
         -- Deshacer la transacción solo si fue iniciada dentro del procedimiento
         IF @@TRANCOUNT > 0 AND @@TRANCOUNT = 1
             ROLLBACK;
 
+        SET @Resultado = -1; -- Indicar que ocurrió un rollback
+
         -- Propagar el error
         THROW;
     END CATCH;
 END;
 GO
-
 
 --CAMBIOS DE PROCESO EN EXPEDIENTE
 CREATE PROCEDURE SCM_SP_EXPEDIENTE_CAMBIOS_PROCESO_LIST
@@ -1115,11 +1127,14 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT 
+	    CP.IdCambios,
         CONCAT_WS(' ', Pe.PrimerNombre, Pe.SegundoNombre) AS Envia,
         CP.Envio, 
         CONCAT_WS(' ', Pr.PrimerNombre, Pr.SegundoNombre) AS Recibe,
         CP.Recibio,
+        R.IdRol,
         R.Nombre AS 'Al Proceso',
+        CP.Observaciones,
         CP.Fecha
     FROM Cambios_Proceso CP
     INNER JOIN Roles R ON CP.IdRol = R.IdRol

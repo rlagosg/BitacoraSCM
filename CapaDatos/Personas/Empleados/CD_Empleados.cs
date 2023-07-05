@@ -169,5 +169,13 @@ namespace CapaDatos.Personas.Empleados
 
             return rpta;
         }
+
+        /// <summary>
+        /// Metodo para obtener un empleado, desde una lista 
+        /// </summary>
+        public CE_Empleado BuscaEmpleadoByList(List<CE_Empleado> lista, int id)
+        {
+            return lista.Find(e => e.ID == id);
+        }
     }
 }

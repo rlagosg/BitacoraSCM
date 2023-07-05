@@ -22,6 +22,7 @@ namespace CapaEntidades.Expedientes
         public DateTime? Finalizacion   { get; set; }
         public string ObsFinal          { get; set; }
         public int Rol                  { get; set; }
+        public int IdCambioProceso      { get; set; }
 
         public CE_Control()
         {
@@ -42,21 +43,22 @@ namespace CapaEntidades.Expedientes
             CE_Empleado iniciador, string obsInicial, 
             string proceso,  string estado,    string comentario,
             CE_Empleado encargado, DateTime? ultCambio, 
-            DateTime? finalizacion, string obsFinal, int rol = -1)
+            DateTime? finalizacion, string obsFinal, int rol = -1, int idCambioProceso = 0)
         {
-            this.IdControl    = iDControl;            
-            this.Expediente   = expediente;
-            this.Iniciado     = iniciado;
-            this.Iniciador    = iniciador;
-            this.ObsInicial   = obsInicial;
-            this.Proceso      = proceso;
-            this.Estado       = estado;
-            this.Comentario   = comentario;
-            this.Encargado    = encargado;
-            this.UltCambio    = ultCambio;
-            this.Finalizacion = finalizacion;
-            this.ObsFinal     = obsFinal;
-            this.Rol          = rol;
+            this.IdControl       = iDControl;            
+            this.Expediente      = expediente;
+            this.Iniciado        = iniciado;
+            this.Iniciador       = iniciador;
+            this.ObsInicial      = obsInicial;
+            this.Proceso         = proceso;
+            this.Estado          = estado;
+            this.Comentario      = comentario;
+            this.Encargado       = encargado;
+            this.UltCambio       = ultCambio;
+            this.Finalizacion    = finalizacion;
+            this.ObsFinal        = obsFinal;
+            this.Rol             = rol;
+            this.IdCambioProceso = idCambioProceso;
         }
     }
 }

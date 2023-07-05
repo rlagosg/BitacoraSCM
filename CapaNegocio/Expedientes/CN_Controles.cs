@@ -14,10 +14,10 @@ namespace CapaNegocio.Expedientes
         /// <summary>
         /// //metodo para enlistar controles con filtro por el nombre del expediente
         /// </summary>   
-        public static DataTable Listar(string texto)
+        public static DataTable Listar(CE_Busqueda busqueda)
         {
             CD_Controles datos = new CD_Controles();
-            return datos.Listar(texto);
+            return datos.Listar(busqueda);
         }
 
         /// <summary>

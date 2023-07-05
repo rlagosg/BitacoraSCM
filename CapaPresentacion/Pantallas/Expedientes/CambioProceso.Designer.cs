@@ -28,42 +28,81 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gunaGroupBox2 = new Guna.UI.WinForms.GunaGroupBox();
+            this.grupo = new Guna.UI.WinForms.GunaGroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.TXTCOMENTARIO2 = new Guna.UI2.WinForms.Guna2TextBox();
             this.labelActivo = new System.Windows.Forms.Label();
             this.TXTEXPEDIENTE = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.TXTENCARGADO = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnFINALIZAR = new Guna.UI2.WinForms.Guna2Button();
             this.TXTCOMENTARIO = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.gunaGroupBox2.SuspendLayout();
+            this.grupo.SuspendLayout();
             this.SuspendLayout();
             // 
-            // gunaGroupBox2
+            // grupo
             // 
-            this.gunaGroupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.gunaGroupBox2.BaseColor = System.Drawing.Color.White;
-            this.gunaGroupBox2.BorderColor = System.Drawing.Color.Gainsboro;
-            this.gunaGroupBox2.BorderSize = 1;
-            this.gunaGroupBox2.Controls.Add(this.labelActivo);
-            this.gunaGroupBox2.Controls.Add(this.TXTEXPEDIENTE);
-            this.gunaGroupBox2.Controls.Add(this.guna2Button1);
-            this.gunaGroupBox2.Controls.Add(this.TXTENCARGADO);
-            this.gunaGroupBox2.Controls.Add(this.btnFINALIZAR);
-            this.gunaGroupBox2.Controls.Add(this.TXTCOMENTARIO);
-            this.gunaGroupBox2.Controls.Add(this.label2);
-            this.gunaGroupBox2.Controls.Add(this.label8);
-            this.gunaGroupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gunaGroupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
-            this.gunaGroupBox2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(100)))), ((int)(((byte)(132)))));
-            this.gunaGroupBox2.LineTop = 0;
-            this.gunaGroupBox2.Location = new System.Drawing.Point(26, 24);
-            this.gunaGroupBox2.Name = "gunaGroupBox2";
-            this.gunaGroupBox2.Radius = 10;
-            this.gunaGroupBox2.Size = new System.Drawing.Size(744, 332);
-            this.gunaGroupBox2.TabIndex = 132;
-            this.gunaGroupBox2.TextLocation = new System.Drawing.Point(10, 8);
+            this.grupo.BackColor = System.Drawing.Color.Transparent;
+            this.grupo.BaseColor = System.Drawing.Color.White;
+            this.grupo.BorderColor = System.Drawing.Color.Gainsboro;
+            this.grupo.BorderSize = 1;
+            this.grupo.Controls.Add(this.label2);
+            this.grupo.Controls.Add(this.TXTCOMENTARIO2);
+            this.grupo.Controls.Add(this.labelActivo);
+            this.grupo.Controls.Add(this.TXTEXPEDIENTE);
+            this.grupo.Controls.Add(this.guna2Button1);
+            this.grupo.Controls.Add(this.TXTENCARGADO);
+            this.grupo.Controls.Add(this.btnFINALIZAR);
+            this.grupo.Controls.Add(this.TXTCOMENTARIO);
+            this.grupo.Controls.Add(this.label1);
+            this.grupo.Controls.Add(this.label8);
+            this.grupo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grupo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
+            this.grupo.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(100)))), ((int)(((byte)(132)))));
+            this.grupo.LineTop = 0;
+            this.grupo.Location = new System.Drawing.Point(26, 24);
+            this.grupo.Name = "grupo";
+            this.grupo.Radius = 10;
+            this.grupo.Size = new System.Drawing.Size(744, 508);
+            this.grupo.TabIndex = 132;
+            this.grupo.TextLocation = new System.Drawing.Point(10, 8);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(35, 287);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(233, 20);
+            this.label2.TabIndex = 153;
+            this.label2.Text = "Comentario a nuevo Encargado";
+            // 
+            // TXTCOMENTARIO2
+            // 
+            this.TXTCOMENTARIO2.Animated = true;
+            this.TXTCOMENTARIO2.BorderRadius = 5;
+            this.TXTCOMENTARIO2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TXTCOMENTARIO2.DefaultText = "";
+            this.TXTCOMENTARIO2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTCOMENTARIO2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(235)))), ((int)(((byte)(246)))));
+            this.TXTCOMENTARIO2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.TXTCOMENTARIO2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.TXTCOMENTARIO2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(79)))), ((int)(((byte)(103)))));
+            this.TXTCOMENTARIO2.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.TXTCOMENTARIO2.HoverState.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.TXTCOMENTARIO2.Location = new System.Drawing.Point(30, 311);
+            this.TXTCOMENTARIO2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TXTCOMENTARIO2.MaxLength = 500;
+            this.TXTCOMENTARIO2.Multiline = true;
+            this.TXTCOMENTARIO2.Name = "TXTCOMENTARIO2";
+            this.TXTCOMENTARIO2.PasswordChar = '\0';
+            this.TXTCOMENTARIO2.PlaceholderText = "sin comentarios";
+            this.TXTCOMENTARIO2.SelectedText = "";
+            this.TXTCOMENTARIO2.Size = new System.Drawing.Size(685, 112);
+            this.TXTCOMENTARIO2.TabIndex = 152;
             // 
             // labelActivo
             // 
@@ -170,7 +209,7 @@
             this.btnFINALIZAR.HoverState.BorderColor = System.Drawing.Color.Lavender;
             this.btnFINALIZAR.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
             this.btnFINALIZAR.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnFINALIZAR.Location = new System.Drawing.Point(535, 279);
+            this.btnFINALIZAR.Location = new System.Drawing.Point(535, 442);
             this.btnFINALIZAR.Name = "btnFINALIZAR";
             this.btnFINALIZAR.PressedColor = System.Drawing.Color.White;
             this.btnFINALIZAR.Size = new System.Drawing.Size(180, 36);
@@ -202,16 +241,16 @@
             this.TXTCOMENTARIO.Size = new System.Drawing.Size(685, 112);
             this.TXTCOMENTARIO.TabIndex = 147;
             // 
-            // label2
+            // label1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(35, 123);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 20);
-            this.label2.TabIndex = 146;
-            this.label2.Text = "Comentario";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(35, 123);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(219, 20);
+            this.label1.TabIndex = 146;
+            this.label1.Text = "Comentario sobre Expediente";
             // 
             // label8
             // 
@@ -220,37 +259,39 @@
             this.label8.Location = new System.Drawing.Point(33, 42);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(136, 20);
+            this.label8.Size = new System.Drawing.Size(146, 20);
             this.label8.TabIndex = 142;
-            this.label8.Text = "Nuevo Encargado";
+            this.label8.Text = "* Nuevo Encargado";
             // 
             // CambioProceso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(245)))));
-            this.ClientSize = new System.Drawing.Size(800, 381);
-            this.Controls.Add(this.gunaGroupBox2);
+            this.ClientSize = new System.Drawing.Size(800, 555);
+            this.Controls.Add(this.grupo);
             this.Name = "CambioProceso";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CambioProceso";
             this.Load += new System.EventHandler(this.CambioProceso_Load);
-            this.gunaGroupBox2.ResumeLayout(false);
-            this.gunaGroupBox2.PerformLayout();
+            this.grupo.ResumeLayout(false);
+            this.grupo.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Guna.UI.WinForms.GunaGroupBox gunaGroupBox2;
+        private Guna.UI.WinForms.GunaGroupBox grupo;
         private System.Windows.Forms.Label label8;
         private Guna.UI2.WinForms.Guna2TextBox TXTCOMENTARIO;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2Button btnFINALIZAR;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2TextBox TXTENCARGADO;
         private Guna.UI2.WinForms.Guna2TextBox TXTEXPEDIENTE;
         private System.Windows.Forms.Label labelActivo;
+        private System.Windows.Forms.Label label2;
+        private Guna.UI2.WinForms.Guna2TextBox TXTCOMENTARIO2;
     }
 }

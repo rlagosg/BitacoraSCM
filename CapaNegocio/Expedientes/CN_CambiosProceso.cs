@@ -17,5 +17,11 @@ namespace CapaNegocio.Expedientes
             CD_CambiosProceso datos = new CD_CambiosProceso();
             return datos.Listar(expediente);
         }
+
+        public static CE_CambioProceso BuscarById(int id)
+        {
+            CD_CambiosProceso datos = new CD_CambiosProceso();
+            return datos.BuscarById(id);
+        }
     }
 }

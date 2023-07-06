@@ -6,6 +6,7 @@ using System.Text;
 using CapaEntidades.Personas;
 using CapaEntidades.Roles;
 using CapaDatos.Roles;
+using CapaEntidades.Expedientes;
 
 namespace CapaDatos.Controles
 {
@@ -223,6 +224,16 @@ namespace CapaDatos.Controles
             }
 
             return rpta;
+        }
+
+
+        /// <summary>
+        /// Metodo para buscar un estado por su Id
+        /// </summary>
+        public CE_Estado BuscarById(int id)
+        {
+            CE_Estado estado = this.ObtenerEstados().Find(e => e.ID == id);
+            return estado;
         }
     }
 }

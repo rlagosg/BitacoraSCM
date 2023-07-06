@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using CapaEntidades.Expedientes;
 using CapaEntidades.Roles;
+using CapaDatos.Controles;
 
 namespace CapaDatos.Expedientes
 {
@@ -281,6 +282,51 @@ namespace CapaDatos.Expedientes
             }
 
             return rpta;
+        }
+
+        /// <summary>
+        /// Metodo para obtener los estados completos o pendientes de un expediente,
+        /// devolviendo una lista de objetos
+        /// </summary>
+        public List<CE_Estado> ObtenerTareas(CE_CambioProceso cambio, bool pendientes)
+        {
+            List<CE_Estado> estados = new List<CE_Estado>();
+            CD_Estados cdEstados = new CD_Estados();
+            SqlConnection sqlCon = new SqlConnection();
+            SqlDataReader resultado;
+
+            try
+            {
+                sqlCon = Conexion.getInstancia().CrearConexion();
+                SqlCommand comando;
+
+                if (pendientes) comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST", sqlCon);
+                else comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_COMPLETOS_LIST", sqlCon);
+
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@id",    SqlDbType.Int).Value = cambio.Control.Expediente.ID;
+                comando.Parameters.Add("@idRol", SqlDbType.Int).Value = cambio.NuevoProceso.ID;
+                sqlCon.Open();
+                resultado = comando.ExecuteReader();
+
+                while (resultado.Read())
+                {
+                    int ID = (int)resultado[0];                   
+
+                    CE_Estado estado = cdEstados.BuscarById(ID);
+                    estados.Add(estado);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+
+            return estados;
         }
     }
  }

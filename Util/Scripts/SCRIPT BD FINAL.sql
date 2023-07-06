@@ -1214,6 +1214,50 @@ BEGIN
 END;
 GO
 
+--CONTROLES
+-- Listar los estados pendientes de un expediente por rol 
+CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST
+    @id INT,
+    @IdRol INT
+AS
+BEGIN
+    SELECT ER.IdEstado, E.Nombre
+    FROM EstadosRoles ER
+    INNER JOIN Estados E ON ER.IdEstado = E.IdEstado
+    WHERE ER.IdRol = @IdRol
+        AND ER.IdEstado NOT IN (
+            SELECT CE.IdEstadoRol
+            FROM Control_Estados CE
+            INNER JOIN Cambios_Proceso CP ON CE.IdCambios = CP.IdCambios
+            INNER JOIN Controles C ON CP.IdControl = C.IdControl
+            WHERE CE.Completado = 1
+                AND C.IdExpediente = @id
+        );
+END;
+GO
+
+-- Listar los estados completados de un expediente por rol
+CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_COMPLETOS_LIST
+    @id INT,
+    @IdRol INT
+AS
+BEGIN
+    SELECT ER.IdEstado, E.Nombre
+    FROM EstadosRoles ER
+    INNER JOIN Estados E ON ER.IdEstado = E.IdEstado
+    WHERE ER.IdRol = @IdRol
+        AND ER.IdEstado IN (
+            SELECT CE.IdEstadoRol
+            FROM Control_Estados CE
+            INNER JOIN Cambios_Proceso CP ON CE.IdCambios = CP.IdCambios
+            INNER JOIN Controles C ON CP.IdControl = C.IdControl
+            WHERE CE.Completado = 1
+                AND C.IdExpediente = @id
+        );
+END;
+GO
+
+
 
 --USUARIOS
 -----------------------------

@@ -256,6 +256,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 {
                     cambioProceso.Control = control;
                     cambioProceso.ObsIni  = control.ObsInicial;
+                    cambioProceso.Control.Rol = cambioProceso.NuevoProceso.ID;
                     Control form = new Control(this,cambioProceso);
                     loadingForm.Hide();
                     form.ShowDialog();

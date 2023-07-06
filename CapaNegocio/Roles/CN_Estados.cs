@@ -41,5 +41,14 @@ namespace CapaNegocio.Roles
             CD_Estados datos = new CD_Estados();
             return datos.Eliminar(estado);
         }
+
+        /// <summary>
+        /// Metodo para buscar un estado por su Id
+        /// </summary>
+        public static CE_Estado BuscarById(int id)
+        {
+            CD_Estados datos = new CD_Estados();
+            return datos.BuscarById(id);
+        }
     }
 }

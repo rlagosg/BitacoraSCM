@@ -34,10 +34,10 @@ namespace CapaPresentacion.Pantallas.Expedientes
         public CambioProceso(Expedientes frm = null, CE_Control Control = null, int stado = 2)
         {
             InitializeComponent();
-            estado = stado;
+            estado  = stado;
             Configura();
             frmExpedientes = frm;
-            control = Control;            
+            control        = Control;            
         }
 
         private void TXTENCARGADO_Click(object sender, EventArgs e)

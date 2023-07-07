@@ -84,3 +84,4 @@ C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.W
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\bin\Debug\Bunifu.UI.WinForms.ToggleSwitch.xml
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Usuarios.UsuariosE.resources
 C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Usuarios.Permisos.resources
+C:\Users\rlagosg\source\repos\BitacoraSCM\CapaPresentacion\obj\Debug\CapaPresentacion.Pantallas.Expedientes.Comentario.resources

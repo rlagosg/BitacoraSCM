@@ -41,7 +41,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void Control_Load(object sender, EventArgs e)
         {
             llenar();
-            control = cambioProceso.Control;
+            if(cambioProceso != null) control = cambioProceso.Control;
             Tabs.SelectedIndex = 0;            
         }
 
@@ -194,6 +194,12 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void TXTFINALIZAR_Click(object sender, EventArgs e)
         {
             CambioProceso frm = new CambioProceso(null, control, 2);
+            frm.ShowDialog();
+        }
+
+        private void TXTBUSCA_Click(object sender, EventArgs e)
+        {
+            Comentario frm = new Comentario();
             frm.ShowDialog();
         }
     }

@@ -147,6 +147,12 @@
     <Compile Include="Pantallas\Expedientes\CambioProceso.Designer.cs">
       <DependentUpon>CambioProceso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Expedientes\Comentario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Expedientes\Comentario.Designer.cs">
+      <DependentUpon>Comentario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Expedientes\Control.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -292,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Expedientes\CambioProceso.resx">
       <DependentUpon>CambioProceso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Expedientes\Comentario.resx">
+      <DependentUpon>Comentario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Expedientes\Control.resx">
       <DependentUpon>Control.cs</DependentUpon>

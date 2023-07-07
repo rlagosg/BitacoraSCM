@@ -400,6 +400,12 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="logo catedral.ico" />
+    <None Include="Resources\icons8-hand-with-pen-94.png" />
+    <None Include="Resources\icons8-process-94.png" />
+    <None Include="Resources\icons8-book-94.png" />
+    <None Include="Resources\icons8-paper-plane-94.png" />
+    <None Include="Resources\icons8-rocket-94.png" />
+    <None Include="Resources\icons8-launch-94.png" />
     <None Include="Resources\adjustments_icon_1529373.png" />
     <None Include="Resources\adjustments_icon_1529372.png" />
     <None Include="Resources\adjustments_icon_1529371.png" />

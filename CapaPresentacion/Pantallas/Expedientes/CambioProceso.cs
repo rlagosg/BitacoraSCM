@@ -34,10 +34,10 @@ namespace CapaPresentacion.Pantallas.Expedientes
         public CambioProceso(Expedientes frm = null, CE_Control Control = null, int stado = 2)
         {
             InitializeComponent();
+            estado = stado;
             Configura();
             frmExpedientes = frm;
-            control = Control;
-            estado = stado;
+            control = Control;            
         }
 
         private void TXTENCARGADO_Click(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Configura()
         {
-            if( estado == 1 )
+            if( estado == 2 )
             {
                 this.Size              = new Size  (816, 420);
                 grupo.Size             = new Size  (744, 332);

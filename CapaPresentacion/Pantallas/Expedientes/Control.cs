@@ -111,8 +111,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void btnFINALIZAR_Click(object sender, EventArgs e)
         {
-            CambioProceso frm = new CambioProceso();
-            frm.ShowDialog();
+            
         }
 
         private void guna2Panel1_Paint(object sender, PaintEventArgs e)
@@ -190,6 +189,12 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void tab0_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void TXTFINALIZAR_Click(object sender, EventArgs e)
+        {
+            CambioProceso frm = new CambioProceso(null, control, 2);
+            frm.ShowDialog();
         }
     }
 }

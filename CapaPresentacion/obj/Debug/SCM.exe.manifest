@@ -127,6 +127,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bunifu.UI.WinForms.BunifuLabel.dll" size="612336">
+      <assemblyIdentity name="Bunifu.UI.WinForms.BunifuLabel" version="1.11.5.1" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>QYEA+2WJOEX0EJ1b1nBIc3cWVJ1DIsAPuXSyVOhcZQs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bunifu.UI.WinForms.BunifuRadioButton.dll" size="32752">
       <assemblyIdentity name="Bunifu.UI.WinForms.BunifuRadioButton" version="1.11.5.1" publicKeyToken="E8E24CCD28363FE9" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -259,14 +271,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="5660144">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SCM.exe" size="5666800">
       <assemblyIdentity name="SCM" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+GHCsvssOKsyl35oo131hATxY9WsvlawDxlDGwxSWaQ=</dsig:DigestValue>
+        <dsig:DigestValue>5Tcu0eLQTqzSBs5wU6f5Rh9ztk2Dks+48RMqLXDVmLo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

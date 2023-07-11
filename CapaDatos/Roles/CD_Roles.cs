@@ -24,7 +24,7 @@ namespace CapaDatos.Controles
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SELECT * FROM ROLES", sqlCon);
+                SqlCommand comando  = new SqlCommand("SELECT * FROM ROLES", sqlCon);
                 comando.CommandType = CommandType.Text;                
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
@@ -48,6 +48,7 @@ namespace CapaDatos.Controles
         {
             List<CE_Rol> roles   = new List<CE_Rol>();
             roles.Add(new CE_Rol(-1, "Selecciona", ""));
+
             SqlConnection sqlCon = new SqlConnection();
             SqlDataReader resultado;
 
@@ -61,8 +62,9 @@ namespace CapaDatos.Controles
 
                 while (resultado.Read())
                 {
-                    int ID             = (int)   resultado[0];
-                    string Nombre      = (string) resultado[1];                   
+                    int ID             = (int)    resultado[0];
+                    string Nombre      = (string) resultado[1];  
+                    
                     string Descripcion = resultado[2] != DBNull.Value
                                          ? (string)resultado[2]
                                          : null;

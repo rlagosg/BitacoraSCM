@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Guna.UI2.AnimatorNS.Animation animation7 = new Guna.UI2.AnimatorNS.Animation();
+            Guna.UI2.AnimatorNS.Animation animation2 = new Guna.UI2.AnimatorNS.Animation();
+            Guna.UI2.AnimatorNS.Animation animation1 = new Guna.UI2.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Comentario));
-            Guna.UI2.AnimatorNS.Animation animation8 = new Guna.UI2.AnimatorNS.Animation();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
             this.separator = new Guna.UI2.WinForms.Guna2Separator();
@@ -40,7 +40,7 @@
             this.gunaGroupBox5 = new Guna.UI.WinForms.GunaGroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.COMBOESTADO = new Guna.UI2.WinForms.Guna2ComboBox();
             this.Switch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.TXTCOMENTARIO = new Guna.UI2.WinForms.Guna2TextBox();
             this.separador = new Guna.UI2.WinForms.Guna2Separator();
@@ -173,35 +173,30 @@
             this.label2.TabIndex = 164;
             this.label2.Text = "finalizar";
             // 
-            // guna2ComboBox1
+            // COMBOESTADO
             // 
-            this.guna2ComboBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox1.BorderRadius = 15;
-            this.guna2ComboBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.TransitionOff.SetDecoration(this.guna2ComboBox1, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.TransitionOn.SetDecoration(this.guna2ComboBox1, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.guna2ComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox1.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.guna2ComboBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.guna2ComboBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.guna2ComboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.guna2ComboBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.guna2ComboBox1.ItemHeight = 30;
-            this.guna2ComboBox1.Items.AddRange(new object[] {
-            "   Todos",
-            "   Activos",
-            "   Finalizados",
-            "   estados"});
-            this.guna2ComboBox1.ItemsAppearance.SelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(229)))), ((int)(((byte)(246)))));
-            this.guna2ComboBox1.Location = new System.Drawing.Point(44, 95);
-            this.guna2ComboBox1.Name = "guna2ComboBox1";
-            this.guna2ComboBox1.ShadowDecoration.BorderRadius = 10;
-            this.guna2ComboBox1.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(15);
-            this.guna2ComboBox1.Size = new System.Drawing.Size(286, 36);
-            this.guna2ComboBox1.StartIndex = 3;
-            this.guna2ComboBox1.TabIndex = 165;
-            this.guna2ComboBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.COMBOESTADO.BackColor = System.Drawing.Color.Transparent;
+            this.COMBOESTADO.BorderRadius = 15;
+            this.COMBOESTADO.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TransitionOff.SetDecoration(this.COMBOESTADO, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.TransitionOn.SetDecoration(this.COMBOESTADO, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.COMBOESTADO.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.COMBOESTADO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.COMBOESTADO.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.COMBOESTADO.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.COMBOESTADO.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.COMBOESTADO.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.COMBOESTADO.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.COMBOESTADO.ItemHeight = 30;
+            this.COMBOESTADO.ItemsAppearance.SelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(229)))), ((int)(((byte)(246)))));
+            this.COMBOESTADO.Location = new System.Drawing.Point(44, 95);
+            this.COMBOESTADO.Name = "COMBOESTADO";
+            this.COMBOESTADO.ShadowDecoration.BorderRadius = 10;
+            this.COMBOESTADO.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(15);
+            this.COMBOESTADO.Size = new System.Drawing.Size(286, 36);
+            this.COMBOESTADO.StartIndex = 3;
+            this.COMBOESTADO.TabIndex = 165;
+            this.COMBOESTADO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Switch
             // 
@@ -293,22 +288,22 @@
             // 
             this.TransitionOn.AnimationType = Guna.UI2.AnimatorNS.AnimationType.Transparent;
             this.TransitionOn.Cursor = null;
-            animation7.AnimateOnlyDifferences = true;
-            animation7.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation7.BlindCoeff")));
-            animation7.LeafCoeff = 0F;
-            animation7.MaxTime = 1F;
-            animation7.MinTime = 0F;
-            animation7.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation7.MosaicCoeff")));
-            animation7.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation7.MosaicShift")));
-            animation7.MosaicSize = 0;
-            animation7.Padding = new System.Windows.Forms.Padding(0);
-            animation7.RotateCoeff = 0F;
-            animation7.RotateLimit = 0F;
-            animation7.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation7.ScaleCoeff")));
-            animation7.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation7.SlideCoeff")));
-            animation7.TimeCoeff = 0F;
-            animation7.TransparencyCoeff = 1F;
-            this.TransitionOn.DefaultAnimation = animation7;
+            animation2.AnimateOnlyDifferences = true;
+            animation2.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.BlindCoeff")));
+            animation2.LeafCoeff = 0F;
+            animation2.MaxTime = 1F;
+            animation2.MinTime = 0F;
+            animation2.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicCoeff")));
+            animation2.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicShift")));
+            animation2.MosaicSize = 0;
+            animation2.Padding = new System.Windows.Forms.Padding(0);
+            animation2.RotateCoeff = 0F;
+            animation2.RotateLimit = 0F;
+            animation2.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.ScaleCoeff")));
+            animation2.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.SlideCoeff")));
+            animation2.TimeCoeff = 0F;
+            animation2.TransparencyCoeff = 1F;
+            this.TransitionOn.DefaultAnimation = animation2;
             this.TransitionOn.Interval = 1;
             this.TransitionOn.TimeStep = 1F;
             // 
@@ -333,22 +328,22 @@
             // 
             this.TransitionOff.AnimationType = Guna.UI2.AnimatorNS.AnimationType.Transparent;
             this.TransitionOff.Cursor = null;
-            animation8.AnimateOnlyDifferences = true;
-            animation8.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation8.BlindCoeff")));
-            animation8.LeafCoeff = 0F;
-            animation8.MaxTime = 1F;
-            animation8.MinTime = 0F;
-            animation8.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation8.MosaicCoeff")));
-            animation8.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation8.MosaicShift")));
-            animation8.MosaicSize = 0;
-            animation8.Padding = new System.Windows.Forms.Padding(0);
-            animation8.RotateCoeff = 0F;
-            animation8.RotateLimit = 0F;
-            animation8.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation8.ScaleCoeff")));
-            animation8.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation8.SlideCoeff")));
-            animation8.TimeCoeff = 0F;
-            animation8.TransparencyCoeff = 1F;
-            this.TransitionOff.DefaultAnimation = animation8;
+            animation1.AnimateOnlyDifferences = true;
+            animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
+            animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
+            animation1.MosaicSize = 0;
+            animation1.Padding = new System.Windows.Forms.Padding(0);
+            animation1.RotateCoeff = 0F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
+            animation1.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.SlideCoeff")));
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 1F;
+            this.TransitionOff.DefaultAnimation = animation1;
             this.TransitionOff.Interval = 1;
             this.TransitionOff.TimeStep = 1F;
             // 
@@ -363,7 +358,7 @@
             this.Controls.Add(this.btnComentar);
             this.Controls.Add(this.separador);
             this.Controls.Add(this.TXTCOMENTARIO);
-            this.Controls.Add(this.guna2ComboBox1);
+            this.Controls.Add(this.COMBOESTADO);
             this.Controls.Add(this.Switch);
             this.Controls.Add(this.gunaGroupBox5);
             this.Controls.Add(this.label1);
@@ -392,7 +387,7 @@
         private Guna.UI2.WinForms.Guna2Button btnComentar;
         private Guna.UI.WinForms.GunaGroupBox gunaGroupBox5;
         private System.Windows.Forms.Label label3;
-        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox1;
+        private Guna.UI2.WinForms.Guna2ComboBox COMBOESTADO;
         private Guna.UI2.WinForms.Guna2ToggleSwitch Switch;
         private Guna.UI2.WinForms.Guna2TextBox TXTCOMENTARIO;
         private Guna.UI2.WinForms.Guna2Separator separador;

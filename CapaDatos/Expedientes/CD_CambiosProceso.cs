@@ -24,7 +24,7 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_CAMBIOS_PROCESO_LIST", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_EXPEDIENTE_CAMBIOS_PROCESO_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id", SqlDbType.NVarChar).Value = expediente.Expediente.ID;                
                 sqlCon.Open();
@@ -46,11 +46,13 @@ namespace CapaDatos.Expedientes
         public List<CE_CambioProceso> ObtenerCambios()
         {
             List<CE_CambioProceso> cambios = new List<CE_CambioProceso>();
-            CD_Empleados empleados = new CD_Empleados();
-            CD_Roles roles = new CD_Roles();
-            List<CE_Empleado> listaEmpleados = empleados.ObtenerEmpleados();            
+            CD_Roles roles                 = new CD_Roles();
+            CD_Empleados empleados         = new CD_Empleados();                               
+            
             SqlConnection sqlCon = new SqlConnection();
             SqlDataReader resultado;
+
+            List<CE_Empleado> listaEmpleados = empleados.ObtenerEmpleados();
 
             try
             {
@@ -59,7 +61,7 @@ namespace CapaDatos.Expedientes
                 comando.CommandType = CommandType.Text;
                 
                 sqlCon.Open();
-                resultado = comando.ExecuteReader();
+                resultado = comando.ExecuteReader();                
 
                 while (resultado.Read())
                 {
@@ -73,10 +75,9 @@ namespace CapaDatos.Expedientes
                                          ? (string)resultado[6]
                                          : null;
 
-                    TimeSpan Duracion = (TimeSpan)resultado[7];
+                    TimeSpan Duracion  = (TimeSpan)resultado[7];
+                    int IdEstadoActual = (int)resultado[9];
                     
-                    
-
                     CE_CambioProceso estado = new CE_CambioProceso
                     (
                         ID,
@@ -86,9 +87,11 @@ namespace CapaDatos.Expedientes
                         recibe,
                         null,
                         obs,
+                        IdEstadoActual,
                         Fecha,
                         Duracion
                     );
+
                     cambios.Add(estado);
                 }
             }
@@ -106,7 +109,8 @@ namespace CapaDatos.Expedientes
 
         public CE_CambioProceso BuscarById(int id)
         {
-            return this.ObtenerCambios().Find( c => c.ID == id );
+            return this.ObtenerCambios().Find(c => c.ID == id);
         }
+
     }
 }

@@ -23,7 +23,7 @@ namespace CapaPresentacion
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Comentario());
+            Application.Run(new Expedientes());
         }
     }
 }

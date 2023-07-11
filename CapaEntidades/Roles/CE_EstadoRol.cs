@@ -14,6 +14,7 @@ namespace CapaDatos.Roles
         public string Descripcion { get; set; }
         public int Numero         { get; set; }
         public bool Activo        { get; set; }
+        public CE_Estado Estado   { get; set; }
 
         public CE_EstadoRol()
         {

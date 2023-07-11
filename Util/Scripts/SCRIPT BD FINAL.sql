@@ -195,6 +195,7 @@ CREATE TABLE Cambios_Proceso (
     Envio INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL, 
     Recibio INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL,
     Observaciones VARCHAR(500) NULL,
+    EstadoActual INT NULL,
     Duracion TIME,
     Activo bit
 );
@@ -206,8 +207,8 @@ CREATE TABLE Control_Estados (
     IdCambios INT FOREIGN KEY REFERENCES Cambios_Proceso(IdCambios) ON UPDATE CASCADE NOT NULL,                                   
     IdEmpleado INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) ON UPDATE CASCADE NOT NULL,
     IdEstadoRol INT FOREIGN KEY REFERENCES EstadosRoles(IdEstadoRol) ON UPDATE CASCADE NOT NULL,
-    Completado BIT NOT NULL,
-    EstadoAnterior INT,      
+    Completado BIT NOT NULL,    
+    Fecha DATETIME,      
     Duracion TIME,   
     Activo BIT
 );
@@ -1085,11 +1086,14 @@ BEGIN
         WHERE IdRol = 1 AND Numero = 1;
 
         -- Insertar en la tabla Control_Estados
-        INSERT INTO Control_Estados (IdCambios, IdEstadoRol, IdEmpleado, Completado, EstadoAnterior, Duracion, Activo)
-        VALUES (@IdCambios, @IdEstadoRol, @Recibio, 0, NULL, CAST('00:00:00' AS TIME), 1);
+        INSERT INTO Control_Estados (IdCambios, IdEstadoRol, IdEmpleado, Completado, Fecha, Duracion, Activo)
+        VALUES (@IdCambios, @IdEstadoRol, @Recibio, 0, GETDATE(), CAST('00:00:00' AS TIME), 1);
 
         -- Obtener el IdControlEstado generado
         SET @IdControlEstado = SCOPE_IDENTITY();
+
+        -- Modificar el estado actual de Cambios_Proceso
+        UPDATE Cambios_Proceso set EstadoActual = @IdControlEstado WHERE IdCambios = @IdCambios
 
         -- Insertar en la tabla Comentarios
         INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
@@ -1149,9 +1153,9 @@ END;
 GO
 
 
---ESTADOS-EXPEDIENTE 
+--RESUMENES-EXPEDIENTES 
 -----------------------------
---POR ROL
+--RESUMEN POR ROL
 CREATE PROCEDURE SCM_SP_EXPEDIENTE_CONTROL_ESTADOS_BYROL_LIST
     @id INT,
     @idRol INT
@@ -1184,7 +1188,7 @@ END;
 GO
 
 
---TODUS LOS ROLES, RESUMEN
+--TODUS LOS ESTADOS DE TODOS ROLES, RESUMEN COMPLETO DEL EXPEDIENTE
 CREATE PROCEDURE SCM_SP_EXPEDIENTE_ESTADOS_LIST
     @id INT = 0
 AS
@@ -1214,8 +1218,8 @@ BEGIN
 END;
 GO
 
---CONTROLES
--- Listar los estados pendientes de un expediente por rol 
+--CONTROL-ESTADOS
+-- Listar los estados asignados a un rol pendientes de un expediente
 CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST
     @id INT,
     @IdRol INT
@@ -1236,7 +1240,7 @@ BEGIN
 END;
 GO
 
--- Listar los estados completados de un expediente por rol
+--  Listar los estados asignados a un rol completados de un expediente
 CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_COMPLETOS_LIST
     @id INT,
     @IdRol INT

@@ -1,4 +1,7 @@
-﻿using Guna.UI2.WinForms;
+﻿using CapaEntidades.Expedientes;
+using CapaNegocio.Expedientes;
+using CapaNegocio.Roles;
+using Guna.UI2.WinForms;
 using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
@@ -17,9 +20,36 @@ namespace CapaPresentacion.Pantallas.Expedientes
     public partial class Comentario : Form
     {
 
-        public Comentario()
+        CE_CambioProceso cambio;
+        Control frmControl;
+
+        //variables para el efecto Switch
+        private Timer switchTimer;
+        private Timer showLabelTimer;
+        private bool isSwitching = false;
+
+        public Comentario(Control frmControl, CE_CambioProceso cambio)
         {
             InitializeComponent();
+            this.frmControl = frmControl;
+            this.cambio     = cambio;            
+        }
+
+        private void configura()
+        {
+            if (cambio != null) {
+
+                configuraCombobox(cambio.EstadoActual.EstadoRol.Estado.ID);
+            }
+        }
+
+        private void configuraCombobox(int id)
+        {
+            // Llamamos los tipos
+            COMBOESTADO.DataSource = CN_ControlEstados.();
+            // Configurar las propiedades del ComboBox
+            COMBOESTADO.DisplayMember = "Nombre"; // Propiedad a mostrar como texto
+            COMBOESTADO.ValueMember = "ID"; // Propiedad a utilizar como valor seleccionado  
         }
 
         private void verificaBoton()
@@ -85,10 +115,6 @@ namespace CapaPresentacion.Pantallas.Expedientes
             return count;
         }
 
-        private Timer switchTimer;
-        private Timer showLabelTimer;
-        private bool isSwitching = false;
-
         private void ConfigureSwitchText()
         {
             if (Switch.Checked)
@@ -136,7 +162,8 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Comentario_Load(object sender, EventArgs e)
         {
-            verificaBoton();            
+            configura();
+            verificaBoton();
 
             switchTimer = new Timer();
             switchTimer.Interval = 100; // Ajusta el intervalo según tus necesidades

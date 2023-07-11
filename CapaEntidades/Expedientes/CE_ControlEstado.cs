@@ -1,4 +1,5 @@
-﻿using CapaEntidades.Personas.Empleados;
+﻿using CapaDatos.Roles;
+using CapaEntidades.Personas.Empleados;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,26 +8,28 @@ namespace CapaEntidades.Expedientes
 {
     public class CE_ControlEstado
     {
-        public int ID                         { get; set; }
-        public CE_CambioProceso CambioProceso { get; set; }        
-        public CE_Empleado Encargado          { get; set; }
-        public int IDEstadoAnterior           { get; set; }
-        public TimeSpan Duracion              { get; set; }
-        public bool Activo                    { get; set; }
+        public int ID                 { get; set; }
+        public int IdCambioProceso      { get; set; }        
+        public CE_Empleado Encargado  { get; set; }
+        public CE_EstadoRol EstadoRol { get; set; }
+        public bool Compleato         { get; set; }        
+        //public TimeSpan Duracion      { get; set; }        
 
         public CE_ControlEstado() 
         {
             ID = 0;
         }
 
-        public CE_ControlEstado(int iD, CE_CambioProceso cambioProceso, CE_Empleado encargado, int iDEstadoAnterior, TimeSpan duracion, bool activo)
+        public CE_ControlEstado(int iD, int idCambioProceso, CE_Empleado encargado, 
+            CE_EstadoRol estadoRol, bool completado)//, 
+            //TimeSpan duracion)
         {
             ID               = iD;
-            CambioProceso    = cambioProceso;            
+            IdCambioProceso  = idCambioProceso;            
             Encargado        = encargado;
-            IDEstadoAnterior = iDEstadoAnterior;
-            Duracion         = duracion;
-            Activo           = activo;
+            EstadoRol        = estadoRol;
+            Compleato        = completado;            
+            //Duracion         = duracion;            
         }
     }
 }

@@ -56,15 +56,6 @@ namespace CapaNegocio.Expedientes
             CD_Controles datos = new CD_Controles();
             return datos.Salvar(cambio);
         }
-
-        /// <summary>
-        /// Metodo para obtener los estados completos o pendientes de un expediente,
-        /// devolviendo una lista de objetos
-        /// </summary>
-        public static List<CE_Estado> ObtenerTareas(CE_CambioProceso cambio, bool pendientes)
-        {
-            CD_Controles datos = new CD_Controles();
-            return datos.ObtenerTareas(cambio, pendientes);
-        }
+        
     }
 }

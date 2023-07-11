@@ -47,7 +47,7 @@ namespace CapaDatos.Personas
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_DIRECPERSONAS_SAVE", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_DIRECPERSONAS_SAVE", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@opcion",      SqlDbType.Int).Value = opcion;
                 comando.Parameters.Add("@id",          SqlDbType.Int).Value = direccion.ID;

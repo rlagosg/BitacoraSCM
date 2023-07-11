@@ -38,11 +38,23 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         }
 
-        private void Control_Load(object sender, EventArgs e)
+        private async void Control_Load(object sender, EventArgs e)
         {
-            llenar();
-            if(cambioProceso != null) control = cambioProceso.Control;
-            Tabs.SelectedIndex = 0;            
+            llenar();           
+
+            if (cambioProceso != null) control = cambioProceso.Control;
+
+            Tabs.SelectedIndex = 0;
+
+            // Esperar 3 segundos
+            await Task.Delay(400);
+            // Ejecutar BuscaEstado() en segundo plano
+            if (cambioProceso != null) await Task.Run(() => BuscaEstado());
+        }
+
+        private void BuscaEstado()
+        {
+            cambioProceso.EstadoActual = CN_ControlEstados.BuscarById(cambioProceso.IdEstadoActual);
         }
 
         private void llenar()
@@ -66,8 +78,8 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void MostrarTareas()
         {
-            List<CE_Estado> Pendientes  = CN_Controles.ObtenerTareas(cambioProceso, true );
-            List<CE_Estado> Completados = CN_Controles.ObtenerTareas(cambioProceso, false);
+            List<CE_Estado> Pendientes  = CN_ControlEstados.ObtenerTareas(cambioProceso, true );
+            List<CE_Estado> Completados = CN_ControlEstados.ObtenerTareas(cambioProceso, false);
 
             double porcentaje = (double)Completados.Count / (Pendientes.Count + Completados.Count) * 100;
             progresoTareas.Value = (int)porcentaje;
@@ -199,7 +211,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void TXTBUSCA_Click(object sender, EventArgs e)
         {
-            Comentario frm = new Comentario();
+            Comentario frm = new Comentario(this, cambioProceso);
             frm.ShowDialog();
         }
     }

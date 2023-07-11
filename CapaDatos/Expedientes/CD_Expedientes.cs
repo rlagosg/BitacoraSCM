@@ -23,7 +23,7 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SELECT * FROM Expedientes", sqlCon);
+                SqlCommand comando  = new SqlCommand("SELECT * FROM Expedientes", sqlCon);
                 comando.CommandType = CommandType.Text;
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
@@ -73,7 +73,7 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_SAVE", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_EXPEDIENTE_SAVE", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;               
                 comando.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = expediente.Expediente;
                 sqlCon.Open();

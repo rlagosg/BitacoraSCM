@@ -14,3 +14,5 @@ GRANT SELECT, UPDATE, DELETE TO SCM;
 -- Otorgar permiso de ejecución de procedimientos almacenados al usuario SCM
 GRANT EXECUTE TO SCM;
 ALTER LOGIN SCM WITH PASSWORD = '123', CHECK_EXPIRATION = OFF;
+
+--CORREGIR LA COLUMNA  EstadoActual INT NULL, EN CD_CAMBIOS AHORA = 9, LUEGO = 7

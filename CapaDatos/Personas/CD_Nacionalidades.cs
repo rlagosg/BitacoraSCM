@@ -46,7 +46,7 @@ namespace CapaDatos.Personas
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_NACIONALIDADES_SAVE", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_NACIONALIDADES_SAVE", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@opcion",    SqlDbType.Int).Value = opcion;
                 comando.Parameters.Add("@id",        SqlDbType.Int).Value = nacionalidad.Id;
@@ -105,7 +105,7 @@ namespace CapaDatos.Personas
             {
 
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("select * from Nacionalidades", sqlCon);
+                SqlCommand comando  = new SqlCommand("select * from Nacionalidades", sqlCon);
                 comando.CommandType = CommandType.Text;
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();

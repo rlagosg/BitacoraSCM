@@ -26,8 +26,9 @@ namespace CapaPresentacion.Pantallas.Expedientes
         Funciones funciones = new Funciones();
         CE_Control control;        
         List<CE_Empleado> listaEmpleados;
-        CE_Busqueda busqueda = new CE_Busqueda();
+        CE_Busqueda busqueda = new CE_Busqueda();        
         CE_CambioProceso cambioProceso;
+        CE_ControlEstado controlEstado;
 
         //variable modo para saber si estoy en modo Administrador = 1, o modo Roles = 2
         int modo = 2;
@@ -41,7 +42,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void Expedientes_Load(object sender, EventArgs e)
         {
             Cargar();
-            Listar("");                       
+            Listar("");            
         }
 
         void Cargar()

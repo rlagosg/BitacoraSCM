@@ -130,6 +130,7 @@ namespace CapaDatos.Personas
                     string Nombre      = (string) resultado[1];                    
                     int muni           = (int)    resultado[3];
                     int tipo           = (int)    resultado[4];
+
                     string Descripcion = resultado[2] != DBNull.Value 
                                          ? (string)resultado[2] 
                                          : null;

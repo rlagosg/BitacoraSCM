@@ -23,7 +23,7 @@ namespace CapaDatos.Controles
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_LIST", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_ESTADOS_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@texto", SqlDbType.VarChar).Value = texto;
                 sqlCon.Open();
@@ -52,7 +52,7 @@ namespace CapaDatos.Controles
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SELECT * FROM Estados WHERE Activo = 1 ORDER BY NOMBRE", sqlCon);
+                SqlCommand comando  = new SqlCommand("SELECT * FROM Estados WHERE Activo = 1 ORDER BY NOMBRE", sqlCon);
                 comando.CommandType = CommandType.Text;
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
@@ -61,7 +61,8 @@ namespace CapaDatos.Controles
                 {
                     int ID             = (int)    resultado[0];
                     string Nombre      = (string) resultado[1];
-                    bool Activo        = (bool)resultado[3];
+                    bool Activo        = (bool)   resultado[3];
+
                     string Descripcion = resultado[2] != DBNull.Value
                                          ? (string)resultado[2]
                                          : null;
@@ -98,9 +99,9 @@ namespace CapaDatos.Controles
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOSEX_LIST", sqlCon);
-                comando.Parameters.AddWithValue("@idRol", rol.ID);
+                SqlCommand comando  = new SqlCommand("SCM_SP_ESTADOSEX_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@idRol", rol.ID);                
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
 
@@ -109,6 +110,7 @@ namespace CapaDatos.Controles
                     int ID             = (int)    resultado[0];
                     string Nombre      = (string) resultado[1];
                     bool Activo        = (bool)   resultado[3];
+
                     string Descripcion = resultado[2] != DBNull.Value
                                          ? (string)resultado[2]
                                          : null;
@@ -146,7 +148,7 @@ namespace CapaDatos.Controles
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_SAVE", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_ESTADOS_SAVE", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@opcion", SqlDbType.Int).Value = opcion;
                 comando.Parameters.Add("@id", SqlDbType.Int).Value = estado.ID;
@@ -167,37 +169,6 @@ namespace CapaDatos.Controles
 
             return rpta;
         }
-
-        /*public string Salvar(int opcion, CE_Estado estado)
-        {
-            string rpta = "";
-            SqlConnection sqlCon = new SqlConnection();
-
-            try
-            {
-                sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_ESTADOS_SAVE", sqlCon);
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@opcion",      SqlDbType.Int).Value = opcion;
-                comando.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = estado.Nombre;
-                comando.Parameters.Add("@desc",   SqlDbType.NVarChar).Value = estado.Descripcion;               
-                sqlCon.Open();
-                rpta = comando.ExecuteNonQuery() >= 1 ? "OK" : "No se pudo actualizar el registro";                
-            }
-            catch (Exception ex)
-            {
-                rpta = ex.Message;
-            }
-            finally
-            {
-                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
-            }
-
-            return rpta;
-        }*/
-
-
-
 
         //eliminar
         public string Eliminar(CE_Estado estado)

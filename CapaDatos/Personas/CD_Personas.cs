@@ -15,7 +15,7 @@ namespace CapaDatos.Personas
         public DataTable Listar(string texto, int op = 0)
         {
             SqlDataReader resultado;
-            DataTable tabla = new DataTable();
+            DataTable tabla      = new DataTable();
             SqlConnection sqlCon = new SqlConnection();
 
             try
@@ -47,14 +47,14 @@ namespace CapaDatos.Personas
         public List<CE_Persona> ObtenerPersonas()
         {
             List<CE_Persona> personas = new List<CE_Persona>();
-            CD_Nacionalidades nacs = new CD_Nacionalidades();
-            SqlConnection sqlCon = new SqlConnection();
+            CD_Nacionalidades nacs    = new CD_Nacionalidades();
+            SqlConnection sqlCon      = new SqlConnection();
             SqlDataReader resultado;
 
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_PERSONAS_LIST", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_PERSONAS_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
@@ -95,21 +95,21 @@ namespace CapaDatos.Personas
                     
 
                     CE_Persona persona = new CE_Persona();
-                    persona.Id = Id;
-                    persona.PrimerNombre = PrimerNombre;
-                    persona.SegundoNombre = SegundoNombre;
-                    persona.PrimerApellido = PrimerApellido;
+                    persona.Id              = Id;
+                    persona.PrimerNombre    = PrimerNombre;
+                    persona.SegundoNombre   = SegundoNombre;
+                    persona.PrimerApellido  = PrimerApellido;
                     persona.SegundoApellido = SegundoApellido;
-                    persona.NombreCompleto = NombreCompleto;
+                    persona.NombreCompleto  = NombreCompleto;
                     persona.FechaNacimiento = FechaNacimiento;
-                    persona.Genero = Genero;
-                    persona.RTN = RTN;
+                    persona.Genero          = Genero;
+                    persona.RTN             = RTN;
                     
                     CE_Nacionalidades nac  = nacs.BuscarByNacionalidad(Nacionalidad);
                     if(nac != null)
                     {
                         persona.IdNacionalidad = nac.Id;
-                        persona.Nacionalidad = nac;
+                        persona.Nacionalidad   = nac;
                     }
                  
                     personas.Add(persona);

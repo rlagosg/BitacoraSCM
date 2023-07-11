@@ -71,7 +71,7 @@ namespace CapaDatos.Personas.Empleados
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SELECT * FROM Empleados", sqlCon);
+                SqlCommand comando  = new SqlCommand("SELECT * FROM Empleados", sqlCon);
                 comando.CommandType = CommandType.Text;
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
@@ -119,7 +119,7 @@ namespace CapaDatos.Personas.Empleados
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_EMPLEADOS_SAVE", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_EMPLEADOS_SAVE", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@opcion", SqlDbType.Int).Value = opcion;
                 comando.Parameters.Add("@id", SqlDbType.Int).Value = empleado.ID;
@@ -152,7 +152,7 @@ namespace CapaDatos.Personas.Empleados
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_EMPLEADOS_DELETE", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_EMPLEADOS_DELETE", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id", SqlDbType.Int).Value = empleado.ID;
                 sqlCon.Open();

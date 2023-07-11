@@ -13,7 +13,7 @@ namespace CapaDatos.Expedientes
     public class CD_Controles
     {
         /// <summary>
-        /// metodo para enlistar expedientes con filtro por el nombre del expediente
+        /// metodo para enlistar expedientes con filtros dinamicos
         /// </summary>        
         public DataTable Listar(CE_Busqueda busqueda)
         {
@@ -100,7 +100,7 @@ namespace CapaDatos.Expedientes
                 {
                     comando.Parameters.AddWithValue("@fechaInicio", busqueda.fechaInicio);
                 }
-                if (busqueda.fechaFin != null)
+                if (busqueda.fechaFin    != null)
                 {
                     comando.Parameters.AddWithValue("@fechaFin", busqueda.fechaFin);
                 }
@@ -126,7 +126,7 @@ namespace CapaDatos.Expedientes
 
 
         /// <summary>
-        /// obtiene los estados del expediente segun el rol en forma de Tabla
+        /// obtiene los estados del expediente segun el rol en forma de Tabla, resumen por rol
         /// </summary>
         public DataTable Estados(CE_Control expediente)
         {
@@ -137,7 +137,7 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_CONTROL_ESTADOS_BYROL_LIST", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_EXPEDIENTE_CONTROL_ESTADOS_BYROL_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.AddWithValue("@id", expediente.Expediente.ID);
                 comando.Parameters.AddWithValue("@idRol", expediente.Rol);
@@ -158,7 +158,7 @@ namespace CapaDatos.Expedientes
         }
 
         /// <summary>
-        /// obtiene los estados del expediente segun el rol en una lista
+        /// obtiene los estados asiganados al rol, por expediente en forma de objetos, resumen por rol
         /// </summary>
         public List<CE_EstadoExpediente> ObtenerEstados(CE_Control expediente)
         {
@@ -169,7 +169,7 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_CONTROL_ESTADOS_BYROL_LIST", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_EXPEDIENTE_CONTROL_ESTADOS_BYROL_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id", SqlDbType.Int).Value = expediente.Expediente.ID;
                 comando.Parameters.Add("@idRol", SqlDbType.Int).Value = expediente.Rol;
@@ -178,14 +178,16 @@ namespace CapaDatos.Expedientes
 
                 while (resultado.Read())
                 {
-                    int ID = (int)resultado[0];
-                    string Proceso = (string)resultado[1];
-                    string Estado = (string)resultado[2];
+                    int ID               = (int)    resultado[0];
+                    string Proceso       = (string) resultado[1];
+                    string Estado        = (string) resultado[2];
+
                     string Observaciones = resultado[3] != DBNull.Value
                                                             ? (string)resultado[3]
                                                             : null;
-                    DateTime? Fecha = (DateTime)resultado[4];
-                    string Encargado = (string)resultado[5];
+
+                    DateTime? Fecha  = (DateTime) resultado[4];
+                    string Encargado = (string)   resultado[5];
 
                     CE_EstadoExpediente estado = new CE_EstadoExpediente
                     (
@@ -213,7 +215,7 @@ namespace CapaDatos.Expedientes
         }
 
         /// <summary>
-        /// obtiene TODOS los estados del expediente en Resumen retorna una Tabla
+        /// obtiene TODOS los estados del expediente en Resumen retorna una Tabla, resumen completo
         /// </summary>
         public DataTable Resumen(CE_Control expediente)
         {
@@ -224,7 +226,7 @@ namespace CapaDatos.Expedientes
             try
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_ESTADOS_LIST", sqlCon);
+                SqlCommand comando  = new SqlCommand("SCM_SP_EXPEDIENTE_ESTADOS_LIST", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.AddWithValue("@id", expediente.Expediente.ID);
                 sqlCon.Open();
@@ -282,51 +284,6 @@ namespace CapaDatos.Expedientes
             }
 
             return rpta;
-        }
-
-        /// <summary>
-        /// Metodo para obtener los estados completos o pendientes de un expediente,
-        /// devolviendo una lista de objetos
-        /// </summary>
-        public List<CE_Estado> ObtenerTareas(CE_CambioProceso cambio, bool pendientes)
-        {
-            List<CE_Estado> estados = new List<CE_Estado>();
-            CD_Estados cdEstados = new CD_Estados();
-            SqlConnection sqlCon = new SqlConnection();
-            SqlDataReader resultado;
-
-            try
-            {
-                sqlCon = Conexion.getInstancia().CrearConexion();
-                SqlCommand comando;
-
-                if (pendientes) comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST", sqlCon);
-                else comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_COMPLETOS_LIST", sqlCon);
-
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@id",    SqlDbType.Int).Value = cambio.Control.Expediente.ID;
-                comando.Parameters.Add("@idRol", SqlDbType.Int).Value = cambio.NuevoProceso.ID;
-                sqlCon.Open();
-                resultado = comando.ExecuteReader();
-
-                while (resultado.Read())
-                {
-                    int ID = (int)resultado[0];                   
-
-                    CE_Estado estado = cdEstados.BuscarById(ID);
-                    estados.Add(estado);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
-            }
-
-            return estados;
         }
     }
  }

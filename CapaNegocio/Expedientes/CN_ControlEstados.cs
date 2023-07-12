@@ -1,4 +1,5 @@
 ﻿using CapaDatos.Expedientes;
+using CapaDatos.Roles;
 using CapaEntidades.Expedientes;
 using CapaEntidades.Roles;
 using System;
@@ -48,6 +49,23 @@ namespace CapaNegocio.Expedientes
         {
             CD_ControlEstados datos = new CD_ControlEstados();
             return datos.BuscarByIdCambio(id);
+        }
+
+        /// <summary>
+        /// Metodo para obtener un control-estado de un expediente por su Cambio de Proceso y su EstadoRol,
+        /// devolviendo una objeto
+        /// </summary>
+        public static CE_ControlEstado BuscarByCambioYEstado(CE_CambioProceso cambio, CE_EstadoRol EstadoRol)
+        {
+            CD_ControlEstados datos = new CD_ControlEstados();
+            return datos.BuscarByCambioYEstado(cambio, EstadoRol);
+        }
+
+        public static string Salvar(CE_ControlEstado controlEstado)
+        {            
+            int opcion = controlEstado.ID == 0 ? 1 : 2; // 1 guardando, 2 modificando
+            CD_ControlEstados datos = new CD_ControlEstados();
+            return datos.Salvar(opcion,controlEstado);           
         }
     }
 }

@@ -37,9 +37,6 @@
             this.separator = new Guna.UI2.WinForms.Guna2Separator();
             this.label1 = new System.Windows.Forms.Label();
             this.btnComentar = new Guna.UI2.WinForms.Guna2Button();
-            this.gunaGroupBox5 = new Guna.UI.WinForms.GunaGroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.COMBOESTADO = new Guna.UI2.WinForms.Guna2ComboBox();
             this.Switch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.TXTCOMENTARIO = new Guna.UI2.WinForms.Guna2TextBox();
@@ -48,7 +45,9 @@
             this.TransitionOn = new Guna.UI2.WinForms.Guna2Transition();
             this.labelSwitchOn = new System.Windows.Forms.Label();
             this.TransitionOff = new Guna.UI2.WinForms.Guna2Transition();
-            this.gunaGroupBox5.SuspendLayout();
+            this.data = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2ControlBox1
@@ -64,7 +63,7 @@
             this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
             this.guna2ControlBox1.HoverState.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(103)))), ((int)(((byte)(112)))));
             this.guna2ControlBox1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(103)))), ((int)(((byte)(112)))));
-            this.guna2ControlBox1.Location = new System.Drawing.Point(425, 16);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(938, 16);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(41, 41);
             this.guna2ControlBox1.TabIndex = 0;
@@ -125,53 +124,7 @@
             this.btnComentar.Size = new System.Drawing.Size(450, 36);
             this.btnComentar.TabIndex = 133;
             this.btnComentar.Text = "Comentar";
-            // 
-            // gunaGroupBox5
-            // 
-            this.gunaGroupBox5.BackColor = System.Drawing.Color.Transparent;
-            this.gunaGroupBox5.BaseColor = System.Drawing.Color.White;
-            this.gunaGroupBox5.BorderColor = System.Drawing.Color.Gainsboro;
-            this.gunaGroupBox5.BorderSize = 2;
-            this.gunaGroupBox5.Controls.Add(this.label3);
-            this.gunaGroupBox5.Controls.Add(this.label2);
-            this.TransitionOn.SetDecoration(this.gunaGroupBox5, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.TransitionOff.SetDecoration(this.gunaGroupBox5, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.gunaGroupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gunaGroupBox5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
-            this.gunaGroupBox5.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(100)))), ((int)(((byte)(132)))));
-            this.gunaGroupBox5.LineTop = 0;
-            this.gunaGroupBox5.Location = new System.Drawing.Point(580, 164);
-            this.gunaGroupBox5.Name = "gunaGroupBox5";
-            this.gunaGroupBox5.Radius = 10;
-            this.gunaGroupBox5.Size = new System.Drawing.Size(503, 95);
-            this.gunaGroupBox5.TabIndex = 163;
-            this.gunaGroupBox5.TextLocation = new System.Drawing.Point(10, 8);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.TransitionOn.SetDecoration(this.label3, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.TransitionOff.SetDecoration(this.label3, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label3.Location = new System.Drawing.Point(143, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 19);
-            this.label3.TabIndex = 165;
-            this.label3.Text = "estados";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.TransitionOn.SetDecoration(this.label2, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.TransitionOff.SetDecoration(this.label2, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(355, 60);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 19);
-            this.label2.TabIndex = 164;
-            this.label2.Text = "finalizar";
+            this.btnComentar.Click += new System.EventHandler(this.btnComentar_Click);
             // 
             // COMBOESTADO
             // 
@@ -194,9 +147,9 @@
             this.COMBOESTADO.ShadowDecoration.BorderRadius = 10;
             this.COMBOESTADO.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(15);
             this.COMBOESTADO.Size = new System.Drawing.Size(286, 36);
-            this.COMBOESTADO.StartIndex = 3;
             this.COMBOESTADO.TabIndex = 165;
             this.COMBOESTADO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.COMBOESTADO.SelectedIndexChanged += new System.EventHandler(this.COMBOESTADO_SelectedIndexChanged);
             // 
             // Switch
             // 
@@ -261,7 +214,7 @@
             this.TransitionOff.SetDecoration(this.separador, Guna.UI2.AnimatorNS.DecorationType.None);
             this.separador.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
             this.separador.FillThickness = 2;
-            this.separador.Location = new System.Drawing.Point(24, 387);
+            this.separador.Location = new System.Drawing.Point(24, 384);
             this.separador.Name = "separador";
             this.separador.Size = new System.Drawing.Size(445, 22);
             this.separador.TabIndex = 168;
@@ -347,12 +300,35 @@
             this.TransitionOff.Interval = 1;
             this.TransitionOff.TimeStep = 1F;
             // 
+            // data
+            // 
+            this.data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TransitionOff.SetDecoration(this.data, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.TransitionOn.SetDecoration(this.data, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.data.Location = new System.Drawing.Point(512, 160);
+            this.data.Name = "data";
+            this.data.Size = new System.Drawing.Size(444, 204);
+            this.data.TabIndex = 174;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.TransitionOn.SetDecoration(this.label2, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.TransitionOff.SetDecoration(this.label2, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.label2.Location = new System.Drawing.Point(572, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.TabIndex = 175;
+            this.label2.Text = "491; 464";
+            // 
             // Comentario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(491, 464);
+            this.ClientSize = new System.Drawing.Size(1004, 464);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.data);
             this.Controls.Add(this.labelSwitchOn);
             this.Controls.Add(this.labelSwitchOff);
             this.Controls.Add(this.btnComentar);
@@ -360,7 +336,6 @@
             this.Controls.Add(this.TXTCOMENTARIO);
             this.Controls.Add(this.COMBOESTADO);
             this.Controls.Add(this.Switch);
-            this.Controls.Add(this.gunaGroupBox5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.separator);
             this.Controls.Add(this.guna2ControlBox1);
@@ -371,8 +346,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Comentario";
             this.Load += new System.EventHandler(this.Comentario_Load);
-            this.gunaGroupBox5.ResumeLayout(false);
-            this.gunaGroupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,16 +359,15 @@
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2Separator separator;
         private Guna.UI2.WinForms.Guna2Button btnComentar;
-        private Guna.UI.WinForms.GunaGroupBox gunaGroupBox5;
-        private System.Windows.Forms.Label label3;
         private Guna.UI2.WinForms.Guna2ComboBox COMBOESTADO;
         private Guna.UI2.WinForms.Guna2ToggleSwitch Switch;
         private Guna.UI2.WinForms.Guna2TextBox TXTCOMENTARIO;
         private Guna.UI2.WinForms.Guna2Separator separador;
         private System.Windows.Forms.Label labelSwitchOff;
-        private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2Transition TransitionOn;
         private Guna.UI2.WinForms.Guna2Transition TransitionOff;
         private System.Windows.Forms.Label labelSwitchOn;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView data;
     }
 }

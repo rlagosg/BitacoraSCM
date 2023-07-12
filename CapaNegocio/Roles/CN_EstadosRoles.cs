@@ -39,5 +39,15 @@ namespace CapaNegocio.Roles
             CD_EstadosRoles datos = new CD_EstadosRoles();
             return datos.ActualizarEstado(estado);
         }
+
+        /// <summary>
+        /// Metodo para buscar la lista de estados asiganados a un rol
+        /// </summary>
+        public static List<CE_EstadoRol> ListaEstadosByRol(CE_Rol Rol)
+        {
+            CD_EstadosRoles datos = new CD_EstadosRoles();
+            return datos.ListaEstadosByRol(Rol);
+
+        }
     }
 }

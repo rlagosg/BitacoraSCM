@@ -77,13 +77,14 @@ namespace CapaDatos.Expedientes
             {
                 sqlCon = Conexion.getInstancia().CrearConexion();
                 SqlCommand comando;
-
+                  
                 if (pendientes) comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST", sqlCon);
                 else comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_COMPLETOS_LIST", sqlCon);
 
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id", SqlDbType.Int).Value    = cambio.Control.Expediente.ID;
-                comando.Parameters.Add("@idRol", SqlDbType.Int).Value = cambio.NuevoProceso.ID;
+                comando.Parameters.Add("@idRol", SqlDbType.Int).Value = cambio.NuevoProceso.ID;               
+
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
 
@@ -124,6 +125,50 @@ namespace CapaDatos.Expedientes
         public List<CE_ControlEstado> BuscarByIdCambio(int id)
         {
             return this.ObtenerControlesEstados().FindAll(c => c.IdCambioProceso == id);
+        }
+
+        /// <summary>
+        /// Metodo para obtener un control-estado de un expediente por su Cambio de Proceso y su EstadoRol,
+        /// devolviendo una objeto
+        /// </summary>
+        public CE_ControlEstado BuscarByCambioYEstado(CE_CambioProceso cambio, CE_EstadoRol EstadoRol )
+        {
+            return this.ObtenerControlesEstados().
+                Find(c => c.IdCambioProceso == cambio.ID && c.EstadoRol.IdEstado == EstadoRol.IdEstado);
+        }
+
+
+        /// <summary>
+        /// Metodo para guardar o modificar un control-estado acompaxado de un comentario u observacion,
+        /// </summary>
+        public string Salvar(int opcion, CE_ControlEstado controlEstado)
+        {
+            string rpta = "";
+            SqlConnection sqlCon = new SqlConnection();
+
+            try
+            {
+                sqlCon = Conexion.getInstancia().CrearConexion();
+                SqlCommand comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_SAVE", sqlCon);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@opcion", SqlDbType.Int).Value = opcion;
+                //comando.Parameters.Add("@id", SqlDbType.Int).Value = estado.ID;
+                //comando.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = estado.Nombre;
+                //comando.Parameters.Add("@desc", SqlDbType.NVarChar).Value = estado.Descripcion;
+                sqlCon.Open();
+                rpta = comando.ExecuteNonQuery() >= 1 ? "OK" : "No se pudo ingresar el registro porque el estado ya existe.";
+
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+
+            return rpta;
         }
 
     }

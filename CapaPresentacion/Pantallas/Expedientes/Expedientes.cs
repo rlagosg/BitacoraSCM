@@ -30,10 +30,10 @@ namespace CapaPresentacion.Pantallas.Expedientes
         CE_CambioProceso cambioProceso;
         CE_ControlEstado controlEstado;
 
-        //variable modo para saber si estoy en modo Administrador = 1, o modo Roles = 2
-        int modo = 2;
+        //variable modo para saber si estoy en modo Administrador = 0, o modo Roles > 0
+        int modo;
         int indiceData = -1;
-        public Expedientes(int mod = 2)
+        public Expedientes(int mod = 3)
         {
             InitializeComponent();    
             modo = mod;
@@ -49,7 +49,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         {
             guna2ComboBox1.SelectedIndex = 0;
             guna2ComboBox2.SelectedIndex = 0;
-            if (modo == 2) busqueda.idEncargado = 1;
+            if ( modo > 0 ) busqueda.idEncargado = 1;
         }
 
         public void Listar(string texto = "")
@@ -176,8 +176,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
                     control.Comentario      = funciones.convertString (fila.Cells[9]. Value);  //Comentario  
                     control.UltCambio       = funciones.convertDate   (fila.Cells[12].Value);  //UltCambio  
                     control.Finalizacion    = funciones.convertDate   (fila.Cells[15].Value);  //Finalizacion 
-                    control.ObsFinal        = funciones.convertString (fila.Cells[16].Value);  //ObsFinal                    
-
+                    control.ObsFinal        = funciones.convertString (fila.Cells[16].Value);  //ObsFinal                                        
                     indiceData = Data.CurrentRow.Index;                    
                     return true;
                 }
@@ -246,7 +245,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
             if (resultado)
             {
-                if(modo == 1) //modo Administrador
+                if(modo == 0) //modo Administrador
                 {
                     Expediente form = new Expediente(this, control);
                     loadingForm.Hide();

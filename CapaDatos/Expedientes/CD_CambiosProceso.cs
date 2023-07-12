@@ -75,8 +75,9 @@ namespace CapaDatos.Expedientes
                                          ? (string)resultado[6]
                                          : null;
 
-                    TimeSpan Duracion  = (TimeSpan)resultado[7];
-                    int IdEstadoActual = (int)resultado[9];
+                    int IdEstadoActual = (int)resultado[7];
+                    TimeSpan Duracion  = (TimeSpan)resultado[8];
+                    
                     
                     CE_CambioProceso estado = new CE_CambioProceso
                     (

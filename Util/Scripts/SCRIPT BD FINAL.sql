@@ -197,6 +197,7 @@ CREATE TABLE Cambios_Proceso (
     Observaciones VARCHAR(500) NULL,
     EstadoActual INT NULL,
     Duracion TIME,
+    Porcentaje INT,
     Activo bit
 );
 GO
@@ -208,7 +209,8 @@ CREATE TABLE Control_Estados (
     IdEmpleado INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) ON UPDATE CASCADE NOT NULL,
     IdEstadoRol INT FOREIGN KEY REFERENCES EstadosRoles(IdEstadoRol) ON UPDATE CASCADE NOT NULL,
     Completado BIT NOT NULL,    
-    Fecha DATETIME,      
+    Fecha DATETIME,   
+    FechaFin DATETIME NULL,   
     Duracion TIME,   
     Activo BIT
 );
@@ -1073,8 +1075,8 @@ BEGIN
         SET @IdControl = SCOPE_IDENTITY();
 
         -- Insertar en la tabla Cambios_Proceso
-        INSERT INTO Cambios_Proceso (IdControl, Fecha, IdRol, Envio, Recibio, Observaciones, Duracion, Activo)
-        VALUES (@IdControl, @FechaInicio, 1, @Envio, @Recibio, @Observaciones, CAST('00:00:00' AS TIME), 1);
+        INSERT INTO Cambios_Proceso (IdControl, Fecha, IdRol, Envio, Recibio, Observaciones, Duracion, Porcentaje, Activo)
+        VALUES (@IdControl, @FechaInicio, 1, @Envio, @Recibio, @Observaciones, CAST('00:00:00' AS TIME), 0, 1);
 
         -- Obtener el IdCambios generado
         SET @IdCambios = SCOPE_IDENTITY();
@@ -1219,6 +1221,50 @@ END;
 GO
 
 --CONTROL-ESTADOS
+-------------------------
+CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_SAVE
+    @opcion INT,
+    @IdControlEstado INT = NULL,
+    @IdCambios INT,
+    @IdEmpleado INT,
+    @IdEstadoRol INT,
+    @Completado BIT,
+    @Observaciones VARCHAR(500)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @opcion = 1  -- Guardar
+    BEGIN
+        -- Insertar en la tabla Control_Estados
+        INSERT INTO Control_Estados (IdCambios, IdEmpleado, IdEstadoRol, Completado, Fecha, FechaFin, Duracion, Activo)
+        VALUES (@IdCambios, @IdEmpleado, @IdEstadoRol, @Completado, GETDATE(), NULL, CAST('00:00:00' AS TIME), 1);
+        
+        -- Obtener el IdControlEstado recién insertado
+        DECLARE @NuevoIdControlEstado INT = SCOPE_IDENTITY();
+
+        -- Insertar en la tabla Comentarios
+        INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
+        VALUES (@NuevoIdControlEstado, @Observaciones, GETDATE(), 1);
+    END
+    ELSE IF @opcion = 2  -- Modificar
+    BEGIN
+        -- Actualizar en la tabla Control_Estados
+        UPDATE Control_Estados
+        SET IdCambios = @IdCambios,
+            IdEmpleado = @IdEmpleado,
+            IdEstadoRol = @IdEstadoRol,
+            Completado = @Completado
+        WHERE IdControlEstado = @IdControlEstado;
+        
+        -- Insertar en la tabla Comentarios
+        INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
+        VALUES (@IdControlEstado, @Observaciones, GETDATE(), 1);
+    END
+END;
+GO
+
+
 -- Listar los estados asignados a un rol pendientes de un expediente
 CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST
     @id INT,

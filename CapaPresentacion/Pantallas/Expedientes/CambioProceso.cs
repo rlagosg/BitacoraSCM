@@ -76,27 +76,6 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void btnFINALIZAR_Click(object sender, EventArgs e)
         {
             string nombreEx = TXTEXPEDIENTE.Text.Trim();
-           /* //estamos creando un nuevo control expediente
-            if ( estado == 1 )
-            {                
-                if( nombreEx.Length > 0 && recibe != null)
-                {
-                    CE_Expediente expediente = new CE_Expediente(nombreEx);
-                    control = new CE_Control(expediente);                    
-
-                    CE_CambioProceso cambio = new CE_CambioProceso();
-                    cambio.Control          = control;
-                    cambio.Envia            = CN_Empleados.BuscaEmpleadoById(4);
-                    cambio.Recibe           = recibe;
-                    cambio.Observacines     = TXTCOMENTARIO.Text.Trim();
-
-                    CN_Controles.Salvar(cambio);
-                } 
-            }
-            else //de lo contrario estamos cambiando de proceso
-            {
-
-            }*/
 
             try
             {

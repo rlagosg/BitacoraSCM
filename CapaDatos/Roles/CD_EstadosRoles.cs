@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using CapaEntidades.Roles;
 using CapaDatos.Controles;
+using CapaEntidades.Expedientes;
 
 namespace CapaDatos.Roles
 {
@@ -267,5 +268,15 @@ namespace CapaDatos.Roles
             CE_EstadoRol estado = this.ObtenerAllEstados().Find(e => e.ID == id);
             return estado;
         }
+
+        /// <summary>
+        /// Metodo para buscar un estado de un por su Id
+        /// </summary>
+        public List<CE_EstadoRol> ListaEstadosByRol(CE_Rol Rol)
+        {
+            return this.ObtenerAllEstados().FindAll(e => e.IdRol == Rol.ID);
+            
+        }
+
     }
 }

@@ -42,5 +42,10 @@ namespace CapaDatos.Roles
             Numero = numero;
             Activo = true;
         }
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
     }
 }

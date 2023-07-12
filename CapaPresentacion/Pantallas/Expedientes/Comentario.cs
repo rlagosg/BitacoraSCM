@@ -1,5 +1,8 @@
-﻿using CapaEntidades.Expedientes;
+﻿using CapaDatos.Roles;
+using CapaEntidades.Expedientes;
+using CapaEntidades.Roles;
 using CapaNegocio.Expedientes;
+using CapaNegocio.Personas.Empleados;
 using CapaNegocio.Roles;
 using Guna.UI2.WinForms;
 using Microsoft.VisualBasic.Logging;
@@ -12,6 +15,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 using System.Web.UI.WebControls.WebParts;
 using System.Windows.Forms;
 
@@ -22,6 +26,10 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         CE_CambioProceso cambio;
         Control frmControl;
+        CE_EstadoRol estadoSeleccionado;
+        CE_ControlEstado controlEstado;
+        List<CE_ControlEstado> ListaControles;
+        Funciones funciones = new Funciones();
 
         //variables para el efecto Switch
         private Timer switchTimer;
@@ -32,24 +40,44 @@ namespace CapaPresentacion.Pantallas.Expedientes
         {
             InitializeComponent();
             this.frmControl = frmControl;
-            this.cambio     = cambio;            
+            this.cambio     = cambio;
+            this.controlEstado = cambio.EstadoActual;
         }
 
         private void configura()
         {
             if (cambio != null) {
 
-                configuraCombobox(cambio.EstadoActual.EstadoRol.Estado.ID);
+                Switch.Checked  = controlEstado.Compleato;
+                ListaControles  = CN_ControlEstados.BuscarByIdCambio(cambio.ID);
+                data.DataSource = ListaControles;
+
+                int id = controlEstado.EstadoRol.ID;
+                configuraCombobox(id);                                
             }
         }
 
-        private void configuraCombobox(int id)
+
+        private void configuraCombobox(int id = 1)
         {
-            // Llamamos los tipos
-            COMBOESTADO.DataSource = CN_ControlEstados.();
-            // Configurar las propiedades del ComboBox
-            COMBOESTADO.DisplayMember = "Nombre"; // Propiedad a mostrar como texto
-            COMBOESTADO.ValueMember = "ID"; // Propiedad a utilizar como valor seleccionado  
+            CE_Rol Rol = CN_Roles.RolById(cambio.Control.Rol);
+            var Data   = CN_EstadosRoles.ListaEstadosByRol(Rol);
+            
+            COMBOESTADO.DataSource = Data;
+            COMBOESTADO.DisplayMember = "Nombre";
+            COMBOESTADO.ValueMember = "ID";
+
+            // Buscar el objeto con el ID deseado en la lista de objetos
+            estadoSeleccionado = Data.FirstOrDefault(estado => estado.ID == id);
+
+            if (estadoSeleccionado != null)
+            {
+                // Seleccionar el objeto en el ComboBox
+                COMBOESTADO.SelectedValue = estadoSeleccionado.ID;
+            }
+
+            // Asociar el evento de cambio de selección del ComboBox
+            COMBOESTADO.SelectedIndexChanged += COMBOESTADO_SelectedIndexChanged;            
         }
 
         private void verificaBoton()
@@ -162,9 +190,6 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Comentario_Load(object sender, EventArgs e)
         {
-            configura();
-            verificaBoton();
-
             switchTimer = new Timer();
             switchTimer.Interval = 100; // Ajusta el intervalo según tus necesidades
             switchTimer.Tick += switchTimer_Tick;
@@ -172,6 +197,9 @@ namespace CapaPresentacion.Pantallas.Expedientes
             showLabelTimer = new Timer();
             showLabelTimer.Interval = 150; // Espera 2 segundos
             showLabelTimer.Tick += showLabelTimer_Tick;
+
+            configura();
+            verificaBoton();
         }
 
         private void labelSwitch_Click(object sender, EventArgs e)
@@ -188,6 +216,64 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void separator_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnComentar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string comentario = TXTCOMENTARIO.Text.Trim();
+
+                if (comentario.Length == 0 || estadoSeleccionado == null)
+                {
+                    string mensaje = "";
+                    if (comentario.Length == 0 ) mensaje = "No has proporcionado un comentario. \n";
+                    if (estadoSeleccionado == null) mensaje = "No has seleccionado un estado.";
+                    
+                    funciones.MensajeShowModal(mensaje, false, true);
+                }
+                else
+                {
+                    //comprobamos que el Control Estado exista
+                    controlEstado = CN_ControlEstados.BuscarByCambioYEstado(cambio, estadoSeleccionado);
+
+                    //si no existe lo creamos
+                    if ( controlEstado == null ) controlEstado = new CE_ControlEstado();
+
+                    controlEstado.IdCambioProceso = cambio.ID;
+                    controlEstado.Encargado = cambio.Recibe;
+                    controlEstado.EstadoRol = estadoSeleccionado;                    
+                    controlEstado.Compleato = Switch.Checked;
+
+                    //obtenemos los datos del comentario
+                    controlEstado.Comentario = new CE_Comentario(controlEstado, comentario);
+
+                    string Rpta = CN_ControlEstados.Salvar(controlEstado);
+
+                    //continua el proceso
+                    if (Rpta.Equals("OK"))
+                    {
+                        funciones.MensajeShowModal("Los datos han sido guardados correctamente", true);
+                        frmControl.Actualizar();                        
+                        this.Close();
+                    }
+                    else
+                    {
+                        //si ocurrio un error lo mostramos
+                        funciones.MensajeShowModal(Rpta, false);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
+        }
+
+        private void COMBOESTADO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Actualizar la variable global con el objeto seleccionado en el ComboBox
+            estadoSeleccionado = COMBOESTADO.SelectedItem as CE_EstadoRol;
         }
     }
 }

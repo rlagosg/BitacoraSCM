@@ -7,7 +7,7 @@ namespace CapaEntidades.Expedientes
     public class CE_Comentario
     {
         public int ID                         { get; set; }
-        public CE_ControlEstado ControlEstado { get; set; }
+        public int IdControlEstado            { get; set; }
         public string Observaciones           { get; set; }
         public CE_Comentario() 
         {
@@ -16,9 +16,9 @@ namespace CapaEntidades.Expedientes
 
         public CE_Comentario(CE_ControlEstado controlEstado, string observaciones)
         {
-            ID            = 0;
-            ControlEstado = controlEstado;
-            Observaciones = observaciones;
+            ID              = 0;
+            IdControlEstado = controlEstado.ID;
+            Observaciones   = observaciones;
         }
     }
 }

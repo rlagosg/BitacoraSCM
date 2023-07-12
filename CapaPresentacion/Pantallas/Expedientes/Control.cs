@@ -121,6 +121,39 @@ namespace CapaPresentacion.Pantallas.Expedientes
             return Picker;
         }
 
+        public void Actualizar()
+        {
+            // Obtener el índice de la pestaña seleccionada
+            int selectedTabIndex = Tabs.SelectedIndex;
+
+            if (selectedTabIndex == 0)
+            {
+                MostrarTareas();
+            }
+            else if (selectedTabIndex == 1 || selectedTabIndex == 2)
+            {
+                var currentData = selectedTabIndex == 1 ? Data : DataR;
+
+                if (currentData != null)
+                {
+                    var dataSource = CN_Controles.Estados(control);
+                    var columns = currentData.Columns;
+
+                    currentData.DataSource = dataSource;
+                    columns[0].Visible = false;
+                    columns[1].Visible = false;
+
+                    if (selectedTabIndex == 2)
+                    {
+                        dataSource = CN_Controles.Resumen(control);
+                        currentData.DataSource = dataSource;
+                        columns = currentData.Columns;
+                        columns[1].Visible = true;
+                    }
+                }
+            }
+        }
+
         private void btnFINALIZAR_Click(object sender, EventArgs e)
         {
             
@@ -167,35 +200,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Tabs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Obtener el índice de la pestaña seleccionada
-            int selectedTabIndex = Tabs.SelectedIndex;
-
-            if (selectedTabIndex == 0)
-            {
-                MostrarTareas();
-            }
-            else if (selectedTabIndex == 1 || selectedTabIndex == 2)
-            {
-                var currentData = selectedTabIndex == 1 ? Data : DataR;
-
-                if (currentData != null)
-                {
-                    var dataSource = CN_Controles.Estados(control);
-                    var columns = currentData.Columns;
-
-                    currentData.DataSource = dataSource;
-                    columns[0].Visible = false;
-                    columns[1].Visible = false;
-
-                    if (selectedTabIndex == 2)
-                    {
-                        dataSource = CN_Controles.Resumen(control);
-                        currentData.DataSource = dataSource;
-                        columns = currentData.Columns;
-                        columns[1].Visible = true;
-                    }
-                }
-            }
+            Actualizar();
         }
 
         private void tab0_Click(object sender, EventArgs e)
@@ -213,6 +218,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
         {
             Comentario frm = new Comentario(this, cambioProceso);
             frm.ShowDialog();
+        }
+
+        private void tab1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

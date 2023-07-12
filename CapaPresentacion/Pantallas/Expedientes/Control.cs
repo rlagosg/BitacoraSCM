@@ -121,6 +121,23 @@ namespace CapaPresentacion.Pantallas.Expedientes
             return Picker;
         }
 
+        private void ScrollToLastRow(Guna2DataGridView dataGridView)
+        {
+            // Obtén el índice del último registro en el DataGridView
+            int lastIndex = dataGridView.Rows.Count - 1;
+
+            // Asegúrate de que haya al menos un registro en el DataGridView
+            if (lastIndex >= 0)
+            {
+                // Posiciónate en el último registro
+                dataGridView.FirstDisplayedScrollingRowIndex = lastIndex;
+
+                // Selecciona la última fila
+                dataGridView.ClearSelection();
+                dataGridView.Rows[lastIndex].Selected = true;
+            }
+        }
+
         public void Actualizar()
         {
             // Obtener el índice de la pestaña seleccionada
@@ -152,6 +169,8 @@ namespace CapaPresentacion.Pantallas.Expedientes
                     }
                 }
             }
+
+            ScrollToLastRow(Data);
         }
 
         private void btnFINALIZAR_Click(object sender, EventArgs e)
@@ -216,6 +235,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void TXTBUSCA_Click(object sender, EventArgs e)
         {
+            Data.Focus();
             Comentario frm = new Comentario(this, cambioProceso);
             frm.ShowDialog();
         }
@@ -223,6 +243,19 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void tab1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void TXTBUSCA_MouseEnter(object sender, EventArgs e)
+        {
+            TXTBUSCA.Cursor = Cursors.Hand;
+        }
+
+        private void TXTBUSCA_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                TXTBUSCA.Cursor = Cursors.Hand;
+            }
         }
     }
 }

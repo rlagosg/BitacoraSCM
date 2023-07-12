@@ -986,52 +986,79 @@ CREATE PROCEDURE SCM_SP_EXPEDIENTE_CONTROL_LIST
     @nombre NVARCHAR(100)
 AS
 BEGIN
-    SELECT
-        C.IdControl AS IdControl,
-        E.IdExpediente AS IdExpediente,
-        E.Nombre AS Expediente,
-        C.FechaInicio AS Iniciado,
-        C.Iniciador AS IdIniciador,
-        CONCAT(PIni.PrimerNombre, ' ', PIni.PrimerApellido) AS Iniciador,
-        C.ObsIni AS [Observacion Inicial],
-        Rol.Nombre AS Proceso,
-        Et.Nombre AS Estado,
-        (SELECT TOP 1 Observaciones
-         FROM Comentarios
-         WHERE IdControlEstado = CE.IdControlEstado
-         ORDER BY Fecha DESC) AS [Ultimo Comentario],
-        CE.IdEmpleado AS IdEncargado,
-        CONCAT(PEn.PrimerNombre, ' ', PEn.PrimerApellido) AS Encargado,
-        MAX(Com.Fecha) AS [Ultimo Cambio],
-        C.Finalizador AS IdFinalizador,
-        CONCAT(PFin.PrimerNombre, ' ', PFin.PrimerApellido) AS Finalizador,
-        C.FechaFin AS Finalizacion,
-        C.ObsFin AS [Observacion Final],
-        CP.IdCambios
-    FROM
-        Controles C
-        INNER JOIN Expedientes E ON C.IdExpediente = E.IdExpediente
-        INNER JOIN Empleados Ini ON C.Iniciador = Ini.IdEmpleado
-        INNER JOIN Personas PIni ON Ini.IdPersona = PIni.IdPersona
-        LEFT JOIN Cambios_Proceso CP ON C.IdControl = CP.IdControl
-        LEFT JOIN Roles Rol ON CP.IdRol = Rol.IdRol
-        LEFT JOIN Control_Estados CE ON CP.IdCambios = CE.IdCambios
-        LEFT JOIN EstadosRoles EstRol ON CE.IdEstadoRol = EstRol.IdEstadoRol
-		LEFT JOIN Estados Et ON Et.IdEstado = EstRol.IdEstado
-        LEFT JOIN Empleados En ON CE.IdEmpleado = En.IdEmpleado
-        LEFT JOIN Personas PEn ON En.IdPersona = PEn.IdPersona
-        LEFT JOIN Comentarios Com ON CE.IdControlEstado = Com.IdControlEstado
+    SELECT *
+    FROM (
+        SELECT
+            C.IdControl,
+            E.IdExpediente AS IdExpediente,
+            E.Nombre AS Expediente,
+            C.FechaInicio AS Iniciado,
+            C.Iniciador AS IdIniciador,
+            CONCAT(PIni.PrimerNombre, ' ', PIni.PrimerApellido) AS Iniciador,
+            C.ObsIni AS [Observacion Inicial],
+            Rol.Nombre AS Proceso,
+            Et.Nombre AS Estado,
+            Comentarios.[Observaciones] AS [Ultimo Comentario],
+            CE.IdEmpleado AS IdEncargado,
+            CONCAT(PEn.PrimerNombre, ' ', PEn.PrimerApellido) AS Encargado,
+            MAX(Comentarios.Fecha) AS [Ultimo Cambio],
+            C.Finalizador AS IdFinalizador,
+            CONCAT(PFin.PrimerNombre, ' ', PFin.PrimerApellido) AS Finalizador,
+            C.FechaFin AS Finalizacion,
+            C.ObsFin AS [Observacion Final],
+            CP.IdCambios,
+            ROW_NUMBER() OVER (PARTITION BY E.IdExpediente ORDER BY Comentarios.Fecha DESC) AS RowNumber
+        FROM
+            Controles C
+            INNER JOIN Expedientes E ON C.IdExpediente = E.IdExpediente
+            INNER JOIN Empleados Ini ON C.Iniciador = Ini.IdEmpleado
+            INNER JOIN Personas PIni ON Ini.IdPersona = PIni.IdPersona
+            LEFT JOIN Cambios_Proceso CP ON C.IdControl = CP.IdControl
+            LEFT JOIN Roles Rol ON CP.IdRol = Rol.IdRol
+            LEFT JOIN Control_Estados CE ON CP.IdCambios = CE.IdCambios
+            LEFT JOIN EstadosRoles EstRol ON CE.IdEstadoRol = EstRol.IdEstadoRol
+            LEFT JOIN Estados Et ON Et.IdEstado = EstRol.IdEstado
+            LEFT JOIN Empleados En ON CE.IdEmpleado = En.IdEmpleado
+            LEFT JOIN Personas PEn ON En.IdPersona = PEn.IdPersona
+            LEFT JOIN (
+                SELECT
+                    IdControlEstado,
+                    Observaciones,
+                    Fecha,
+                    ROW_NUMBER() OVER (PARTITION BY IdControlEstado ORDER BY Fecha DESC) AS RowNumber
+                FROM
+                    Comentarios
+            ) AS Comentarios ON CE.IdControlEstado = Comentarios.IdControlEstado
         LEFT JOIN Empleados Fin ON C.Finalizador = Fin.IdEmpleado
         LEFT JOIN Personas PFin ON Fin.IdPersona = PFin.IdPersona
+        WHERE
+            E.Nombre LIKE '%' + @nombre + '%'
+            AND E.Activo = 1
+        GROUP BY
+            E.IdExpediente,
+            E.Nombre,
+            C.FechaInicio,
+            C.Iniciador,
+            PIni.PrimerNombre,
+            PIni.PrimerApellido,
+            C.ObsIni,
+            Rol.Nombre,
+            Et.Nombre,
+            Comentarios.[Observaciones],
+            CE.IdEmpleado,
+            PEn.PrimerNombre,
+            PEn.PrimerApellido,
+            C.Finalizador,
+            PFin.PrimerNombre,
+            PFin.PrimerApellido,
+            C.FechaFin,
+            C.ObsFin,
+            CP.IdCambios,
+            Comentarios.Fecha,
+            C.IdControl
+        ) AS Subquery
     WHERE
-        E.Nombre LIKE '%' + @nombre + '%'
-        AND E.Activo = 1
-    GROUP BY
-        C.IdControl, E.IdExpediente, E.Nombre, C.FechaInicio, C.Iniciador,
-        PIni.PrimerNombre, PIni.PrimerApellido, C.ObsIni, Rol.Nombre,
-        Et.Nombre, CE.IdEmpleado, PEn.PrimerNombre, PEn.PrimerApellido,
-        C.Finalizador, PFin.PrimerNombre, PFin.PrimerApellido, C.FechaFin,
-        C.ObsFin, CE.IdControlEstado, CP.IdCambios;
+        RowNumber = 1;
 END;
 GO
 
@@ -1229,7 +1256,8 @@ CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_SAVE
     @IdEmpleado INT,
     @IdEstadoRol INT,
     @Completado BIT,
-    @Observaciones VARCHAR(500)
+    @Observaciones NVARCHAR(500),
+    @Resultado INT OUTPUT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -1239,13 +1267,16 @@ BEGIN
         -- Insertar en la tabla Control_Estados
         INSERT INTO Control_Estados (IdCambios, IdEmpleado, IdEstadoRol, Completado, Fecha, FechaFin, Duracion, Activo)
         VALUES (@IdCambios, @IdEmpleado, @IdEstadoRol, @Completado, GETDATE(), NULL, CAST('00:00:00' AS TIME), 1);
-        
+
         -- Obtener el IdControlEstado recién insertado
         DECLARE @NuevoIdControlEstado INT = SCOPE_IDENTITY();
 
         -- Insertar en la tabla Comentarios
         INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
         VALUES (@NuevoIdControlEstado, @Observaciones, GETDATE(), 1);
+
+        -- Establecer el resultado como 1 (éxito)
+        SET @Resultado = 1;
     END
     ELSE IF @opcion = 2  -- Modificar
     BEGIN
@@ -1256,54 +1287,53 @@ BEGIN
             IdEstadoRol = @IdEstadoRol,
             Completado = @Completado
         WHERE IdControlEstado = @IdControlEstado;
-        
+
         -- Insertar en la tabla Comentarios
         INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
         VALUES (@IdControlEstado, @Observaciones, GETDATE(), 1);
+
+        -- Establecer el resultado como 1 (éxito)
+        SET @Resultado = 1;
+    END
+    ELSE
+    BEGIN
+        -- Establecer el resultado como 0 (no hizo nada)
+        SET @Resultado = 0;
     END
 END;
 GO
 
 
+
 -- Listar los estados asignados a un rol pendientes de un expediente
 CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST
-    @id INT,
+    @idCambio INT,
     @IdRol INT
 AS
 BEGIN
-    SELECT ER.IdEstado, E.Nombre
-    FROM EstadosRoles ER
-    INNER JOIN Estados E ON ER.IdEstado = E.IdEstado
-    WHERE ER.IdRol = @IdRol
-        AND ER.IdEstado NOT IN (
-            SELECT CE.IdEstadoRol
-            FROM Control_Estados CE
-            INNER JOIN Cambios_Proceso CP ON CE.IdCambios = CP.IdCambios
-            INNER JOIN Controles C ON CP.IdControl = C.IdControl
-            WHERE CE.Completado = 1
-                AND C.IdExpediente = @id
-        );
+    SELECT E.IdEstado, E.Nombre
+    FROM Estados E
+    JOIN EstadosRoles ER ON E.IdEstado = ER.IdEstado
+    JOIN Control_Estados CE ON ER.IdEstadoRol = CE.IdEstadoRol
+    WHERE CE.IdCambios = @idCambio
+        AND ER.IdRol = @idRol
+        AND CE.Completado = 0;
 END;
 GO
 
 --  Listar los estados asignados a un rol completados de un expediente
 CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_COMPLETOS_LIST
-    @id INT,
+    @idCambio INT,
     @IdRol INT
 AS
 BEGIN
-    SELECT ER.IdEstado, E.Nombre
-    FROM EstadosRoles ER
-    INNER JOIN Estados E ON ER.IdEstado = E.IdEstado
-    WHERE ER.IdRol = @IdRol
-        AND ER.IdEstado IN (
-            SELECT CE.IdEstadoRol
-            FROM Control_Estados CE
-            INNER JOIN Cambios_Proceso CP ON CE.IdCambios = CP.IdCambios
-            INNER JOIN Controles C ON CP.IdControl = C.IdControl
-            WHERE CE.Completado = 1
-                AND C.IdExpediente = @id
-        );
+    SELECT E.IdEstado, E.Nombre
+    FROM Estados E
+    JOIN EstadosRoles ER ON E.IdEstado = ER.IdEstado
+    JOIN Control_Estados CE ON ER.IdEstadoRol = CE.IdEstadoRol
+    WHERE CE.IdCambios = @idCambio
+        AND ER.IdRol = @idRol
+        AND CE.Completado = 1;
 END;
 GO
 

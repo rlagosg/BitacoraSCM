@@ -82,8 +82,8 @@ namespace CapaDatos.Expedientes
                 else comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_COMPLETOS_LIST", sqlCon);
 
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@id", SqlDbType.Int).Value    = cambio.Control.Expediente.ID;
-                comando.Parameters.Add("@idRol", SqlDbType.Int).Value = cambio.NuevoProceso.ID;               
+                comando.Parameters.Add("@idCambio", SqlDbType.Int).Value = cambio.ID;
+                comando.Parameters.Add("@idRol",    SqlDbType.Int).Value = cambio.NuevoProceso.ID;               
 
                 sqlCon.Open();
                 resultado = comando.ExecuteReader();
@@ -143,7 +143,7 @@ namespace CapaDatos.Expedientes
         /// </summary>
         public string Salvar(int opcion, CE_ControlEstado controlEstado)
         {
-            string rpta = "";
+            string rpta = "";            
             SqlConnection sqlCon = new SqlConnection();
 
             try
@@ -151,13 +151,22 @@ namespace CapaDatos.Expedientes
                 sqlCon = Conexion.getInstancia().CrearConexion();
                 SqlCommand comando = new SqlCommand("SCM_SP_CONTROL_ESTADOS_SAVE", sqlCon);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@opcion", SqlDbType.Int).Value = opcion;
-                //comando.Parameters.Add("@id", SqlDbType.Int).Value = estado.ID;
-                //comando.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = estado.Nombre;
-                //comando.Parameters.Add("@desc", SqlDbType.NVarChar).Value = estado.Descripcion;
-                sqlCon.Open();
-                rpta = comando.ExecuteNonQuery() >= 1 ? "OK" : "No se pudo ingresar el registro porque el estado ya existe.";
+                comando.Parameters.Add("@opcion",             SqlDbType.Int).Value = opcion;
+                comando.Parameters.Add("@IdControlEstado",    SqlDbType.Int).Value = controlEstado.ID;
+                comando.Parameters.Add("@IdCambios",          SqlDbType.Int).Value = controlEstado.IdCambioProceso;
+                comando.Parameters.Add("@IdEmpleado",         SqlDbType.Int).Value = controlEstado.Encargado.ID;
+                comando.Parameters.Add("@IdEstadoRol",        SqlDbType.Int).Value = controlEstado.EstadoRol.ID;
+                comando.Parameters.Add("@Completado",         SqlDbType.Bit).Value = controlEstado.Compleato;                
+                comando.Parameters.Add("@Observaciones", SqlDbType.NVarChar).Value = controlEstado.Comentario.Observaciones;
 
+                SqlParameter parametroResultado = new SqlParameter("@Resultado", SqlDbType.Int);
+                parametroResultado.Direction = ParameterDirection.Output;
+                comando.Parameters.Add(parametroResultado);
+
+                sqlCon.Open();
+                comando.ExecuteNonQuery();                
+
+                rpta = Convert.ToInt32(parametroResultado.Value) == 1 ? "OK" : "No se pudo ingresar el registro.";
             }
             catch (Exception ex)
             {
@@ -167,7 +176,7 @@ namespace CapaDatos.Expedientes
             {
                 if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
             }
-
+            
             return rpta;
         }
 

@@ -61,6 +61,12 @@ namespace CapaNegocio.Expedientes
             return datos.BuscarByCambioYEstado(cambio, EstadoRol);
         }
 
+        public static CE_ControlEstado BuscarByCambioYEstadoLIST(List<CE_ControlEstado> lista, CE_CambioProceso cambio, CE_EstadoRol EstadoRol)
+        {
+            return lista.
+                Find(c => c.IdCambioProceso == cambio.ID && c.EstadoRol.IdEstado == EstadoRol.IdEstado);
+        }
+
         public static string Salvar(CE_ControlEstado controlEstado)
         {            
             int opcion = controlEstado.ID == 0 ? 1 : 2; // 1 guardando, 2 modificando

@@ -22,46 +22,54 @@ namespace CapaDatos.Expedientes
             SqlConnection sqlCon = new SqlConnection();
 
             string consulta =
-                "SELECT " +
-                "   C.IdControl AS IdControl, " +
-                "   E.IdExpediente AS IdExpediente, " +
-                "   E.Nombre AS Expediente, " +
-                "   C.FechaInicio AS Iniciado, " +
-                "   C.Iniciador AS IdIniciador, " +
-                "   CONCAT(PIni.PrimerNombre, ' ', PIni.PrimerApellido) AS Iniciador, " +
-                "   C.ObsIni AS [Observacion Inicial], " +
-                "   Rol.Nombre AS Proceso, " +
-                "   Et.Nombre AS Estado, " +
-                "   (SELECT TOP 1 Observaciones " +
-                "    FROM Comentarios " +
-                "    WHERE IdControlEstado = CE.IdControlEstado " +
-                "    ORDER BY Fecha DESC) AS [Ultimo Comentario], " +
-                "   CE.IdEmpleado AS IdEncargado, " +
-                "   CONCAT(PEn.PrimerNombre, ' ', PEn.PrimerApellido) AS Encargado, " +
-                "   MAX(Com.Fecha) AS [Ultimo Cambio], " +
-                "   C.Finalizador AS IdFinalizador, " +
-                "   CONCAT(PFin.PrimerNombre, ' ', PFin.PrimerApellido) AS Finalizador, " +
-                "   C.FechaFin AS Finalizacion, " +
-                "   C.ObsFin AS [Observacion Final], " +
-                "   CP.IdCambios " +
-                "FROM " +
-                "   Controles C " +
-                "   INNER JOIN Expedientes E ON C.IdExpediente = E.IdExpediente " +
-                "   INNER JOIN Empleados Ini ON C.Iniciador = Ini.IdEmpleado " +
-                "   INNER JOIN Personas PIni ON Ini.IdPersona = PIni.IdPersona " +
-                "   LEFT JOIN Cambios_Proceso CP ON C.IdControl = CP.IdControl " +
-                "   LEFT JOIN Roles Rol ON CP.IdRol = Rol.IdRol " +
-                "   LEFT JOIN Control_Estados CE ON CP.IdCambios = CE.IdCambios " +
-                "   LEFT JOIN EstadosRoles EstRol ON CE.IdEstadoRol = EstRol.IdEstadoRol " +
-                "   LEFT JOIN Estados Et ON Et.IdEstado = EstRol.IdEstado " +
-                "   LEFT JOIN Empleados En ON CE.IdEmpleado = En.IdEmpleado " +
-                "   LEFT JOIN Personas PEn ON En.IdPersona = PEn.IdPersona " +
-                "   LEFT JOIN Comentarios Com ON CE.IdControlEstado = Com.IdControlEstado " +
-                "   LEFT JOIN Empleados Fin ON C.Finalizador = Fin.IdEmpleado " +
-                "   LEFT JOIN Personas PFin ON Fin.IdPersona = PFin.IdPersona " +
-                "WHERE " +
-                "   E.Nombre LIKE '%' + @texto + '%' " +
-                "   AND E.Activo = 1 ";
+                "SELECT * "
+                + "FROM ( "
+                + "SELECT "
+                + "C.IdControl, "
+                + "E.IdExpediente AS IdExpediente, "
+                + "E.Nombre AS Expediente, "
+                + "C.FechaInicio AS Iniciado, "
+                + "C.Iniciador AS IdIniciador, "
+                + "CONCAT(PIni.PrimerNombre, ' ', PIni.PrimerApellido) AS Iniciador, "
+                + "C.ObsIni AS [Observacion Inicial], "
+                + "Rol.Nombre AS Proceso, "
+                + "Et.Nombre AS Estado, "
+                + "Comentarios.[Observaciones] AS [Ultimo Comentario], "
+                + "CE.IdEmpleado AS IdEncargado, "
+                + "CONCAT(PEn.PrimerNombre, ' ', PEn.PrimerApellido) AS Encargado, "
+                + "MAX(Comentarios.Fecha) AS [Ultimo Cambio], "
+                + "C.Finalizador AS IdFinalizador, "
+                + "CONCAT(PFin.PrimerNombre, ' ', PFin.PrimerApellido) AS Finalizador, "
+                + "C.FechaFin AS Finalizacion, "
+                + "C.ObsFin AS [Observacion Final], "
+                + "CP.IdCambios, "
+                + "ROW_NUMBER() OVER (PARTITION BY E.IdExpediente ORDER BY Comentarios.Fecha DESC) AS RowNumber "
+                + "FROM "
+                + "Controles C "
+                + "INNER JOIN Expedientes E ON C.IdExpediente = E.IdExpediente "
+                + "INNER JOIN Empleados Ini ON C.Iniciador = Ini.IdEmpleado "
+                + "INNER JOIN Personas PIni ON Ini.IdPersona = PIni.IdPersona "
+                + "LEFT JOIN Cambios_Proceso CP ON C.IdControl = CP.IdControl "
+                + "LEFT JOIN Roles Rol ON CP.IdRol = Rol.IdRol "
+                + "LEFT JOIN Control_Estados CE ON CP.IdCambios = CE.IdCambios "
+                + "LEFT JOIN EstadosRoles EstRol ON CE.IdEstadoRol = EstRol.IdEstadoRol "
+                + "LEFT JOIN Estados Et ON Et.IdEstado = EstRol.IdEstado "
+                + "LEFT JOIN Empleados En ON CE.IdEmpleado = En.IdEmpleado "
+                + "LEFT JOIN Personas PEn ON En.IdPersona = PEn.IdPersona "
+                + "LEFT JOIN ( "
+                + "SELECT "
+                + "IdControlEstado, "
+                + "Observaciones, "
+                + "Fecha, "
+                + "ROW_NUMBER() OVER (PARTITION BY IdControlEstado ORDER BY Fecha DESC) AS RowNumber "
+                + "FROM "
+                + "Comentarios "
+                + ") AS Comentarios ON CE.IdControlEstado = Comentarios.IdControlEstado "
+                + "LEFT JOIN Empleados Fin ON C.Finalizador = Fin.IdEmpleado "
+                + "LEFT JOIN Personas PFin ON Fin.IdPersona = PFin.IdPersona "
+                + "WHERE "
+                + "E.Nombre LIKE '%' + @texto + '%' "
+                + "AND E.Activo = 1 ";
 
             // Agregar condiciones dinámicas
             if (busqueda.fechaInicio != null)
@@ -81,12 +89,14 @@ namespace CapaDatos.Expedientes
                 consulta += "   AND C.Finalizador IS NOT NULL ";
             }
 
-            consulta += "GROUP BY " +
-                "   C.IdControl, E.IdExpediente, E.Nombre, C.FechaInicio, C.Iniciador, " +
-                "   PIni.PrimerNombre, PIni.PrimerApellido, C.ObsIni, Rol.Nombre, " +
-                "   Et.Nombre, CE.IdEmpleado, PEn.PrimerNombre, PEn.PrimerApellido, " +
-                "   C.Finalizador, PFin.PrimerNombre, PFin.PrimerApellido, C.FechaFin, " +
-                "   C.ObsFin, CE.IdControlEstado, CP.IdCambios; ";
+            consulta += "GROUP BY "
+                + "E.IdExpediente, E.Nombre, C.FechaInicio, C.Iniciador, PIni.PrimerNombre,  "
+                + "PIni.PrimerApellido, C.ObsIni, Rol.Nombre, Et.Nombre, Comentarios.[Observaciones], "
+                + "CE.IdEmpleado, PEn.PrimerNombre, PEn.PrimerApellido, C.Finalizador, PFin.PrimerNombre, "
+                + "PFin.PrimerApellido, C.FechaFin, C.ObsFin, CP.IdCambios, Comentarios.Fecha, C.IdControl "
+                + ") AS Subquery "
+                + "WHERE "
+                + "RowNumber = 1; ";
 
             try
             {

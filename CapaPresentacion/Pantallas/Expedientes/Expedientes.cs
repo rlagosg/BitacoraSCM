@@ -79,7 +79,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void Tabla()
         {
             Data.Columns[0]. Visible = false;
-            Data.Columns[1]. Visible = false;
+            Data.Columns[1]. Visible = false; Data.Columns[18].Visible = false;
             Data.Columns[5]. Visible = false; Data.Columns[17].Visible = false;
             Data.Columns[4]. Visible = false; Data.Columns[10].Visible = false;
             Data.Columns[6]. Visible = false; Data.Columns[13].Visible = false;

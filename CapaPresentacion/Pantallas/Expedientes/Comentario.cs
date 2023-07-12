@@ -4,6 +4,7 @@ using CapaEntidades.Roles;
 using CapaNegocio.Expedientes;
 using CapaNegocio.Personas.Empleados;
 using CapaNegocio.Roles;
+using CapaPresentacion.Pantallas.Globales;
 using Guna.UI2.WinForms;
 using Microsoft.VisualBasic.Logging;
 using System;
@@ -39,8 +40,8 @@ namespace CapaPresentacion.Pantallas.Expedientes
         public Comentario(Control frmControl, CE_CambioProceso cambio)
         {
             InitializeComponent();
-            this.frmControl = frmControl;
-            this.cambio     = cambio;
+            this.frmControl    = frmControl;
+            this.cambio        = cambio;
             this.controlEstado = cambio.EstadoActual;
         }
 
@@ -49,9 +50,6 @@ namespace CapaPresentacion.Pantallas.Expedientes
             if (cambio != null) {
 
                 Switch.Checked  = controlEstado.Compleato;
-                ListaControles  = CN_ControlEstados.BuscarByIdCambio(cambio.ID);
-                data.DataSource = ListaControles;
-
                 int id = controlEstado.EstadoRol.ID;
                 configuraCombobox(id);                                
             }
@@ -188,7 +186,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
             labelSwitchOff.Visible = !Switch.Checked;
         }
 
-        private void Comentario_Load(object sender, EventArgs e)
+        private async void Comentario_Load(object sender, EventArgs e)
         {
             switchTimer = new Timer();
             switchTimer.Interval = 100; // Ajusta el intervalo según tus necesidades
@@ -200,6 +198,14 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
             configura();
             verificaBoton();
+
+            await Task.Delay(400);
+            await Task.Run(() => ListarControlEstados());
+        }
+
+        private void ListarControlEstados()
+        {
+            ListaControles = CN_ControlEstados.BuscarByIdCambio(cambio.ID);
         }
 
         private void labelSwitch_Click(object sender, EventArgs e)
@@ -218,10 +224,13 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         }
 
+
         private void btnComentar_Click(object sender, EventArgs e)
         {
+            
             try
-            {
+            {       
+
                 string comentario = TXTCOMENTARIO.Text.Trim();
 
                 if (comentario.Length == 0 || estadoSeleccionado == null)
@@ -233,10 +242,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
                     funciones.MensajeShowModal(mensaje, false, true);
                 }
                 else
-                {
-                    //comprobamos que el Control Estado exista
-                    controlEstado = CN_ControlEstados.BuscarByCambioYEstado(cambio, estadoSeleccionado);
-
+                {                 
                     //si no existe lo creamos
                     if ( controlEstado == null ) controlEstado = new CE_ControlEstado();
 
@@ -253,7 +259,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
                     //continua el proceso
                     if (Rpta.Equals("OK"))
                     {
-                        funciones.MensajeShowModal("Los datos han sido guardados correctamente", true);
+                        //funciones.MensajeShowModal("Los datos han sido guardados correctamente", true);
                         frmControl.Actualizar();                        
                         this.Close();
                     }
@@ -274,6 +280,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
         {
             // Actualizar la variable global con el objeto seleccionado en el ComboBox
             estadoSeleccionado = COMBOESTADO.SelectedItem as CE_EstadoRol;
+
+            // Actualiza el Control
+            if (ListaControles != null) controlEstado = CN_ControlEstados.BuscarByCambioYEstadoLIST(ListaControles, cambio, estadoSeleccionado);
+            if (controlEstado != null) Switch.Checked = controlEstado.Compleato; else Switch.Checked = false;
         }
+
     }
 }

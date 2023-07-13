@@ -43,6 +43,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
             this.frmControl    = frmControl;
             this.cambio        = cambio;
             this.controlEstado = cambio.EstadoActual;
+            label3.Text = cambio.EstadoActual.EstadoRol.Estado.Nombre;
         }
 
         private void configura()
@@ -50,13 +51,13 @@ namespace CapaPresentacion.Pantallas.Expedientes
             if (cambio != null) {
 
                 Switch.Checked  = controlEstado.Compleato;
-                int id = controlEstado.EstadoRol.ID;
+                int id = controlEstado.EstadoRol.Estado.ID;
                 configuraCombobox(id);                                
             }
         }
 
 
-        private void configuraCombobox(int id = 1)
+        private void configuraCombobox(int id)
         {
             CE_Rol Rol = CN_Roles.RolById(cambio.Control.Rol);
             var Data   = CN_EstadosRoles.ListaEstadosByRol(Rol);
@@ -66,7 +67,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
             COMBOESTADO.ValueMember = "ID";
 
             // Buscar el objeto con el ID deseado en la lista de objetos
-            estadoSeleccionado = Data.FirstOrDefault(estado => estado.ID == id);
+            estadoSeleccionado = Data.FirstOrDefault(estado => estado.Estado.ID == id);
 
             if (estadoSeleccionado != null)
             {
@@ -260,7 +261,8 @@ namespace CapaPresentacion.Pantallas.Expedientes
                     if (Rpta.Equals("OK"))
                     {
                         //funciones.MensajeShowModal("Los datos han sido guardados correctamente", true);
-                        frmControl.Actualizar();                        
+                        frmControl.Actualizar();
+                        frmControl.cambioProceso.EstadoActual = controlEstado;
                         this.Close();
                     }
                     else
@@ -283,7 +285,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
             // Actualiza el Control
             if (ListaControles != null) controlEstado = CN_ControlEstados.BuscarByCambioYEstadoLIST(ListaControles, cambio, estadoSeleccionado);
-            if (controlEstado != null) Switch.Checked = controlEstado.Compleato; else Switch.Checked = false;
+            if (controlEstado  != null) Switch.Checked = controlEstado.Compleato; else Switch.Checked = false;
         }
 
     }

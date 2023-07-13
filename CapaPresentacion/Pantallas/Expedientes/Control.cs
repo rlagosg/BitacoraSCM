@@ -22,7 +22,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 {
     public partial class Control : Form
     {
-        CE_CambioProceso cambioProceso;
+        public CE_CambioProceso cambioProceso;
         Expedientes frmExpediente;
         Funciones funciones = new Funciones();
         CE_Control control;
@@ -256,6 +256,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
             {
                 TXTBUSCA.Cursor = Cursors.Hand;
             }
+        }
+
+        private void Control_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmExpediente.Listar();
         }
     }
 }

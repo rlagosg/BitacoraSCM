@@ -158,6 +158,7 @@ namespace CapaDatos.Expedientes
                 comando.Parameters.Add("@IdEstadoRol",        SqlDbType.Int).Value = controlEstado.EstadoRol.ID;
                 comando.Parameters.Add("@Completado",         SqlDbType.Bit).Value = controlEstado.Compleato;                
                 comando.Parameters.Add("@Observaciones", SqlDbType.NVarChar).Value = controlEstado.Comentario.Observaciones;
+                comando.Parameters.Add("@IdRol",              SqlDbType.Int).Value = controlEstado.EstadoRol.IdRol;
 
                 SqlParameter parametroResultado = new SqlParameter("@Resultado", SqlDbType.Int);
                 parametroResultado.Direction = ParameterDirection.Output;

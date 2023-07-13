@@ -1248,62 +1248,7 @@ END;
 GO
 
 --CONTROL-ESTADOS
--------------------------
-CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_SAVE
-    @opcion INT,
-    @IdControlEstado INT = NULL,
-    @IdCambios INT,
-    @IdEmpleado INT,
-    @IdEstadoRol INT,
-    @Completado BIT,
-    @Observaciones NVARCHAR(500),
-    @Resultado INT OUTPUT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    IF @opcion = 1  -- Guardar
-    BEGIN
-        -- Insertar en la tabla Control_Estados
-        INSERT INTO Control_Estados (IdCambios, IdEmpleado, IdEstadoRol, Completado, Fecha, FechaFin, Duracion, Activo)
-        VALUES (@IdCambios, @IdEmpleado, @IdEstadoRol, @Completado, GETDATE(), NULL, CAST('00:00:00' AS TIME), 1);
-
-        -- Obtener el IdControlEstado recién insertado
-        DECLARE @NuevoIdControlEstado INT = SCOPE_IDENTITY();
-
-        -- Insertar en la tabla Comentarios
-        INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
-        VALUES (@NuevoIdControlEstado, @Observaciones, GETDATE(), 1);
-
-        -- Establecer el resultado como 1 (éxito)
-        SET @Resultado = 1;
-    END
-    ELSE IF @opcion = 2  -- Modificar
-    BEGIN
-        -- Actualizar en la tabla Control_Estados
-        UPDATE Control_Estados
-        SET IdCambios = @IdCambios,
-            IdEmpleado = @IdEmpleado,
-            IdEstadoRol = @IdEstadoRol,
-            Completado = @Completado
-        WHERE IdControlEstado = @IdControlEstado;
-
-        -- Insertar en la tabla Comentarios
-        INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
-        VALUES (@IdControlEstado, @Observaciones, GETDATE(), 1);
-
-        -- Establecer el resultado como 1 (éxito)
-        SET @Resultado = 1;
-    END
-    ELSE
-    BEGIN
-        -- Establecer el resultado como 0 (no hizo nada)
-        SET @Resultado = 0;
-    END
-END;
-GO
-
-
+------------------------
 
 -- Listar los estados asignados a un rol pendientes de un expediente
 CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST
@@ -1314,10 +1259,14 @@ BEGIN
     SELECT E.IdEstado, E.Nombre
     FROM Estados E
     JOIN EstadosRoles ER ON E.IdEstado = ER.IdEstado
-    JOIN Control_Estados CE ON ER.IdEstadoRol = CE.IdEstadoRol
-    WHERE CE.IdCambios = @idCambio
-        AND ER.IdRol = @idRol
-        AND CE.Completado = 0;
+    WHERE ER.IdRol = @idRol
+        AND NOT EXISTS (
+            SELECT 1
+            FROM Control_Estados CE
+            WHERE CE.IdCambios = @idCambio
+                AND CE.IdEstadoRol = ER.IdEstadoRol
+                AND CE.Completado = 1
+        );
 END;
 GO
 
@@ -1337,6 +1286,116 @@ BEGIN
 END;
 GO
 
+--Calcular los porcentajes de Avance
+CREATE PROCEDURE SCM_SP_ACTUALIZAR_PORCENTAJE
+    @idCambio INT,
+    @idRol INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Crear tabla temporal para pendientes
+    CREATE TABLE #ControlEstadosPendientes (IdEstado INT, Nombre NVARCHAR(100));
+
+    -- Crear tabla temporal para completados
+    CREATE TABLE #ControlEstadosCompletos (IdEstado INT, Nombre NVARCHAR(100));
+
+    -- Obtener los registros pendientes
+    INSERT INTO #ControlEstadosPendientes (IdEstado, Nombre)
+    EXEC SCM_SP_CONTROL_ESTADOS_PENDIENTES_LIST @idCambio, @idRol;
+
+    -- Obtener los registros completados
+    INSERT INTO #ControlEstadosCompletos (IdEstado, Nombre)
+    EXEC SCM_SP_CONTROL_ESTADOS_COMPLETOS_LIST @idCambio, @idRol;
+
+    -- Obtener el total de pendientes y completados
+    DECLARE @Pendientes INT, @Completados INT;
+    SELECT @Pendientes = COUNT(*) FROM #ControlEstadosPendientes;
+    SELECT @Completados = COUNT(*) FROM #ControlEstadosCompletos;
+
+    -- Calcular el porcentaje
+    DECLARE @Porcentaje DECIMAL(10, 2);
+    SET @Porcentaje = CASE
+                          WHEN @Pendientes + @Completados > 0 THEN CONVERT(DECIMAL(10, 2), @Completados) / (@Pendientes + @Completados) * 100
+                          ELSE 0
+                      END;
+
+    -- Actualizar el porcentaje en la tabla Cambios_Proceso
+    UPDATE Cambios_Proceso
+    SET Porcentaje = @Porcentaje
+    WHERE IdCambios = @idCambio;
+
+    -- Eliminar las tablas temporales
+    DROP TABLE #ControlEstadosPendientes;
+    DROP TABLE #ControlEstadosCompletos;
+END;
+GO
+
+-- Guardar el Control Estado
+CREATE PROCEDURE SCM_SP_CONTROL_ESTADOS_SAVE
+    @opcion INT,
+    @IdControlEstado INT = NULL,
+    @IdCambios INT,
+    @IdEmpleado INT,
+    @IdEstadoRol INT,
+    @Completado BIT,
+    @Observaciones NVARCHAR(500),
+	@IdRol INT,
+    @Resultado INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @opcion = 1  -- Guardar
+    BEGIN
+        -- Insertar en la tabla Control_Estados
+        INSERT INTO Control_Estados (IdCambios, IdEmpleado, IdEstadoRol, Completado, Fecha, FechaFin, Duracion, Activo)
+        VALUES (@IdCambios, @IdEmpleado, @IdEstadoRol, @Completado, GETDATE(), NULL, CAST('00:00:00' AS TIME), 1);
+
+        -- Obtener el IdControlEstado generado
+        SET @IdControlEstado = SCOPE_IDENTITY();
+
+        -- Insertar en la tabla Comentarios
+        INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
+        VALUES (@IdControlEstado, @Observaciones, GETDATE(), 1);
+
+        -- Establecer el resultado como 1 (éxito)
+        SET @Resultado = 1;
+    END
+    ELSE IF @opcion = 2  -- Modificar
+    BEGIN
+        -- Actualizar en la tabla Control_Estados
+        UPDATE Control_Estados
+        SET IdCambios = @IdCambios,
+            IdEmpleado = @IdEmpleado,
+            IdEstadoRol = @IdEstadoRol,
+            Completado = @Completado,
+            FechaFin = CASE WHEN @Completado = 1 THEN GETDATE() ELSE NULL END,
+            Duracion = CASE
+                           WHEN @Completado = 1 THEN CONVERT(TIME, DATEADD(SECOND, DATEDIFF(SECOND, Fecha, GETDATE()), Duracion))
+                           WHEN @Completado = 0 THEN CAST('00:00:00' AS TIME)
+                           ELSE Duracion
+                       END
+        WHERE IdControlEstado = @IdControlEstado;
+
+        -- Insertar en la tabla Comentarios
+        INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
+        VALUES (@IdControlEstado, @Observaciones, GETDATE(), 1);
+
+        -- Establecer el resultado como 1 (éxito)
+        SET @Resultado = 1;
+    END
+
+    -- Actualizar EstadoActual en la tabla Cambios_Proceso
+    UPDATE Cambios_Proceso
+    SET EstadoActual = @IdControlEstado
+    WHERE IdCambios = @IdCambios;
+
+	-- Llamar al procedimiento SCM_SP_ACTUALIZAR_PORCENTAJE
+	EXEC SCM_SP_ACTUALIZAR_PORCENTAJE @IdCambios, @IdRol;
+
+END;
+GO
 
 
 --USUARIOS
@@ -1457,7 +1516,7 @@ VALUES (1, 1),
        (4, 4),
        (4, 5);
 GO
-
+/* 
 INSERT INTO Expedientes (Nombre, Activo)
 VALUES 
     ('CAM2023-2-86', 1),
@@ -1492,7 +1551,7 @@ GO
 INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
 VALUES (1, 'esto es genial', GETDATE(), 1);
 GO
-
+ */
 --ESTADOS DE ROLES DEL SISTEMA
 -----------------------------------------------------------
 INSERT INTO EstadosRoles(IdRol, IdEstado, Numero, Activo) VALUES

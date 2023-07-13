@@ -23,5 +23,15 @@ namespace CapaNegocio.Expedientes
             CD_CambiosProceso datos = new CD_CambiosProceso();
             return datos.BuscarById(id);
         }
+
+        /// <summary>
+        /// Metodo para guardar un Cambio de Proceso.
+        /// cuando desiemos cambiar de proceso y enviarlo a otro empleado
+        /// </summary>
+        public static string Salvar(CE_CambioProceso cambio)
+        {
+            CD_CambiosProceso datos = new CD_CambiosProceso();
+            return datos.Salvar(cambio);
+        }
     }
 }

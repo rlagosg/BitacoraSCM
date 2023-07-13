@@ -66,7 +66,6 @@
             this.TXTESTADO = new Guna.UI2.WinForms.Guna2TextBox();
             this.panelU = new Guna.UI2.WinForms.Guna2Panel();
             this.TXTMYOBS = new Guna.UI2.WinForms.Guna2TextBox();
-            this.TXTFINALIZAR = new Guna.UI2.WinForms.Guna2Button();
             this.Grupo0 = new Guna.UI.WinForms.GunaGroupBox();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
@@ -82,6 +81,7 @@
             this.tab2 = new System.Windows.Forms.TabPage();
             this.Grupo6 = new Guna.UI.WinForms.GunaGroupBox();
             this.DataR = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.btnFINALIZAR = new Guna.UI2.WinForms.Guna2Button();
             this.Tabs.SuspendLayout();
             this.tab0.SuspendLayout();
             this.gunaGroupBox2.SuspendLayout();
@@ -494,13 +494,13 @@
             this.gunaGroupBox1.BaseColor = System.Drawing.Color.White;
             this.gunaGroupBox1.BorderColor = System.Drawing.Color.Gainsboro;
             this.gunaGroupBox1.BorderSize = 1;
+            this.gunaGroupBox1.Controls.Add(this.btnFINALIZAR);
             this.gunaGroupBox1.Controls.Add(this.guna2PictureBox3);
             this.gunaGroupBox1.Controls.Add(this.guna2Separator4);
             this.gunaGroupBox1.Controls.Add(this.label2);
             this.gunaGroupBox1.Controls.Add(this.TXTESTADO);
             this.gunaGroupBox1.Controls.Add(this.panelU);
             this.gunaGroupBox1.Controls.Add(this.TXTMYOBS);
-            this.gunaGroupBox1.Controls.Add(this.TXTFINALIZAR);
             this.gunaGroupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gunaGroupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(90)))), ((int)(((byte)(100)))));
             this.gunaGroupBox1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(100)))), ((int)(((byte)(132)))));
@@ -604,30 +604,6 @@
             this.TXTMYOBS.SelectedText = "";
             this.TXTMYOBS.Size = new System.Drawing.Size(606, 149);
             this.TXTMYOBS.TabIndex = 157;
-            // 
-            // TXTFINALIZAR
-            // 
-            this.TXTFINALIZAR.Animated = true;
-            this.TXTFINALIZAR.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTFINALIZAR.BorderRadius = 5;
-            this.TXTFINALIZAR.BorderThickness = 1;
-            this.TXTFINALIZAR.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.TXTFINALIZAR.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.TXTFINALIZAR.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.TXTFINALIZAR.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.TXTFINALIZAR.FillColor = System.Drawing.Color.White;
-            this.TXTFINALIZAR.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.TXTFINALIZAR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
-            this.TXTFINALIZAR.HoverState.BorderColor = System.Drawing.Color.Lavender;
-            this.TXTFINALIZAR.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
-            this.TXTFINALIZAR.HoverState.ForeColor = System.Drawing.Color.White;
-            this.TXTFINALIZAR.Location = new System.Drawing.Point(442, 269);
-            this.TXTFINALIZAR.Name = "TXTFINALIZAR";
-            this.TXTFINALIZAR.PressedColor = System.Drawing.Color.White;
-            this.TXTFINALIZAR.Size = new System.Drawing.Size(180, 36);
-            this.TXTFINALIZAR.TabIndex = 132;
-            this.TXTFINALIZAR.Text = "Finalizar";
-            this.TXTFINALIZAR.Click += new System.EventHandler(this.TXTFINALIZAR_Click);
             // 
             // Grupo0
             // 
@@ -968,6 +944,31 @@
             this.DataR.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.Data_CellPainting);
             this.DataR.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Data_DataBindingComplete);
             // 
+            // btnFINALIZAR
+            // 
+            this.btnFINALIZAR.Animated = true;
+            this.btnFINALIZAR.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.btnFINALIZAR.BorderRadius = 5;
+            this.btnFINALIZAR.BorderThickness = 1;
+            this.btnFINALIZAR.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFINALIZAR.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnFINALIZAR.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnFINALIZAR.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(230)))), ((int)(((byte)(235)))));
+            this.btnFINALIZAR.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(192)))), ((int)(((byte)(196)))));
+            this.btnFINALIZAR.FillColor = System.Drawing.Color.White;
+            this.btnFINALIZAR.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnFINALIZAR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(118)))), ((int)(((byte)(175)))));
+            this.btnFINALIZAR.HoverState.BorderColor = System.Drawing.Color.Lavender;
+            this.btnFINALIZAR.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(59)))), ((int)(((byte)(82)))));
+            this.btnFINALIZAR.HoverState.ForeColor = System.Drawing.Color.White;
+            this.btnFINALIZAR.Location = new System.Drawing.Point(454, 269);
+            this.btnFINALIZAR.Name = "btnFINALIZAR";
+            this.btnFINALIZAR.PressedColor = System.Drawing.Color.White;
+            this.btnFINALIZAR.Size = new System.Drawing.Size(180, 36);
+            this.btnFINALIZAR.TabIndex = 161;
+            this.btnFINALIZAR.Text = "Finalizar";
+            this.btnFINALIZAR.Click += new System.EventHandler(this.btnFINALIZAR_Click_1);
+            // 
             // Control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1024,7 +1025,6 @@
         private System.Windows.Forms.Label label12;
         private Guna.UI.WinForms.GunaGroupBox gunaGroupBox3;
         private Guna.UI.WinForms.GunaGroupBox gunaGroupBox1;
-        private Guna.UI2.WinForms.Guna2Button TXTFINALIZAR;
         private Guna.UI2.WinForms.Guna2DataGridView DataPendientes;
         private Guna.UI2.WinForms.Guna2DataGridView DataCompletos;
         private Guna.UI.WinForms.GunaCircleProgressBar progresoTareas;
@@ -1050,5 +1050,6 @@
         private System.Windows.Forms.Label label10;
         private Guna.UI.WinForms.GunaGroupBox gunaGroupBox4;
         private Guna.UI2.WinForms.Guna2TextBox TXTBUSCA;
+        private Guna.UI2.WinForms.Guna2Button btnFINALIZAR;
     }
 }

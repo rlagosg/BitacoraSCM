@@ -181,7 +181,8 @@ CREATE TABLE Controles (
     ObsIni VARCHAR(500),
     Finalizador INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NULL,    
     FechaFin DATETIME NULL,
-    ObsFin VARCHAR(500) NULL,     
+    ObsFin VARCHAR(500) NULL,
+    CambioActual INT NULL,     
     Activo bit
 );
 GO
@@ -196,8 +197,9 @@ CREATE TABLE Cambios_Proceso (
     Recibio INT FOREIGN KEY REFERENCES Empleados(IdEmpleado) NOT NULL,
     Observaciones VARCHAR(500) NULL,
     EstadoActual INT NULL,
-    Duracion TIME,
     Porcentaje INT,
+    Duracion TIME,
+    FechaFin DATETIME NULL, 
     Activo bit
 );
 GO
@@ -1108,6 +1110,9 @@ BEGIN
         -- Obtener el IdCambios generado
         SET @IdCambios = SCOPE_IDENTITY();
 
+        --Actualizamos el actual cambio de proceso
+        UPDATE Controles SET CambioActual = @IdCambios WHERE IdControl = @IdControl;        
+
         -- Obtener el IdEstadoRol para el primer estado asignado al rol
         DECLARE @IdEstadoRol INT;
         SELECT @IdEstadoRol = IdEstadoRol
@@ -1153,6 +1158,96 @@ END;
 GO
 
 --CAMBIOS DE PROCESO EN EXPEDIENTE
+---------------------------------------
+
+-- Guardar un cambio proceso
+CREATE PROCEDURE SCM_SP_EXPEDIENTE_CAMBIO_PROCESO_SAVE
+(
+    @IdCambioAnt INT,
+    @IdControl INT,
+    @IdProceso INT,
+    @Envio INT,    
+    @Recibio INT,    
+    @Observaciones VARCHAR(500),
+    @Resultado INT OUTPUT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @FechaInicio DATETIME, @IdCambios INT, @IdControlEstado INT;
+
+    -- Obtener la fecha actual del sistema
+    SET @FechaInicio = GETDATE();
+
+    -- Verificar si ya existe una transacción en curso
+    IF @@TRANCOUNT = 0
+    BEGIN
+        -- Iniciar transacción
+        BEGIN TRANSACTION;
+    END
+
+    BEGIN TRY
+
+        UPDATE Cambios_Proceso SET
+            FechaFin = GETDATE(),
+            Duracion = CONVERT(TIME, DATEADD(SECOND, DATEDIFF(SECOND, Fecha, GETDATE()), Duracion))
+        WHERE IdCambios = @IdCambioAnt;
+        
+        -- Insertar en la tabla Cambios_Proceso
+        INSERT INTO Cambios_Proceso (IdControl, Fecha, IdRol, Envio, Recibio, Observaciones, Duracion, Porcentaje, Activo)
+        VALUES (@IdControl, @FechaInicio, @IdProceso, @Envio, @Recibio, @Observaciones, CAST('00:00:00' AS TIME), 0, 1);
+
+        -- Obtener el IdCambios generado
+        SET @IdCambios = SCOPE_IDENTITY();
+
+        --Actualizamos el actual cambio de proceso
+        UPDATE Controles SET CambioActual = @IdCambios WHERE IdControl = @IdControl;        
+
+        -- Obtener el IdEstadoRol para el primer estado asignado al rol
+        DECLARE @IdEstadoRol INT;
+        SELECT @IdEstadoRol = IdEstadoRol
+        FROM EstadosRoles
+        WHERE IdRol = @IdProceso AND Numero = 1;
+
+        -- Insertar en la tabla Control_Estados
+        INSERT INTO Control_Estados (IdCambios, IdEstadoRol, IdEmpleado, Completado, Fecha, Duracion, Activo)
+        VALUES (@IdCambios, @IdEstadoRol, @Recibio, 0, GETDATE(), CAST('00:00:00' AS TIME), 1);
+
+        -- Obtener el IdControlEstado generado
+        SET @IdControlEstado = SCOPE_IDENTITY();
+
+        -- Modificar el estado actual de Cambios_Proceso
+        UPDATE Cambios_Proceso set EstadoActual = @IdControlEstado WHERE IdCambios = @IdCambios
+
+        -- Insertar en la tabla Comentarios
+        INSERT INTO Comentarios (IdControlEstado, Observaciones, Fecha, Activo)
+        VALUES (@IdControlEstado, 'Proceso Iniciado', GETDATE(), 1);
+
+        -- Confirmar la transacción solo si fue iniciada dentro del procedimiento
+        IF @@TRANCOUNT = 1
+        BEGIN
+            COMMIT;
+            SET @Resultado = 1; -- Indicar que se realizó el commit
+        END
+        ELSE
+        BEGIN
+            SET @Resultado = -1; -- Indicar que ocurrió un rollback
+        END
+    END TRY
+    BEGIN CATCH
+        -- Deshacer la transacción solo si fue iniciada dentro del procedimiento
+        IF @@TRANCOUNT > 0 AND @@TRANCOUNT = 1
+            ROLLBACK;
+
+        SET @Resultado = -1; -- Indicar que ocurrió un rollback
+
+        -- Propagar el error
+        THROW;
+    END CATCH;
+END;
+GO
+
+--Listar los cambios
 CREATE PROCEDURE SCM_SP_EXPEDIENTE_CAMBIOS_PROCESO_LIST
     @id INT
 AS

@@ -1,5 +1,6 @@
 ﻿using Bunifu.Json.Linq;
 using CapaEntidades.Expedientes;
+using CapaEntidades.Global;
 using CapaEntidades.Personas.Empleados;
 using CapaEntidades.Roles;
 using CapaNegocio.Expedientes;
@@ -23,6 +24,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 {
     public partial class Expedientes : Form
     {
+        CE_Sesion Sesion;
         Funciones funciones = new Funciones();
         CE_Control control;        
         List<CE_Empleado> listaEmpleados;
@@ -33,7 +35,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         //variable modo para saber si estoy en modo Administrador = 0, o modo Roles > 0
         int modo;
         int indiceData = -1;
-        public Expedientes(int mod = 3)
+        public Expedientes(int mod = 1) //debes recibir los datos de una sesion
         {
             InitializeComponent();    
             modo = mod;
@@ -41,15 +43,20 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void Expedientes_Load(object sender, EventArgs e)
         {
+            CE_Empleado empleado = CN_Empleados.BuscaEmpleadoById(2);
+            CE_Rol rol = CN_Roles.RolById(1);
+
+            Sesion = new CE_Sesion(empleado, rol);
+            label1.Text = empleado.Persona.NombreCompleto + " | "  + rol.Nombre;
             Cargar();
-            Listar("");            
+            Listar("");  
         }
 
         void Cargar()
         {
             guna2ComboBox1.SelectedIndex = 0;
             guna2ComboBox2.SelectedIndex = 0;
-            if ( modo > 0 ) busqueda.idEncargado = 1;
+            if ( modo > 0 ) busqueda.idEncargado = Sesion.Empleado.ID;
         }
 
         public void Listar(string texto = "")
@@ -210,6 +217,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private async Task BuscaCambio(int id)
         {
             cambioProceso     = await Task.Run(() => CN_CambiosProceso.BuscarById(id));
+            control.IdCambioProceso = cambioProceso.ID;
         }
 
 
@@ -246,7 +254,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
             if (resultado)
             {
                 if(modo == 0) //modo Administrador
-                {
+                {                    
                     Expediente form = new Expediente(this, control);
                     loadingForm.Hide();
                     form.ShowDialog();
@@ -254,10 +262,11 @@ namespace CapaPresentacion.Pantallas.Expedientes
                 }
                 else //modo roles de usuarios
                 {
-                    cambioProceso.Control = control;
-                    cambioProceso.ObsIni  = control.ObsInicial;
+                    cambioProceso.Control     = control;
+                    cambioProceso.ObsIni      = control.ObsInicial;
                     cambioProceso.Control.Rol = cambioProceso.NuevoProceso.ID;
-                    Control form = new Control(this,cambioProceso);
+
+                    Control form = new Control(Sesion, this, cambioProceso);
                     loadingForm.Hide();
                     form.ShowDialog();
                     loadingForm.Exits();
@@ -267,7 +276,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void guna2Button4_Click(object sender, EventArgs e)
         {
-            CambioProceso form = new CambioProceso(this, null, 1);
+            CambioProceso form = new CambioProceso(Sesion, this, null, 1);
             form.ShowDialog();
         }
 

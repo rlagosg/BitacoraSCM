@@ -20,6 +20,9 @@ namespace CapaEntidades.Expedientes
         public CE_ControlEstado EstadoActual { get; set; }
         public TimeSpan Duracion             { get; set; }
 
+        //auxiliar si solo queremos el id del rol del nuevo proceso
+        public int IdNuevoProceso { get; set; }
+
         public CE_CambioProceso() 
         {
             ID = 0;
@@ -59,6 +62,25 @@ namespace CapaEntidades.Expedientes
             IdEstadoActual = idEstadoActual;
             Fecha          = fecha;
             Duracion       = duracion;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"ID: {ID}");
+            sb.AppendLine($"Control: {Control}");
+            sb.AppendLine($"Fecha: {Fecha}");
+            sb.AppendLine($"NuevoProceso: {NuevoProceso}");
+            sb.AppendLine($"Envia: {Envia}");
+            sb.AppendLine($"Recibe: {Recibe}");
+            sb.AppendLine($"ObsIni: {ObsIni}");
+            sb.AppendLine($"Observaciones: {Observaciones}");
+            sb.AppendLine($"IdEstadoActual: {IdEstadoActual}");
+            sb.AppendLine($"EstadoActual: {EstadoActual}");
+            sb.AppendLine($"Duracion: {Duracion}");
+
+            return sb.ToString();
         }
     }
 }

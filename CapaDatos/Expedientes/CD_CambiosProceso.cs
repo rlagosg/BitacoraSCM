@@ -76,7 +76,7 @@ namespace CapaDatos.Expedientes
                                          : null;
 
                     int IdEstadoActual = (int)resultado[7];
-                    TimeSpan Duracion  = (TimeSpan)resultado[8];
+                    TimeSpan Duracion  = (TimeSpan)resultado[9];
                     
                     
                     CE_CambioProceso estado = new CE_CambioProceso
@@ -108,9 +108,54 @@ namespace CapaDatos.Expedientes
             return cambios;
         }
 
+        /// <summary>
+        /// Metodo para un Cambio de Proceso por su ID
+        /// </summary>
         public CE_CambioProceso BuscarById(int id)
         {
             return this.ObtenerCambios().Find(c => c.ID == id);
+        }
+
+        /// <summary>
+        /// Metodo para guardar un Cambio de Proceso.
+        /// cuando desiemos cambiar de proceso y enviarlo a otro empleado
+        /// </summary>
+        public string Salvar(CE_CambioProceso cambio)
+        {
+            string rpta = "";
+            SqlConnection sqlCon = new SqlConnection();
+
+            try
+            {
+                sqlCon = Conexion.getInstancia().CrearConexion();
+
+                SqlCommand comando = new SqlCommand("SCM_SP_EXPEDIENTE_CAMBIO_PROCESO_SAVE", sqlCon);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@IdCambioAnt",        SqlDbType.Int).Value = cambio.ID;
+                comando.Parameters.Add("@IdControl",          SqlDbType.Int).Value = cambio.Control.IdControl;
+                comando.Parameters.Add("@IdProceso",          SqlDbType.Int).Value = cambio.IdNuevoProceso;
+                comando.Parameters.Add("@Recibio",            SqlDbType.Int).Value = cambio.Recibe.ID;
+                comando.Parameters.Add("@Envio",              SqlDbType.Int).Value = cambio.Envia.ID;              
+                comando.Parameters.Add("@Observaciones", SqlDbType.NVarChar).Value = cambio.Observaciones;
+
+                SqlParameter resultadoParam = new SqlParameter("@Resultado", SqlDbType.Int);
+                resultadoParam.Direction = ParameterDirection.Output;
+                comando.Parameters.Add(resultadoParam);
+
+                sqlCon.Open();
+                comando.ExecuteNonQuery();
+                rpta = (int)resultadoParam.Value == 1 ? "OK" : "No se pudo ingresar el registro";
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+
+            return rpta;
         }
 
     }

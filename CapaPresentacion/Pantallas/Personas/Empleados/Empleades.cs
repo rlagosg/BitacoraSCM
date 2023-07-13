@@ -22,7 +22,7 @@ namespace CapaPresentacion.Pantallas.Personas
 
         UsuariosE frmUsuarioE;
         CambioProceso frmCambio;
-        int rol = 1;
+        int rol;
         Funciones funciones = new Funciones();
         CE_Empleado empleado;
         //variable de estado, 1: modo basico, 2: seleccionando usuario, 3: seleccionando recibe

@@ -39,6 +39,7 @@
             this.TXTCOMENTARIO = new Guna.UI2.WinForms.Guna2TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.grupo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +49,7 @@
             this.grupo.BaseColor = System.Drawing.Color.White;
             this.grupo.BorderColor = System.Drawing.Color.Gainsboro;
             this.grupo.BorderSize = 1;
+            this.grupo.Controls.Add(this.label3);
             this.grupo.Controls.Add(this.label2);
             this.grupo.Controls.Add(this.TXTCOMENTARIO2);
             this.grupo.Controls.Add(this.labelActivo);
@@ -263,6 +265,15 @@
             this.label8.TabIndex = 142;
             this.label8.Text = "* Nuevo Encargado";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(352, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 20);
+            this.label3.TabIndex = 154;
+            this.label3.Text = "label3";
+            // 
             // CambioProceso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,5 +304,6 @@
         private System.Windows.Forms.Label labelActivo;
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2TextBox TXTCOMENTARIO2;
+        private System.Windows.Forms.Label label3;
     }
 }

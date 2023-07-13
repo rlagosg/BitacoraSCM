@@ -46,8 +46,8 @@
             this.labelSwitchOn = new System.Windows.Forms.Label();
             this.data = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.TransitionOff = new Guna.UI2.WinForms.Guna2Transition();
             this.label3 = new System.Windows.Forms.Label();
+            this.TransitionOff = new Guna.UI2.WinForms.Guna2Transition();
             ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,7 +64,7 @@
             this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
             this.guna2ControlBox1.HoverState.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(103)))), ((int)(((byte)(112)))));
             this.guna2ControlBox1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(103)))), ((int)(((byte)(112)))));
-            this.guna2ControlBox1.Location = new System.Drawing.Point(997, 16);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(425, 16);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(41, 41);
             this.guna2ControlBox1.TabIndex = 0;
@@ -299,6 +299,17 @@
             this.label2.TabIndex = 175;
             this.label2.Text = "491; 464";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.TransitionOn.SetDecoration(this.label3, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.TransitionOff.SetDecoration(this.label3, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.label3.Location = new System.Drawing.Point(644, 110);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 178;
+            this.label3.Text = "491; 464";
+            // 
             // TransitionOff
             // 
             this.TransitionOff.AnimationType = Guna.UI2.AnimatorNS.AnimationType.Transparent;
@@ -322,23 +333,12 @@
             this.TransitionOff.Interval = 1;
             this.TransitionOff.TimeStep = 1F;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.TransitionOn.SetDecoration(this.label3, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.TransitionOff.SetDecoration(this.label3, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.label3.Location = new System.Drawing.Point(644, 110);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
-            this.label3.TabIndex = 178;
-            this.label3.Text = "491; 464";
-            // 
             // Comentario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1063, 464);
+            this.ClientSize = new System.Drawing.Size(491, 464);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.data);

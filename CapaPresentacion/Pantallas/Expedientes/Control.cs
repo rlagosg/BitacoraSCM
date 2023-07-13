@@ -1,5 +1,6 @@
 ﻿using Bunifu.Framework.UI;
 using CapaEntidades.Expedientes;
+using CapaEntidades.Global;
 using CapaEntidades.Roles;
 using CapaNegocio.Expedientes;
 using CapaNegocio.Roles;
@@ -22,15 +23,17 @@ namespace CapaPresentacion.Pantallas.Expedientes
 {
     public partial class Control : Form
     {
+        CE_Sesion Sesion;
         public CE_CambioProceso cambioProceso;
         Expedientes frmExpediente;
         Funciones funciones = new Funciones();
         CE_Control control;
-        public Control(Expedientes frm, CE_CambioProceso cambio )
+        public Control(CE_Sesion sesion ,Expedientes frm, CE_CambioProceso cambio )
         {
             InitializeComponent();
             this.cambioProceso = cambio;
             this.frmExpediente = frm;
+            this.Sesion        = sesion;
         }
 
         private void BTNSALVAR_Click(object sender, EventArgs e)
@@ -82,8 +85,9 @@ namespace CapaPresentacion.Pantallas.Expedientes
             List<CE_Estado> Completados = CN_ControlEstados.ObtenerTareas(cambioProceso, false);
 
             double porcentaje = (double)Completados.Count / (Pendientes.Count + Completados.Count) * 100;
-            progresoTareas.Value = (int)porcentaje;
+            progresoTareas.Value = (int)porcentaje;            
 
+            btnFINALIZAR.Enabled = (int)porcentaje == 100 ? true : false;
 
             DataPendientes.DataSource = Pendientes;
             DataCompletos.DataSource  = Completados;
@@ -229,8 +233,7 @@ namespace CapaPresentacion.Pantallas.Expedientes
 
         private void TXTFINALIZAR_Click(object sender, EventArgs e)
         {
-            CambioProceso frm = new CambioProceso(null, control, 2);
-            frm.ShowDialog();
+            
         }
 
         private void TXTBUSCA_Click(object sender, EventArgs e)
@@ -261,6 +264,12 @@ namespace CapaPresentacion.Pantallas.Expedientes
         private void Control_FormClosed(object sender, FormClosedEventArgs e)
         {
             frmExpediente.Listar();
+        }
+
+        private void btnFINALIZAR_Click_1(object sender, EventArgs e)
+        {            
+            CambioProceso frm = new CambioProceso(Sesion ,null, control, 2);
+            frm.ShowDialog();
         }
     }
 }
